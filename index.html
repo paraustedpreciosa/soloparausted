@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SoloParaUsted - Frases Románticas Diarias</title>
-    <!-- Google Fonts: Cormorant Garamond (Serif elegante) y Plus Jakarta Sans (Sans-serif limpia) -->
+    <!-- Google Fonts: Cormorant Garamond y Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -262,7 +262,7 @@
             cursor: pointer;
             font-size: 1.4rem;
             color: var(--rosa-acento);
-            transition: transform 0.2s ease, color 0.2s ease;
+            transition: transform 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -271,10 +271,6 @@
 
         .fav-btn:hover {
             transform: scale(1.2);
-        }
-
-        .fav-btn.active {
-            color: var(--rojo-suave);
         }
 
         /* Carrusel de Frases */
@@ -685,8 +681,10 @@
     <div class="toast" id="toast">¡Acción realizada con éxito!</div>
 
     <script>
+        const STORAGE_KEY = 'soloparausted_frases_db_v2';
         const todayISO = new Date().toISOString().split('T')[0];
         let selectedDate = todayISO;
+
         document.getElementById('calendar-picker').value = selectedDate;
         document.getElementById('new-quote-date').value = selectedDate;
         document.getElementById('batch-date').value = selectedDate;
@@ -695,33 +693,34 @@
         let currentCategoryFilter = 'Todas';
         let currentCarouselIndex = 0;
 
-        // Inicialización y persistencia inmediata
-        async function loadQuotes() {
-            const localStored = localStorage.getItem('soloparausted_frases_persisted');
-            if (localStored) {
-                loadedQuotes = JSON.parse(localStored);
-            } else {
+        // Persistencia Inmediata Directa
+        function saveToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(loadedQuotes));
+            } catch (e) {
+                console.error("Error al guardar en el almacenamiento local:", e);
+            }
+        }
+
+        function loadQuotes() {
+            const rawData = localStorage.getItem(STORAGE_KEY);
+            if (rawData) {
                 try {
-                    const response = await fetch('frases/historial.json');
-                    if (response.ok) {
-                        const data = await response.json();
-                        loadedQuotes = data.frases;
-                    } else {
-                        throw new Error();
-                    }
-                } catch (e) {
-                    loadedQuotes = [
-                        { id: 1, fecha: todayISO, texto: "Eres mi primer pensamiento al despertar y el último antes de soñar. Eres mi hoy y todos mis mañanas.", autor: "SoloParaUsted", categoria: "Amor", favorito: false },
-                        { id: 2, fecha: todayISO, texto: "Contigo aprendí que el hogar no es un lugar, es la persona en cuyos brazos decides quedarte para siempre.", autor: "SoloParaUsted", categoria: "Ternura", favorito: false }
-                    ];
+                    loadedQuotes = JSON.parse(rawData);
+                } catch(e) {
+                    loadedQuotes = [];
                 }
+            }
+            
+            // Si no hay nada guardado aún en este navegador/dispositivo, crear muestra inicial limpia
+            if (!loadedQuotes || loadedQuotes.length === 0) {
+                loadedQuotes = [
+                    { id: 1, fecha: todayISO, texto: "Eres mi primer pensamiento al despertar y el último antes de soñar. Eres mi hoy y todos mis mañanas.", autor: "SoloParaUsted", categoria: "Amor", favorito: false },
+                    { id: 2, fecha: todayISO, texto: "Contigo aprendí que el hogar no es un lugar, es la persona en cuyos brazos decides quedarte para siempre.", autor: "SoloParaUsted", categoria: "Ternura", favorito: false }
+                ];
                 saveToStorage();
             }
             updateViewDate();
-        }
-
-        function saveToStorage() {
-            localStorage.setItem('soloparausted_frases_persisted', JSON.stringify(loadedQuotes));
         }
 
         function updateViewDate() {
@@ -762,7 +761,6 @@
             displayFilteredQuotes();
         }
 
-        // Obtener frases filtradas
         function getActiveFilteredQuotes() {
             if (currentCategoryFilter === 'Favoritos') {
                 return loadedQuotes.filter(q => q.favorito === true);
@@ -799,12 +797,9 @@
             const currentQ = quotes[currentCarouselIndex];
             textElement.textContent = `"${currentQ.texto}"`;
 
-            // Estado del botón de favorito
             if (currentQ.favorito) {
-                favBtn.classList.add('active');
                 favBtn.innerHTML = '❤️';
             } else {
-                favBtn.classList.remove('active');
                 favBtn.innerHTML = '🤍';
             }
 
@@ -840,7 +835,6 @@
             if (quotes.length === 0) return;
             const currentQ = quotes[currentCarouselIndex];
             
-            // Buscar en la lista global y alternar estado
             const index = loadedQuotes.findIndex(q => q.id === currentQ.id);
             if (index !== -1) {
                 loadedQuotes[index].favorito = !loadedQuotes[index].favorito;
@@ -851,38 +845,36 @@
             }
         }
 
-        // Abrir/Cerrar Carpeta estilo Dispositivo en Admin
-        function toggleFolder() {
-            const contents = document.getElementById('folder-contents');
-            const symbol = document.getElementById('folder-icon-symbol');
-            const status = document.getElementById('folder-status-text');
-            
-            contents.classList.toggle('open');
-            if (contents.classList.contains('open')) {
-                symbol.textContent = '📂';
-                status.textContent = 'Carpeta abierta';
-                renderFolderHistory();
-            } else {
-                symbol.textContent = '📁';
-                status.textContent = 'Carpeta cerrada (Clic para abrir)';
-            }
-        }
-
-        // Generar Lote Simultáneo
+        // GENERACIÓN MASIVA POR LOTE DE 5 CATEGORÍAS (Limpia y Ultra Robusta)
         function generateBatchQuotes() {
             const date = document.getElementById('batch-date').value;
             if (!date) {
-                alert("Selecciona una fecha válida.");
+                alert("Por favor selecciona una fecha válida.");
                 return;
             }
 
             const categorias = ["Amor", "Ternura", "Distancia", "Gratitud", "Pasión"];
             const bancoFrases = {
-                "Amor": ["Amar no es mirarse el uno al otro, es mirar juntos en la misma dirección.", "Eres la casualidad más hermosa."],
-                "Ternura": ["Tu mano encaja en la mía perfectamente.", "Hay tanta paz en tu mirada."],
-                "Distancia": ["Aunque los kilómetros nos separen, mi pensamiento te abraza.", "La distancia es solo una prueba."],
-                "Gratitud": ["Gracias por aparecer en mi vida.", "Mi mayor bendición tiene tu nombre."],
-                "Pasión": ["Tu fuego enciende cada rincón de mi ser.", "Nuestros cuerpos hablan un idioma secreto."]
+                "Amor": [
+                    "Amar no es mirarse el uno al otro, es mirar juntos en la misma dirección.",
+                    "Eres la casualidad más hermosa que llegó a darle sentido a todos mis días."
+                ],
+                "Ternura": [
+                    "Tu mano encaja en la mía como si el universo la hubiera diseñado solo para sostenerla.",
+                    "Hay tanta paz en tu mirada que el mundo exterior simplemente desaparece."
+                ],
+                "Distancia": [
+                    "Aunque los kilómetros nos separen, mi pensamiento cruza el espacio para abrazarte.",
+                    "La distancia es solo una prueba de cuánto puede amar el corazón sin tocarse."
+                ],
+                "Gratitud": [
+                    "Gracias por aparecer en mi vida y convertir lo ordinario en algo inolvidable.",
+                    "Mi mayor bendición tiene tu nombre, tu risa y tu forma de amar."
+                ],
+                "Pasión": [
+                    "Tu fuego enciende cada rincón de mi ser, convirtiendo la noche en pura magia.",
+                    "Bajo tu piel descubrí el latido exacto de la eternidad y el deseo."
+                ]
             };
 
             let addedCount = 0;
@@ -903,12 +895,29 @@
             });
 
             saveToStorage();
-            document.getElementById('admin-feedback').textContent = `¡Lote inmediato guardado en la carpeta!`;
+            
+            document.getElementById('admin-feedback').textContent = "¡Lote de 5 frases generado y guardado de forma inmediata!";
             selectedDate = date;
             updateViewDate();
             renderFolderHistory();
 
             setTimeout(() => { document.getElementById('admin-feedback').textContent = ''; }, 3000);
+        }
+
+        function toggleFolder() {
+            const contents = document.getElementById('folder-contents');
+            const symbol = document.getElementById('folder-icon-symbol');
+            const status = document.getElementById('folder-status-text');
+            
+            contents.classList.toggle('open');
+            if (contents.classList.contains('open')) {
+                symbol.textContent = '📂';
+                status.textContent = 'Carpeta abierta';
+                renderFolderHistory();
+            } else {
+                symbol.textContent = '📁';
+                status.textContent = 'Carpeta cerrada (Clic para abrir)';
+            }
         }
 
         function showAdmin(e) {
