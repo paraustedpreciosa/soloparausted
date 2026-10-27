@@ -228,6 +228,28 @@
             backdrop-filter: blur(5px);
         }
 
+        /* Botón de Carta en la barra superior (Nuevo) */
+        .top-letter-btn {
+            display: none;
+            background: linear-gradient(135deg, var(--vino-suave), var(--rosa-acento));
+            color: var(--bg-tarjeta);
+            border: none;
+            padding: 0.35rem 0.8rem;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--sombra-elegante);
+            align-items: center;
+            gap: 0.3rem;
+            transition: transform 0.2s ease;
+        }
+
+        .top-letter-btn:hover {
+            transform: scale(1.05);
+        }
+
         /* 📅 Módulo de Calendario Manual */
         .calendar-bar {
             display: flex;
@@ -383,7 +405,7 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Insignia de Carta Especial (Módulo de Carta) */
+        /* Insignia dentro de la tarjeta de frase */
         .letter-badge {
             display: none;
             background: linear-gradient(135deg, var(--vino-suave), var(--rosa-acento));
@@ -769,7 +791,7 @@
                 <button onclick="enableNightModeFromBanner()">Activar</button>
             </div>
 
-            <!-- BARRA DE HERRAMIENTAS -->
+            <!-- BARRA DE HERRAMIENTAS Y BOTÓN DE CARTA DINÁMICO -->
             <div class="top-tools-bar" id="zen-tools">
                 <select class="tool-select" id="font-selector" onchange="changeFontFamily(this.value)" title="Estilo de Fuente">
                     <option value="Cormorant Garamond">Cormorant (Clásica)</option>
@@ -782,6 +804,10 @@
                     <option value="lavender">Lavanda Suave</option>
                     <option value="creme">Creme Brûlée</option>
                 </select>
+                <!-- Botón de Carta en la pantalla de inicio -->
+                <button class="top-letter-btn" id="top-letter-btn" onclick="openLetterModal()">
+                    💌 <span id="top-letter-label">Carta Especial</span>
+                </button>
             </div>
 
             <!-- CALENDARIO -->
@@ -805,7 +831,7 @@
 
             <div class="quote-card" id="quote-card">
                 <div class="milestone-badge" id="milestone-badge">✨ Fecha Especial</div>
-                <!-- Insignia de Carta Especial -->
+                <!-- Insignia de Carta dentro de la tarjeta -->
                 <div class="letter-badge" id="letter-badge" onclick="openLetterModal()">💌 Carta Especial — Leer</div>
                 
                 <div class="quote-header-info">
@@ -954,7 +980,7 @@
             },
             "Ternura": {
                 inicios: ["Tu mano encaja en la mía,", "Hay una paz infinita en tu mirada,", "Cada caricia tuya es un poema silencioso,", "Abrazarte suavemente al atardecer,", "Tienes la dulzura exacta que,", "En la sutileza de tu voz encuentro,", "Cuidarte y verte sonreír con tranquilidad,", "Tu ternura es el manto más cálido,", "En la pausa suave de tus labios,", "Tus gestos pequeños y sinceros,"],
-                centros: ["como si el universo la hubiera设计的 solo para sostenerla,", "que hace que el ruido del mundo exterior simplemente desaparezca,", "escrito con la paciencia más noble directo en mi piel,", "es sentir que todo en mi vida vuelve a estar en su lugar,", "transforma cualquier día gris en una mañana serena y tibia,", "el descanso más profundo que mi alma necesitó siempre,", "se ha convertido en mi forma preferida de celebrar la vida,", "que protege a mi corazón de cualquier tormenta inesperada,", "habita la promesa más pura de un cariño verdadero,", "revelan la grandeza de un sentimiento que no pide nada a cambio,"],
+                centros: ["como si el universo la hubiera diseñado solo para sostenerla,", "que hace que el ruido del mundo exterior simplemente desaparezca,", "escrito con la paciencia más noble directo en mi piel,", "es sentir que todo en mi vida vuelve a estar en su lugar,", "transforma cualquier día gris en una mañana serena y tibia,", "el descanso más profundo que mi alma necesitó siempre,", "se ha convertido en mi forma preferida de celebrar la vida,", "que protege a mi corazón de cualquier tormenta inesperada,", "habita la promesa más pura de un cariño verdadero,", "revelan la grandeza de un sentimiento que no pide nada a cambio,"],
                 finales: ["brindándome una seguridad dulce en cada paso.", "dejando únicamente un silencio lleno de amor puro.", "con la delicadeza de quien sabe amar de verdad.", "reparando cualquier rincón que antes estuvo en penumbras.", "iluminando el presente con una luz tierna y única.", "renovando la esperanza en cada pequeño amanecer.", "guardando tu alegría como el tesoro más valioso.", "creando un hogar seguro en medio del caos del mundo.", "donde el tiempo se detiene con infinita gentileza.", "escribiendo recuerdos dulces que jamás se borrarán."]
             },
             "Distancia": {
@@ -1010,11 +1036,9 @@
             checkNightReminder();
         }
 
-        /* MÓDULO: RECORDATORIO NOCTURNO SUTIL */
         function checkNightReminder() {
             const currentHour = new Date().getHours();
             const currentTheme = localStorage.getItem('soloparausted_palette');
-            // Si es después de las 20:00 y no está activo el tema midnight
             if (currentHour >= 20 && currentTheme !== 'midnight') {
                 document.getElementById('night-reminder-banner').style.display = 'flex';
             }
@@ -1043,11 +1067,19 @@
             }
 
             const letterBadge = document.getElementById('letter-badge');
+            const topLetterBtn = document.getElementById('top-letter-btn');
+            const topLetterLabel = document.getElementById('top-letter-label');
+
             if (savedLetters[selectedDate]) {
-                letterBadge.textContent = `💌 ${savedLetters[selectedDate].title || 'Carta Especial'} — Leer`;
+                const titleText = savedLetters[selectedDate].title || 'Carta Especial';
+                letterBadge.textContent = `💌 ${titleText} — Leer`;
                 letterBadge.style.display = 'inline-block';
+                
+                topLetterLabel.textContent = titleText;
+                topLetterBtn.style.display = 'inline-flex';
             } else {
                 letterBadge.style.display = 'none';
+                topLetterBtn.style.display = 'none';
             }
 
             currentCarouselIndex = 0;
@@ -1374,8 +1406,8 @@
             const letterTitle = document.getElementById('letter-title-input').value.trim();
             const letterText = document.getElementById('letter-text-input').value.trim();
 
-            if (!text || !date) {
-                alert("Por favor completa la frase y la fecha.");
+            if (!text && !letterText) {
+                alert("Por favor ingresa al menos una frase o redacta una carta.");
                 return;
             }
 
@@ -1390,20 +1422,22 @@
                 document.getElementById('letter-text-input').value = '';
             }
 
-            const newEntry = {
-                id: loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1,
-                fecha: date,
-                texto: text,
-                autor: "SoloParaUsted",
-                categoria: category,
-                favorito: false
-            };
+            if (text) {
+                const newEntry = {
+                    id: loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1,
+                    fecha: date,
+                    texto: text,
+                    autor: "SoloParaUsted",
+                    categoria: category,
+                    favorito: false
+                };
+                loadedQuotes.push(newEntry);
+                document.getElementById('new-quote-text').value = '';
+            }
 
-            loadedQuotes.push(newEntry);
             saveToStorage();
 
-            document.getElementById('admin-feedback').textContent = "¡Frase guardada de forma inmediata!";
-            document.getElementById('new-quote-text').value = '';
+            document.getElementById('admin-feedback').textContent = "¡Guardado con éxito!";
             selectedDate = date;
             updateViewDate();
             renderFolderHistory();
