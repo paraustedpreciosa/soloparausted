@@ -1,158 +1,93 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="day">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SoloParaUsted - Frases Románticas Diarias</title>
-    
-    <!-- Meta tags SEO y Redes Sociales -->
-    <meta name="description" content="Una frase romántica única cada día, creada para dedicar y compartir con el corazón.">
-    <meta name="theme-color" content="#FFF5F7">
-
-    <!-- Tipografías Google Fonts: Cormorant Garamond (Serif poética) + Plus Jakarta Sans (Limpia) -->
+    <!-- Google Fonts: Cormorant Garamond (Serif elegante) y Plus Jakarta Sans (Sans-serif limpia) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    
     <style>
-        /* ==========================================================================
-           1. VARIABLES DE TEMA (ROSÉ CREAM & MIDNIGHT ROSE)
-           ========================================================================== */
-        :root[data-theme="day"] {
-            --bg-main: #FFF5F7;
-            --bg-card: #FFFFFF;
-            --bg-pill: #FAD2E1;
-            --bg-pill-hover: #F7BFD3;
-            --accent-pink: #D8A4B8;
-            --text-primary: #6B3E48;
-            --text-secondary: #8C6A72;
-            --text-muted: #B08B95;
-            --border-soft: rgba(216, 164, 184, 0.3);
-            --shadow-soft: 0 12px 35px rgba(107, 62, 72, 0.06);
-            --shadow-hover: 0 18px 40px rgba(107, 62, 72, 0.12);
-            --delete-btn: #D96868;
-            --canvas-bg: #FFF5F7;
-            --canvas-card: #FFFFFF;
+        :root {
+            --bg-rosa-suave: #FFF5F7;
+            --bg-tarjeta: #FFFFFF;
+            --rosa-empolvado: #FAD2E1;
+            --rosa-acento: #D8A4B8;
+            --vino-suave: #6B3E48;
+            --texto-principal: #4A2E35;
+            --texto-secundario: #8C6A72;
+            --borde-suave: rgba(216, 164, 184, 0.25);
+            --sombra-elegante: 0 10px 30px rgba(107, 62, 72, 0.05);
+            --rojo-suave: #D96868;
         }
 
-        :root[data-theme="night"] {
-            --bg-main: #1D1016;
-            --bg-card: #2D1A21;
-            --bg-pill: #4A2E38;
-            --bg-pill-hover: #5E3B48;
-            --accent-pink: #E8B4C8;
-            --text-primary: #FFF5F7;
-            --text-secondary: #E0C0CB;
-            --text-muted: #9E7B87;
-            --border-soft: rgba(232, 180, 200, 0.2);
-            --shadow-soft: 0 12px 35px rgba(0, 0, 0, 0.4);
-            --shadow-hover: 0 18px 40px rgba(0, 0, 0, 0.6);
-            --delete-btn: #FF8A8A;
-            --canvas-bg: #1D1016;
-            --canvas-card: #2D1A21;
+        [data-theme="midnight"] {
+            --bg-rosa-suave: #2A1B20;
+            --bg-tarjeta: #362228;
+            --rosa-empolvado: #5E3943;
+            --rosa-acento: #A66879;
+            --vino-suave: #F3D2DB;
+            --texto-principal: #F9E6EC;
+            --texto-secundario: #D4A5B4;
+            --borde-suave: rgba(166, 104, 121, 0.3);
+            --sombra-elegante: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        /* ==========================================================================
-           2. RESETEO Y ESTILOS BASE
-           ========================================================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
+            background-color: var(--bg-rosa-suave);
+            color: var(--texto-principal);
             font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 1rem;
-            line-height: 1.6;
-            transition: background-color 0.5s ease, color 0.5s ease;
+            padding: 2rem 1rem;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ==========================================================================
-           3. ENCABEZADO Y NAVEGACIÓN
-           ========================================================================== */
         header {
             width: 100%;
             max-width: 800px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 1.5rem;
+            padding-bottom: 2rem;
         }
 
-        .brand-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            letter-spacing: 0.5px;
-            text-decoration: none;
-        }
-
-        .header-actions {
+        nav {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
-        /* Botón de Conmutador de Tema (Día/Noche) */
-        .theme-toggle-btn {
-            background: var(--bg-pill);
-            border: 1px solid var(--border-soft);
-            color: var(--text-primary);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            outline: none;
-        }
-
-        .theme-toggle-btn:hover {
-            transform: scale(1.08) rotate(15deg);
-            background: var(--bg-pill-hover);
-        }
-
-        .theme-toggle-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        nav a {
-            color: var(--text-secondary);
+        nav a, .theme-toggle {
+            color: var(--texto-secundario);
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
+            background: none;
+            border: none;
+            cursor: pointer;
             transition: color 0.3s ease;
         }
 
-        nav a:hover {
-            color: var(--text-primary);
+        nav a:hover, .theme-toggle:hover {
+            color: var(--vino-suave);
         }
 
-        /* ==========================================================================
-           4. CONTENEDOR PRINCIPAL Y LOGO
-           ========================================================================== */
         .main-container {
             width: 100%;
-            max-width: 720px;
+            max-width: 700px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -161,34 +96,29 @@
             justify-content: center;
         }
 
+        /* Logo Vectorial en Tonos Rosa */
         .logo-container {
             margin-bottom: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            text-decoration: none;
         }
 
         .logo-svg {
-            width: 64px;
-            height: 64px;
-            fill: var(--accent-pink);
+            width: 70px;
+            height: 70px;
+            fill: var(--rosa-acento);
             margin-bottom: 0.5rem;
-            animation: pulseHeart 3.5s infinite ease-in-out;
-            transition: fill 0.5s ease;
+            animation: pulseHeart 3s infinite ease-in-out;
         }
 
         @keyframes pulseHeart {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+            50% { transform: scale(1.06); }
         }
 
         .logo-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 2.8rem;
             font-weight: 600;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent-pink));
+            background: linear-gradient(135deg, var(--vino-suave), var(--rosa-acento));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
@@ -199,127 +129,79 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 3px;
-            color: var(--text-secondary);
+            color: var(--texto-secundario);
             margin-top: 0.4rem;
-            font-weight: 500;
         }
 
-        /* ==========================================================================
-           5. MÓDULO 1: CATEGORÍAS Y FILTROS DINÁMICOS
-           ========================================================================== */
+        /* Categorías / Filtros */
         .categories-nav {
             display: flex;
-            gap: 0.6rem;
             justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
-            width: 100%;
         }
 
         .cat-chip {
-            background: var(--bg-card);
-            border: 1px solid var(--border-soft);
-            color: var(--text-secondary);
-            padding: 0.5rem 1.1rem;
-            border-radius: 50px;
-            font-size: 0.82rem;
-            font-weight: 500;
+            background-color: var(--bg-tarjeta);
+            color: var(--texto-secundario);
+            border: 1px solid var(--borde-suave);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            outline: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
-        .cat-chip:hover {
-            border-color: var(--accent-pink);
-            color: var(--text-primary);
-            transform: translateY(-2px);
+        .cat-chip.active, .cat-chip:hover {
+            background-color: var(--rosa-empolvado);
+            color: var(--vino-suave);
+            border-color: var(--rosa-acento);
         }
 
-        .cat-chip.active {
-            background: var(--bg-pill);
-            color: var(--text-primary);
-            border-color: var(--accent-pink);
-            font-weight: 600;
-            box-shadow: var(--shadow-soft);
-        }
-
-        /* ==========================================================================
-           6. TARJETA CENTRAL DE LA FRASE
-           ========================================================================== */
+        /* Tarjeta de Frase Minimalista */
         .quote-card {
-            background-color: var(--bg-card);
+            background-color: var(--bg-tarjeta);
             width: 100%;
-            padding: 3.2rem 2.5rem;
-            border-radius: 24px;
-            box-shadow: var(--shadow-soft);
-            border: 1px solid var(--border-soft);
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--sombra-elegante);
+            border: 1px solid var(--borde-suave);
             position: relative;
             margin-bottom: 2rem;
-            transition: all 0.5s ease;
-        }
-
-        .quote-card:hover {
-            box-shadow: var(--shadow-hover);
-        }
-
-        .quote-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-bottom: 1.8rem;
         }
 
         .quote-date {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+            font-size: 0.85rem;
+            color: var(--texto-secundario);
             text-transform: uppercase;
             letter-spacing: 1.5px;
+            margin-bottom: 1.5rem;
             font-weight: 500;
-        }
-
-        .quote-badge {
-            font-size: 0.72rem;
-            background: var(--bg-pill);
-            color: var(--text-primary);
-            padding: 0.2rem 0.75rem;
-            border-radius: 50px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .quote-text-wrapper {
-            min-height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 2.2rem;
         }
 
         .quote-text {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.9rem;
-            line-height: 1.45;
-            color: var(--text-primary);
+            font-size: 1.85rem;
+            line-height: 1.4;
+            color: var(--vino-suave);
+            margin-bottom: 2rem;
             font-weight: 400;
-            font-style: italic;
-            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .quote-actions {
             display: flex;
             justify-content: center;
-            gap: 0.8rem;
+            gap: 1rem;
             flex-wrap: wrap;
         }
 
         .btn {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            border: 1px solid var(--border-soft);
-            padding: 0.7rem 1.3rem;
+            background-color: var(--bg-rosa-suave);
+            color: var(--vino-suave);
+            border: 1px solid var(--rosa-empolvado);
+            padding: 0.65rem 1.25rem;
             border-radius: 50px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 0.85rem;
@@ -330,45 +212,36 @@
             gap: 0.5rem;
             transition: all 0.3s ease;
             text-decoration: none;
-            outline: none;
         }
 
         .btn:hover {
-            background-color: var(--bg-pill);
-            border-color: var(--accent-pink);
+            background-color: var(--rosa-empolvado);
             transform: translateY(-2px);
         }
 
-        .btn svg {
-            width: 16px;
-            height: 16px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        .btn-primary {
+            background-color: var(--vino-suave);
+            color: var(--bg-tarjeta);
+            border: none;
         }
 
-        /* ==========================================================================
-           7. PANEL DE ADMINISTRACIÓN (#admin)
-           ========================================================================== */
+        /* Panel de Administración */
         .admin-panel {
             display: none;
             width: 100%;
-            max-width: 680px;
-            background: var(--bg-card);
+            max-width: 650px;
+            background: var(--bg-tarjeta);
             padding: 2.5rem;
-            border-radius: 24px;
-            box-shadow: var(--shadow-soft);
-            border: 1px solid var(--border-soft);
+            border-radius: 20px;
+            box-shadow: var(--sombra-elegante);
+            border: 1px solid var(--borde-suave);
             text-align: left;
             margin-top: 1rem;
-            animation: fadeIn 0.4s ease-out;
         }
 
         .admin-panel h2 {
             font-family: 'Cormorant Garamond', serif;
-            color: var(--text-primary);
+            color: var(--vino-suave);
             font-size: 2rem;
             margin-bottom: 1.5rem;
         }
@@ -380,55 +253,63 @@
         .form-group label {
             display: block;
             font-size: 0.85rem;
-            color: var(--text-secondary);
+            color: var(--texto-secundario);
             margin-bottom: 0.4rem;
             font-weight: 500;
         }
 
         .form-group textarea, .form-group input, .form-group select {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid var(--border-soft);
-            border-radius: 12px;
+            padding: 0.75rem;
+            border: 1px solid var(--rosa-empolvado);
+            border-radius: 10px;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg-main);
-            color: var(--text-primary);
+            background: var(--bg-rosa-suave);
+            color: var(--texto-principal);
             font-size: 0.95rem;
             outline: none;
-            transition: border-color 0.3s ease;
         }
 
         .form-group textarea:focus, .form-group input:focus, .form-group select:focus {
-            border-color: var(--accent-pink);
+            border-color: var(--vino-suave);
         }
 
+        .batch-box {
+            background: var(--bg-rosa-suave);
+            padding: 1.25rem;
+            border-radius: 12px;
+            border: 1px dashed var(--rosa-acento);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Historial en Admin */
         .history-section {
             margin-top: 2.5rem;
-            border-top: 1px solid var(--border-soft);
+            border-top: 1px solid var(--borde-suave);
             padding-top: 1.5rem;
         }
 
         .history-section h3 {
             font-family: 'Cormorant Garamond', serif;
-            color: var(--text-primary);
+            color: var(--vino-suave);
             font-size: 1.5rem;
             margin-bottom: 1rem;
         }
 
         .history-list {
-            max-height: 280px;
+            max-height: 250px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
-            padding-right: 0.3rem;
+            padding-right: 0.5rem;
         }
 
         .history-item {
-            background: var(--bg-main);
+            background: var(--bg-rosa-suave);
             padding: 1rem;
             border-radius: 12px;
-            border: 1px solid var(--border-soft);
+            border: 1px solid var(--borde-suave);
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -441,7 +322,7 @@
 
         .history-date {
             font-size: 0.75rem;
-            color: var(--text-secondary);
+            color: var(--texto-secundario);
             font-weight: 600;
             margin-bottom: 0.2rem;
             text-transform: uppercase;
@@ -449,111 +330,82 @@
 
         .history-text {
             font-size: 0.9rem;
-            color: var(--text-primary);
+            color: var(--vino-suave);
             font-style: italic;
         }
 
         .btn-delete {
             background: none;
             border: none;
-            color: var(--delete-btn);
+            color: var(--rojo-suave);
             cursor: pointer;
             font-size: 0.8rem;
-            font-weight: 600;
-            padding: 0.3rem 0.6rem;
-            border-radius: 6px;
+            font-weight: 500;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
             transition: background 0.2s;
         }
 
         .btn-delete:hover {
-            background: rgba(217, 104, 104, 0.12);
+            background: rgba(217, 104, 104, 0.1);
         }
 
-        /* ==========================================================================
-           8. TOAST DE NOTIFICACIÓN
-           ========================================================================== */
+        /* Toast de notificación */
         .toast {
             position: fixed;
             bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background-color: var(--text-primary);
-            color: var(--bg-main);
-            padding: 0.75rem 1.6rem;
+            background-color: var(--vino-suave);
+            color: var(--bg-tarjeta);
+            padding: 0.75rem 1.5rem;
             border-radius: 50px;
             font-size: 0.85rem;
-            font-weight: 500;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             opacity: 0;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+            transition: opacity 0.3s ease;
             pointer-events: none;
             z-index: 1000;
         }
 
         .toast.show {
-            transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
 
-        /* ==========================================================================
-           9. PIE DE PÁGINA Y ANIMACIONES
-           ========================================================================== */
         footer {
             text-align: center;
             font-size: 0.8rem;
-            color: var(--text-muted);
+            color: var(--texto-secundario);
             padding-top: 2rem;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @media (max-width: 600px) {
-            body { padding: 1.2rem 0.8rem; }
-            .logo-title { font-size: 2.3rem; }
-            .quote-card { padding: 2.2rem 1.4rem; border-radius: 20px; }
-            .quote-text { font-size: 1.55rem; }
-            .quote-actions { flex-direction: column; width: 100%; }
-            .btn { width: 100%; justify-content: center; }
-            .categories-nav { gap: 0.4rem; }
-            .cat-chip { padding: 0.45rem 0.85rem; font-size: 0.78rem; }
+            .logo-title { font-size: 2.2rem; }
+            .quote-text { font-size: 1.5rem; }
+            .quote-card { padding: 2rem 1.5rem; }
         }
     </style>
 </head>
-<body>
+<body data-theme="rose">
 
-    <!-- ENCABEZADO -->
     <header>
-        <a href="#" class="brand-title" onclick="showHome(event)">SoloParaUsted</a>
-        <div class="header-actions">
-            <!-- MÓDULO 3: Conmutador de Tema Día/Noche -->
-            <button class="theme-toggle-btn" id="theme-toggle" aria-label="Cambiar tema" onclick="toggleTheme()">
-                <svg id="theme-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                <svg id="theme-icon-moon" viewBox="0 0 24 24" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            </button>
-            <nav>
-                <a href="#admin" onclick="showAdmin(event)">Administrador</a>
-            </nav>
-        </div>
+        <div style="font-weight: 600; color: var(--vino-suave); letter-spacing: 0.5px;">SoloParaUsted</div>
+        <nav>
+            <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">🌙 Modo Noche</button>
+            <a href="#" onclick="showHome(event)">Inicio</a>
+            <a href="#admin" onclick="showAdmin(event)">Administrador</a>
+        </nav>
     </header>
 
-    <!-- CONTENEDOR PRINCIPAL -->
-    <main class="main-container">
-        
-        <!-- VISTA PRINCIPAL DE FRASES -->
+    <div class="main-container">
+        <!-- VISTA PRINCIPAL: FRASE DEL DÍA -->
         <div id="home-view" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-            
-            <a href="#" class="logo-container" onclick="showHome(event)" aria-label="SoloParaUsted - Inicio">
+            <div class="logo-container">
                 <svg class="logo-svg" viewBox="0 0 24 24">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
                 <h1 class="logo-title">SoloParaUsted</h1>
-                <p class="logo-subtitle">Frases Románticas Diarias</p>
-            </a>
+                <p class="logo-subtitle">Frases románticas diarias</p>
+            </div>
 
-            <!-- MÓDULO 1: Navegador de Categorías y Filtros Dinámicos -->
+            <!-- Categorías / Filtros -->
             <div class="categories-nav" id="categories-nav">
                 <button class="cat-chip active" onclick="filterCategory('Todas')">Todas</button>
                 <button class="cat-chip" onclick="filterCategory('Amor')">Amor</button>
@@ -563,46 +415,46 @@
                 <button class="cat-chip" onclick="filterCategory('Pasión')">Pasión</button>
             </div>
 
-            <!-- Tarjeta Central -->
-            <article class="quote-card">
-                <div class="quote-header">
-                    <span class="quote-date" id="current-date">Cargando fecha...</span>
-                    <span class="quote-badge" id="quote-category">Amor</span>
-                </div>
-
-                <div class="quote-text-wrapper">
-                    <blockquote class="quote-text" id="quote-text">
-                        "Cargando frase romántica para ti..."
-                    </blockquote>
-                </div>
-
+            <div class="quote-card" id="quote-card">
+                <div class="quote-date" id="current-date">Cargando fecha...</div>
+                <div class="quote-text" id="quote-text">"Cargando frase con amor..."</div>
                 <div class="quote-actions">
                     <button class="btn" onclick="copyQuote()">
-                        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        Copiar Frase
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                        Copiar
                     </button>
-                    
-                    <!-- MÓDULO 2: Botón para Generar y Descargar Tarjeta en Canvas -->
-                    <button class="btn" onclick="generateAndDownloadImage()">
-                        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Descargar Imagen
-                    </button>
-
                     <button class="btn" onclick="shareQuote()">
-                        <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                         Compartir
                     </button>
+                    <button class="btn btn-primary" onclick="downloadQuoteCard()">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        Descargar Imagen
+                    </button>
                 </div>
-            </article>
-
+            </div>
         </div>
 
-        <!-- VISTA DE ADMINISTRADOR (#admin) -->
-        <section id="admin-view" class="admin-panel">
-            <h2>Panel de Creación</h2>
+        <!-- VISTA DE ADMINISTRADOR -->
+        <div id="admin-view" class="admin-panel">
+            <h2>Panel de Creación e Historial</h2>
+            
+            <!-- Generación Simultánea por Categorías -->
+            <div class="batch-box">
+                <label style="font-size: 0.9rem; font-weight: 600; color: var(--vino-suave); margin-bottom: 0.5px; display: block;">⚡ Generar Lote Diario Simultáneo</label>
+                <p style="font-size: 0.8rem; color: var(--texto-secundario); margin-bottom: 0.8rem;">Crea de golpe una frase para cada una de las 5 categorías para la fecha seleccionada.</p>
+                <div class="form-group" style="margin-bottom: 0.8rem;">
+                    <label for="batch-date">Fecha del Lote</label>
+                    <input type="date" id="batch-date">
+                </div>
+                <button class="btn btn-primary" onclick="generateBatchQuotes()" style="width: 100%; justify-content: center;">Generar 5 Frases Simultáneas (Todas las Categorías)</button>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid var(--borde-suave); margin: 1.5rem 0;">
+
             <div class="form-group">
-                <label for="new-quote-text">Nueva Frase Romántica</label>
-                <textarea id="new-quote-text" rows="3" placeholder="Escribe tu frase aquí con todo el corazón..."></textarea>
+                <label for="new-quote-text">Frase Individual</label>
+                <textarea id="new-quote-text" rows="3" placeholder="Escribe aquí la nueva frase..."></textarea>
             </div>
             <div class="form-group">
                 <label for="new-quote-date">Fecha de Publicación</label>
@@ -618,317 +470,156 @@
                     <option value="Pasión">Pasión</option>
                 </select>
             </div>
-            <button class="btn" onclick="saveNewQuote()" style="background-color: var(--text-primary); color: var(--bg-main); width: 100%; justify-content: center; font-weight: 600;">Guardar Frase</button>
-            <p id="admin-feedback" style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 1rem; text-align: center;"></p>
+            <button class="btn" onclick="saveNewQuote()" style="background-color: var(--vino-suave); color: var(--bg-tarjeta); width: 100%; justify-content: center;">Guardar Frase en Carpeta de Historial</button>
+            <p id="admin-feedback" style="font-size: 0.8rem; color: var(--texto-secundario); margin-top: 1rem; text-align: center;"></p>
 
-            <!-- Historial de Frases -->
+            <!-- SECCIÓN DE HISTORIAL INDEPENDIENTE -->
             <div class="history-section">
-                <h3>Historial de Frases (<span id="total-count">0</span>)</h3>
+                <h3>📁 Historial de la Carpeta de Datos (<span id="total-count">0</span>)</h3>
                 <div class="history-list" id="history-list">
-                    <!-- Elementos del historial insertados vía JS -->
+                    <!-- Las frases se cargan aquí dinámicamente -->
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-    </main>
-
-    <!-- PIE DE PÁGINA -->
     <footer>
-        SoloParaUsted © 2026 • Creado para inspirar amor cada día
+        Hecho con amor para ti • SoloParaUsted © 2026
     </footer>
 
-    <!-- NOTIFICACIÓN TOAST -->
     <div class="toast" id="toast">¡Frase copiada al portapapeles!</div>
 
-    <!-- CANVAS OCULTO PARA EXPORTAR TARJETAS EN IMAGEN -->
-    <canvas id="export-canvas" width="1080" height="1080" style="display: none;"></canvas>
-
-    <!-- LÓGICA JAVASCRIPT VANILLA COMPLETA -->
     <script>
-        /* ==========================================================================
-           DATOS INICIALES Y RESPALDO LOCAL
-           ========================================================================== */
-        const DEFAULT_QUOTES = [
-            { id: 1, fecha: "2026-10-27", texto: "Eres mi primer pensamiento al despertar y el último antes de soñar. Eres mi hoy y todos mis mañanas.", categoria: "Amor" },
-            { id: 2, fecha: "2026-10-26", texto: "No importa la distancia que nos separe, siempre estamos bajo el mismo cielo mirando la misma luna.", categoria: "Distancia" },
-            { id: 3, fecha: "2026-10-25", texto: "Gracia por enseñarme que el amor no se busca, se construye día a día con pequeños detalles.", categoria: "Gratitud" },
-            { id: 4, fecha: "2026-10-24", texto: "En la pausa suave de tu abrazo encontré el único refugio donde todo cobra sentido.", categoria: "Ternura" },
-            { id: 5, fecha: "2026-10-23", texto: "Tu mirada tiene el fuego exacto para encender cada rincón de mi alma.", categoria: "Pasión" }
-        ];
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const todayFormatted = new Date().toLocaleDateString('es-ES', options);
+        document.getElementById('current-date').textContent = todayFormatted;
+
+        const todayISO = new Date().toISOString().split('T')[0];
+        document.getElementById('new-quote-date').value = todayISO;
+        document.getElementById('batch-date').value = todayISO;
 
         let loadedQuotes = [];
-        let currentFilter = 'Todas';
-        const todayISO = new Date().toISOString().split('T')[0];
+        let currentCategoryFilter = 'Todas';
 
-        /* ==========================================================================
-           INICIONALIZACIÓN
-           ========================================================================== */
-        document.addEventListener('DOMContentLoaded', () => {
-            initTheme();
-            displayCurrentDate();
-            loadQuotes();
-
-            // Setea fecha del admin por defecto
-            document.getElementById('new-quote-date').value = todayISO;
-        });
-
-        function displayCurrentDate() {
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const todayFormatted = new Date().toLocaleDateString('es-ES', options);
-            document.getElementById('current-date').textContent = todayFormatted;
-        }
-
-        /* ==========================================================================
-           MÓDULO 3: MODO NOCTURNO / DIURNO (ROSE CREAM & MIDNIGHT ROSE)
-           ========================================================================== */
-        function initTheme() {
-            const savedTheme = localStorage.getItem('soloparausted_theme');
-            if (savedTheme) {
-                setTheme(savedTheme);
-            } else {
-                // Auto-detección por hora o preferencia de sistema
-                const hour = new Date().getHours();
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (hour >= 20 || hour < 7 || prefersDark) {
-                    setTheme('night');
-                } else {
-                    setTheme('day');
-                }
-            }
-        }
-
-        function setTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            const sunIcon = document.getElementById('theme-icon-sun');
-            const moonIcon = document.getElementById('theme-icon-moon');
-
-            if (theme === 'night') {
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'block';
-            } else {
-                sunIcon.style.display = 'block';
-                moonIcon.style.display = 'none';
-            }
-            localStorage.setItem('soloparausted_theme', theme);
-        }
-
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const nextTheme = currentTheme === 'night' ? 'day' : 'night';
-            setTheme(nextTheme);
-            showToast(nextTheme === 'night' ? 'Modo Midnight Rose activado' : 'Modo Rosé Cream activado');
-        }
-
-        /* ==========================================================================
-           GESTIÓN DE DATOS (LOCALSTORAGE + RESPALDO)
-           ========================================================================== */
+        // Cargar historial desde la carpeta de datos independiente o localStorage
         async function loadQuotes() {
-            const localStored = localStorage.getItem('soloparausted_frases');
-            if (localStored) {
-                try {
+            try {
+                // Intentar cargar desde la carpeta data/historial.json independiente
+                const response = await fetch('data/historial.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    loadedQuotes = data.frases;
+                    localStorage.setItem('soloparausted_historial', JSON.stringify(loadedQuotes));
+                } else {
+                    throw new Error("No se encontró el archivo en data/");
+                }
+            } catch (error) {
+                // Respaldo en localStorage de la carpeta de historial
+                const localStored = localStorage.getItem('soloparausted_historial');
+                if (localStored) {
                     loadedQuotes = JSON.parse(localStored);
-                } catch (e) {
-                    loadedQuotes = [...DEFAULT_QUOTES];
+                } else {
+                    loadedQuotes = [
+                        { id: 1, fecha: todayISO, texto: "Eres mi primer pensamiento al despertar y el último antes de soñar. Eres mi hoy y todos mis mañanas.", autor: "SoloParaUsted", categoria: "Amor" },
+                        { id: 2, fecha: todayISO, texto: "Contigo aprendí que el hogar no es un lugar, es la persona en cuyos brazos decides quedarte para siempre.", autor: "SoloParaUsted", categoria: "Ternura" }
+                    ];
                 }
-            } else {
-                try {
-                    const response = await fetch('frases.json');
-                    if (response.ok) {
-                        const data = await response.json();
-                        loadedQuotes = data.frases || DEFAULT_QUOTES;
-                    } else {
-                        loadedQuotes = [...DEFAULT_QUOTES];
-                    }
-                } catch (err) {
-                    loadedQuotes = [...DEFAULT_QUOTES];
-                }
-                localStorage.setItem('soloparausted_frases', JSON.stringify(loadedQuotes));
             }
-
-            renderQuote();
+            displayTodayQuote();
             renderHistory();
         }
 
-        /* ==========================================================================
-           MÓDULO 1: FILTRADO DINÁMICO DE CATEGORÍAS
-           ========================================================================== */
-        function filterCategory(category) {
-            currentFilter = category;
+        function displayTodayQuote() {
+            let filtered = loadedQuotes.filter(q => q.fecha === todayISO);
+            if (currentCategoryFilter !== 'Todas') {
+                filtered = filtered.filter(q => q.categoria === currentCategoryFilter);
+            }
             
-            // Actualizar chips activos
-            const chips = document.querySelectorAll('.cat-chip');
-            chips.forEach(chip => {
-                if (chip.textContent.trim() === category) {
-                    chip.classList.add('active');
-                } else {
-                    chip.classList.remove('active');
-                }
-            });
-
-            renderQuote();
-        }
-
-        function renderQuote() {
-            let filtered = loadedQuotes;
-            if (currentFilter !== 'Todas') {
-                filtered = loadedQuotes.filter(q => q.categoria === currentFilter);
+            let currentQuote = filtered.length > 0 ? filtered[0] : null;
+            if (!currentQuote && loadedQuotes.length > 0) {
+                currentQuote = loadedQuotes[loadedQuotes.length - 1];
             }
 
-            const quoteTextEl = document.getElementById('quote-text');
-            const quoteCategoryEl = document.getElementById('quote-category');
+            if (currentQuote) {
+                document.getElementById('quote-text').textContent = `"${currentQuote.texto}"`;
+            } else {
+                document.getElementById('quote-text').textContent = `"No hay frases disponibles para esta categoría en el día de hoy."`;
+            }
+        }
 
-            if (filtered.length === 0) {
-                quoteTextEl.style.opacity = '0';
-                setTimeout(() => {
-                    quoteTextEl.textContent = `“No hay frases disponibles en la categoría ${currentFilter} aún.”`;
-                    quoteCategoryEl.textContent = currentFilter;
-                    quoteTextEl.style.opacity = '1';
-                }, 200);
+        function filterCategory(cat) {
+            currentCategoryFilter = cat;
+            document.querySelectorAll('.cat-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.textContent === cat);
+            });
+            displayTodayQuote();
+        }
+
+        // Generar lote simultáneo de 5 frases (una por categoría)
+        function generateBatchQuotes() {
+            const date = document.getElementById('batch-date').value;
+            if (!date) {
+                alert("Selecciona una fecha válida.");
                 return;
             }
 
-            // Buscar frase del día o la última guardada en la categoría
-            let selectedQuote = filtered.find(q => q.fecha === todayISO);
-            if (!selectedQuote) {
-                selectedQuote = filtered[filtered.length - 1];
-            }
+            const categorias = ["Amor", "Ternura", "Distancia", "Gratitud", "Pasión"];
+            const bancoFrases = {
+                "Amor": [
+                    "Amar no es mirarse el uno al otro, es mirar juntos en la misma dirección con el alma.",
+                    "Eres la casualidad más hermosa que llegó a darle sentido a todos mis días.",
+                    "En tu sonrisa encontré el refugio exacto donde siempre quise habitar."
+                ],
+                "Ternura": [
+                    "Tu mano encaja en la mía como si el universo la hubiera diseñado solo para sostenerla.",
+                    "Hay tanta paz en tu mirada que el mundo exterior simplemente desaparece.",
+                    "Cada caricia tuya es un poema silencioso escrito directo en mi piel."
+                ],
+                "Distancia": [
+                    "Aunque los kilómetros nos separen, mi pensamiento cruza el espacio para abrazarte cada segundo.",
+                    "La distancia es solo una prueba de cuánto puede amar el corazón sin tocarse.",
+                    "Te siento tan cerca en mis latidos que el mapa entre los dos pierde todo sentido."
+                ],
+                "Gratitud": [
+                    "Gracias por aparecer en mi vida y convertir lo ordinario en un recuerdo inolvidable.",
+                    "Mi mayor bendición tiene tu nombre, tu risa y tu forma tan noble de amar.",
+                    "Doy gracias a cada paso del camino que me condujo directo hacia tus brazos."
+                ],
+                "Pasión": [
+                    "Tu fuego enciende cada rincón de mi ser, convirtiendo la noche en pura magia.",
+                    "Bajo tu piel descubrí el latido exacto de la eternidad y el deseo.",
+                    "Nuestros cuerpos hablan un idioma secreto donde el tiempo se detiene por completo."
+                ]
+            };
 
-            quoteTextEl.style.opacity = '0';
+            let addedCount = 0;
+            categorias.forEach(cat => {
+                const arrayCat = bancoFrases[cat];
+                const randomText = arrayCat[Math.floor(Math.random() * arrayCat.length)];
+                
+                const newId = loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1;
+                loadedQuotes.push({
+                    id: newId + addedCount,
+                    fecha: date,
+                    texto: randomText,
+                    autor: "SoloParaUsted",
+                    categoria: cat
+                });
+                addedCount++;
+            });
+
+            loadedQuotes.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+            localStorage.setItem('soloparausted_historial', JSON.stringify(loadedQuotes));
+
+            document.getElementById('admin-feedback').textContent = `¡Lote de 5 frases creado y guardado en simultáneo con éxito!`;
+            renderHistory();
+
             setTimeout(() => {
-                quoteTextEl.textContent = `“${selectedQuote.texto}”`;
-                quoteCategoryEl.textContent = selectedQuote.categoria || 'Amor';
-                quoteTextEl.style.opacity = '1';
-            }, 200);
+                document.getElementById('admin-feedback').textContent = '';
+            }, 3500);
         }
 
-        /* ==========================================================================
-           MÓDULO 2: GENERADOR DE TARJETAS EN CANVAS (EXPORTAR PNG)
-           ========================================================================== */
-        function generateAndDownloadImage() {
-            const quoteText = document.getElementById('quote-text').textContent.replace(/^[“"']|["'”]$/g, '').trim();
-            const category = document.getElementById('quote-category').textContent;
-            
-            const canvas = document.getElementById('export-canvas');
-            const ctx = canvas.getContext('2d');
-            const width = canvas.width;
-            const height = canvas.height;
-
-            const isNight = document.documentElement.getAttribute('data-theme') === 'night';
-
-            // Colores de tarjeta según el tema actual
-            const bgGradientStart = isNight ? '#1D1016' : '#FFF5F7';
-            const bgGradientEnd = isNight ? '#2A1620' : '#FCEBF0';
-            const cardBg = isNight ? '#2D1A21' : '#FFFFFF';
-            const textColor = isNight ? '#FFF5F7' : '#6B3E48';
-            const accentColor = isNight ? '#E8B4C8' : '#D8A4B8';
-            const subTextColor = isNight ? '#E0C0CB' : '#8C6A72';
-
-            // 1. Fondo del lienzo
-            const grad = ctx.createLinearGradient(0, 0, width, height);
-            grad.addColorStop(0, bgGradientStart);
-            grad.addColorStop(1, bgGradientEnd);
-            ctx.fillStyle = grad;
-            ctx.fillRect(0, 0, width, height);
-
-            // 2. Tarjeta Interna Elegante
-            const padding = 80;
-            const cardX = padding;
-            const cardY = padding;
-            const cardWidth = width - (padding * 2);
-            const cardHeight = height - (padding * 2);
-            const radius = 40;
-
-            ctx.save();
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
-            ctx.shadowBlur = 40;
-            ctx.shadowOffsetY = 20;
-
-            ctx.beginPath();
-            ctx.moveTo(cardX + radius, cardY);
-            ctx.arcTo(cardX + cardWidth, cardY, cardX + cardWidth, cardY + cardHeight, radius);
-            ctx.arcTo(cardX + cardWidth, cardY + cardHeight, cardX, cardY + cardHeight, radius);
-            ctx.arcTo(cardX, cardY + cardHeight, cardX, cardY, radius);
-            ctx.arcTo(cardX, cardY, cardX + cardWidth, cardY, radius);
-            ctx.closePath();
-            ctx.fillStyle = cardBg;
-            ctx.fill();
-            ctx.restore();
-
-            // 3. Icono del Corazón
-            const centerX = width / 2;
-            const heartY = cardY + 130;
-            
-            ctx.save();
-            ctx.fillStyle = accentColor;
-            ctx.beginPath();
-            ctx.moveTo(centerX, heartY + 20);
-            ctx.bezierCurveTo(centerX, heartY + 17, centerX - 25, heartY, centerX - 25, heartY - 20);
-            ctx.bezierCurveTo(centerX - 25, heartY - 40, centerX, heartY - 40, centerX, heartY - 15);
-            ctx.bezierCurveTo(centerX, heartY - 40, centerX + 25, heartY - 40, centerX + 25, heartY - 20);
-            ctx.bezierCurveTo(centerX + 25, heartY, centerX, heartY + 17, centerX, heartY + 20);
-            ctx.fill();
-            ctx.restore();
-
-            // 4. Marca "SoloParaUsted"
-            ctx.fillStyle = textColor;
-            ctx.font = '600 42px "Cormorant Garamond", serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('SoloParaUsted', centerX, heartY + 80);
-
-            // 5. Categoría Badge
-            ctx.fillStyle = subTextColor;
-            ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
-            ctx.fillText(`— ${category.toUpperCase()} —`, centerX, heartY + 125);
-
-            // 6. Texto de la frase (Ajuste automático de texto)
-            ctx.fillStyle = textColor;
-            ctx.font = 'italic 500 48px "Cormorant Garamond", serif';
-            
-            const maxTextWidth = cardWidth - 140;
-            const words = quoteText.split(' ');
-            let line = '';
-            const lines = [];
-
-            for (let n = 0; n < words.length; n++) {
-                const testLine = line + words[n] + ' ';
-                const metrics = ctx.measureText(testLine);
-                if (metrics.width > maxTextWidth && n > 0) {
-                    lines.push(line.trim());
-                    line = words[n] + ' ';
-                } else {
-                    line = testLine;
-                }
-            }
-            lines.push(line.trim());
-
-            const lineHeight = 65;
-            const totalTextHeight = lines.length * lineHeight;
-            let startY = (height / 2) - (totalTextHeight / 2) + 60;
-
-            for (let k = 0; k < lines.length; k++) {
-                ctx.fillText(`“${lines[k]}”`, centerX, startY + (k * lineHeight));
-            }
-
-            // 7. Pie de la tarjeta
-            ctx.fillStyle = subTextColor;
-            ctx.font = '400 20px "Plus Jakarta Sans", sans-serif';
-            ctx.fillText('soloparausted.com', centerX, cardY + cardHeight - 70);
-
-            // Exportar a imagen y descargar
-            const imageURI = canvas.toDataURL('image/png');
-            const link = document.createElement('a');
-            link.download = `SoloParaUsted-${category}-${todayISO}.png`;
-            link.href = imageURI;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            showToast('✓ Imagen descargada lista para compartir');
-        }
-
-        /* ==========================================================================
-           ADMINISTRACIÓN Y NAVEGACIÓN
-           ========================================================================== */
+        // Navegación entre vistas
         function showAdmin(e) {
             e.preventDefault();
             const pass = prompt("Ingresa la clave de administrador:");
@@ -942,19 +633,20 @@
         }
 
         function showHome(e) {
-            if (e) e.preventDefault();
+            e.preventDefault();
             document.getElementById('admin-view').style.display = 'none';
             document.getElementById('home-view').style.display = 'flex';
-            renderQuote();
+            displayTodayQuote();
         }
 
+        // Guardar nueva frase individual
         function saveNewQuote() {
             const text = document.getElementById('new-quote-text').value.trim();
             const date = document.getElementById('new-quote-date').value;
             const category = document.getElementById('new-quote-category').value;
 
             if (!text || !date) {
-                alert("Por favor completa el texto de la frase y la fecha.");
+                alert("Por favor completa la frase y la fecha.");
                 return;
             }
 
@@ -962,17 +654,18 @@
                 id: loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1,
                 fecha: date,
                 texto: text,
+                autor: "SoloParaUsted",
                 categoria: category
             };
 
             loadedQuotes.push(newEntry);
             loadedQuotes.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
-            localStorage.setItem('soloparausted_frases', JSON.stringify(loadedQuotes));
+            localStorage.setItem('soloparausted_historial', JSON.stringify(loadedQuotes));
 
-            document.getElementById('admin-feedback').textContent = "¡Frase guardada con éxito!";
+            document.getElementById('admin-feedback').textContent = "¡Frase guardada en el historial independiente!";
             document.getElementById('new-quote-text').value = '';
-
+            
             renderHistory();
 
             setTimeout(() => {
@@ -980,6 +673,7 @@
             }, 3000);
         }
 
+        // Renderizar el historial independiente
         function renderHistory() {
             const historyList = document.getElementById('history-list');
             const totalCount = document.getElementById('total-count');
@@ -987,7 +681,7 @@
             totalCount.textContent = loadedQuotes.length;
 
             if (loadedQuotes.length === 0) {
-                historyList.innerHTML = '<p style="font-size: 0.85rem; color: var(--text-secondary); text-align: center; padding: 1rem;">No hay frases en el historial.</p>';
+                historyList.innerHTML = '<p style="font-size: 0.85rem; color: var(--texto-secundario); text-align: center; padding: 1rem;">La carpeta de historial está vacía.</p>';
                 return;
             }
 
@@ -1008,59 +702,129 @@
         }
 
         function deleteQuote(id) {
-            if (confirm("¿Estás seguro de que deseas eliminar esta frase?")) {
+            if (confirm("¿Estás seguro de que deseas eliminar esta frase de la carpeta de historial?")) {
                 loadedQuotes = loadedQuotes.filter(q => q.id !== id);
-                localStorage.setItem('soloparausted_frases', JSON.stringify(loadedQuotes));
+                localStorage.setItem('soloparausted_historial', JSON.stringify(loadedQuotes));
                 renderHistory();
-                showToast("Frase eliminada del historial");
+                showToast("Frase eliminada con éxito");
             }
         }
 
-        /* ==========================================================================
-           UTILIDADES (COPIAR Y COMPARTIR)
-           ========================================================================== */
-        function copyQuote() {
-            const text = document.getElementById('quote-text').textContent.trim();
-            const fullText = `${text} — SoloParaUsted`;
-
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(fullText).then(() => {
-                    showToast('✓ Frase copiada al portapapeles');
-                });
+        // Cambio de Tema (Modo Noche / Rosé Cream)
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('theme-btn');
+            if (body.getAttribute('data-theme') === 'rose') {
+                body.setAttribute('data-theme', 'midnight');
+                btn.textContent = '☀️ Modo Día';
+                localStorage.setItem('soloparausted_theme', 'midnight');
             } else {
-                const textArea = document.createElement('textarea');
-                textArea.value = fullText;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showToast('✓ Frase copiada al portapapeles');
+                body.setAttribute('data-theme', 'rose');
+                btn.textContent = '🌙 Modo Noche';
+                localStorage.setItem('soloparausted_theme', 'rose');
             }
+        }
+
+        // Cargar tema guardado
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('soloparausted_theme');
+            if (savedTheme === 'midnight') {
+                document.body.setAttribute('data-theme', 'midnight');
+                document.getElementById('theme-btn').textContent = '☀️ Modo Día';
+            }
+            loadQuotes();
+        });
+
+        // Copiar y Compartir
+        function copyQuote() {
+            const text = document.getElementById('quote-text').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("¡Frase copiada al portapapeles!");
+            });
         }
 
         function shareQuote() {
-            const text = document.getElementById('quote-text').textContent.trim();
-            const shareData = {
-                title: 'SoloParaUsted',
-                text: `${text} — Descubierto en SoloParaUsted:`,
-                url: window.location.href
-            };
-
+            const text = document.getElementById('quote-text').textContent + " ✨ — SoloParaUsted";
             if (navigator.share) {
-                navigator.share(shareData).catch(() => {});
+                navigator.share({ title: 'SoloParaUsted', text: text, url: window.location.href }).catch(() => {});
             } else {
-                const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`${text}\n\nDescubre más en: ${window.location.href}`)}`;
+                const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
                 window.open(whatsappUrl, '_blank');
             }
+        }
+
+        // Generador de Tarjetas Descargables HD (Canvas)
+        function downloadQuoteCard() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1080;
+            canvas.height = 1080;
+            const ctx = canvas.getContext('2d');
+
+            // Fondo
+            const isDark = document.body.getAttribute('data-theme') === 'midnight';
+            ctx.fillStyle = isDark ? '#2A1B20' : '#FFF5F7';
+            ctx.fillRect(0, 0, 1080, 1080);
+
+            // Tarjeta interior blanca/oscura
+            ctx.fillStyle = isDark ? '#362228' : '#FFFFFF';
+            ctx.shadowColor = 'rgba(107, 62, 72, 0.1)';
+            ctx.shadowBlur = 40;
+            ctx.beginPath();
+            ctx.roundRect(90, 90, 900, 900, 30);
+            ctx.fill();
+
+            // Texto de fecha
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = isDark ? '#D4A5B4' : '#8C6A72';
+            ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(todayFormatted.toUpperCase(), 540, 240);
+
+            // Frase principal
+            ctx.fillStyle = isDark ? '#F3D2DB' : '#6B3E48';
+            ctx.font = 'italic 48px "Cormorant Garamond", serif';
+            
+            const text = document.getElementById('quote-text').textContent;
+            wrapText(ctx, text, 540, 420, 720, 65);
+
+            // Footer / Logo Marca
+            ctx.fillStyle = isDark ? '#A66879' : '#D8A4B8';
+            ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText("SOLOPARAUSTED.COM", 540, 880);
+
+            // Descargar
+            const link = document.createElement('a');
+            link.download = `SoloParaUsted-${todayISO}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast("¡Imagen HD generada y descargada!");
+        }
+
+        function wrapText(context, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '';
+            let currentY = y;
+
+            for(let n = 0; n < words.length; n++) {
+                let testLine = line + words[n] + ' ';
+                let metrics = context.measureText(testLine);
+                let testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) {
+                    context.fillText(line, x, currentY);
+                    line = words[n] + ' ';
+                    currentY += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            context.fillText(line, x, currentY);
         }
 
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
         }
     </script>
 </body>
