@@ -39,7 +39,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
@@ -67,22 +67,38 @@
         nav {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1.2rem;
         }
 
-        nav a, .theme-toggle {
+        nav a {
             color: var(--texto-secundario);
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            background: none;
-            border: none;
-            cursor: pointer;
             transition: color 0.3s ease;
         }
 
-        nav a:hover, .theme-toggle:hover {
+        nav a:hover {
             color: var(--vino-suave);
+        }
+
+        /* Botón de tema minimalista solo con icono */
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--texto-secundario);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.4rem;
+            border-radius: 50%;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .icon-btn:hover {
+            color: var(--vino-suave);
+            transform: scale(1.1);
         }
 
         .main-container {
@@ -225,7 +241,7 @@
             border: none;
         }
 
-        /* Panel de Administración */
+        /* Panel de Administración Privado */
         .admin-panel {
             display: none;
             width: 100%;
@@ -282,18 +298,37 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Historial en Admin */
-        .history-section {
+        /* Sección Privada de la Carpeta Frases */
+        .private-folder-section {
             margin-top: 2.5rem;
             border-top: 1px solid var(--borde-suave);
             padding-top: 1.5rem;
         }
 
-        .history-section h3 {
+        .folder-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .folder-title {
             font-family: 'Cormorant Garamond', serif;
             color: var(--vino-suave);
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge-lock {
+            font-size: 0.7rem;
+            background: var(--rosa-empolvado);
+            color: var(--vino-suave);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
         }
 
         .history-list {
@@ -388,7 +423,13 @@
     <header>
         <div style="font-weight: 600; color: var(--vino-suave); letter-spacing: 0.5px;">SoloParaUsted</div>
         <nav>
-            <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">🌙 Modo Noche</button>
+            <!-- Botón del Tema solo con Icono SVG -->
+            <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="Cambiar Modo">
+                <!-- Icono de Luna por defecto (Modo Día activo) -->
+                <svg id="theme-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                </svg>
+            </button>
             <a href="#" onclick="showHome(event)">Inicio</a>
             <a href="#admin" onclick="showAdmin(event)">Administrador</a>
         </nav>
@@ -435,7 +476,7 @@
             </div>
         </div>
 
-        <!-- VISTA DE ADMINISTRADOR -->
+        <!-- VISTA DE ADMINISTRADOR PRIVADA -->
         <div id="admin-view" class="admin-panel">
             <h2>Panel de Creación e Historial</h2>
             
@@ -470,14 +511,20 @@
                     <option value="Pasión">Pasión</option>
                 </select>
             </div>
-            <button class="btn" onclick="saveNewQuote()" style="background-color: var(--vino-suave); color: var(--bg-tarjeta); width: 100%; justify-content: center;">Guardar Frase en Carpeta de Historial</button>
+            <button class="btn" onclick="saveNewQuote()" style="background-color: var(--vino-suave); color: var(--bg-tarjeta); width: 100%; justify-content: center;">Guardar Frase en Carpeta "frases"</button>
             <p id="admin-feedback" style="font-size: 0.8rem; color: var(--texto-secundario); margin-top: 1rem; text-align: center;"></p>
 
-            <!-- SECCIÓN DE HISTORIAL INDEPENDIENTE -->
-            <div class="history-section">
-                <h3>📁 Historial de la Carpeta de Datos (<span id="total-count">0</span>)</h3>
+            <!-- CARPETA PRIVADA "FRASES" (Historial Privado Protegido) -->
+            <div class="private-folder-section">
+                <div class="folder-header">
+                    <div class="folder-title">
+                        📁 Carpeta Privada: /frases/ 
+                        <span class="badge-lock">🔒 Acceso Privado</span>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--texto-secundario); font-weight: 600;" id="total-count">0</span>
+                </div>
                 <div class="history-list" id="history-list">
-                    <!-- Las frases se cargan aquí dinámicamente -->
+                    <!-- Se carga en tiempo de ejecución solo tras la autenticación de clave -->
                 </div>
             </div>
         </div>
@@ -500,22 +547,23 @@
 
         let loadedQuotes = [];
         let currentCategoryFilter = 'Todas';
+        let isAdminAuthenticated = false;
 
-        // Cargar historial desde la carpeta de datos independiente o localStorage
+        // Cargar historial desde la carpeta privada de datos "frases/historial.json"
         async function loadQuotes() {
             try {
-                // Intentar cargar desde la carpeta data/historial.json independiente
-                const response = await fetch('data/historial.json');
+                // Intentar buscar la carpeta estática privada
+                const response = await fetch('frases/historial.json');
                 if (response.ok) {
                     const data = await response.json();
                     loadedQuotes = data.frases;
-                    localStorage.setItem('soloparausted_historial', JSON.stringify(loadedQuotes));
+                    localStorage.setItem('soloparausted_frases_private', JSON.stringify(loadedQuotes));
                 } else {
-                    throw new Error("No se encontró el archivo en data/");
+                    throw new Error("Carpeta frases/ no disponible públicamente");
                 }
             } catch (error) {
-                // Respaldo en localStorage de la carpeta de historial
-                const localStored = localStorage.getItem('soloparausted_historial');
+                // Respaldo privado en localStorage
+                const localStored = localStorage.getItem('soloparausted_frases_private');
                 if (localStored) {
                     loadedQuotes = JSON.parse(localStored);
                 } else {
@@ -526,7 +574,6 @@
                 }
             }
             displayTodayQuote();
-            renderHistory();
         }
 
         function displayTodayQuote() {
@@ -557,6 +604,8 @@
 
         // Generar lote simultáneo de 5 frases (una por categoría)
         function generateBatchQuotes() {
+            if (!isAdminAuthenticated) return;
+
             const date = document.getElementById('batch-date').value;
             if (!date) {
                 alert("Selecciona una fecha válida.");
@@ -609,26 +658,34 @@
             });
 
             loadedQuotes.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
-            localStorage.setItem('soloparausted_historial', JSON.stringify(loadedQuotes));
+            localStorage.setItem('soloparausted_frases_private', JSON.stringify(loadedQuotes));
 
-            document.getElementById('admin-feedback').textContent = `¡Lote de 5 frases creado y guardado en simultáneo con éxito!`;
-            renderHistory();
+            document.getElementById('admin-feedback').textContent = `¡Lote de 5 frases creado y guardado en la carpeta /frases/ en simultáneo!`;
+            renderPrivateHistory();
 
             setTimeout(() => {
                 document.getElementById('admin-feedback').textContent = '';
             }, 3500);
         }
 
-        // Navegación entre vistas
+        // Navegación entre vistas protegida con Clave de Administrador
         function showAdmin(e) {
             e.preventDefault();
-            const pass = prompt("Ingresa la clave de administrador:");
-            if (pass === "1234") {
+            if (isAdminAuthenticated) {
                 document.getElementById('home-view').style.display = 'none';
                 document.getElementById('admin-view').style.display = 'block';
-                renderHistory();
+                renderPrivateHistory();
+                return;
+            }
+
+            const pass = prompt("🔐 Acceso Privado. Ingresa la clave de administrador:");
+            if (pass === "1234") { // Clave de acceso privada
+                isAdminAuthenticated = true;
+                document.getElementById('home-view').style.display = 'none';
+                document.getElementById('admin-view').style.display = 'block';
+                renderPrivateHistory();
             } else if (pass !== null) {
-                alert("Clave incorrecta.");
+                alert("Acceso denegado. Clave incorrecta.");
             }
         }
 
@@ -639,8 +696,10 @@
             displayTodayQuote();
         }
 
-        // Guardar nueva frase individual
+        // Guardar nueva frase en la carpeta privada /frases/
         function saveNewQuote() {
+            if (!isAdminAuthenticated) return;
+
             const text = document.getElementById('new-quote-text').value.trim();
             const date = document.getElementById('new-quote-date').value;
             const category = document.getElementById('new-quote-category').value;
@@ -661,27 +720,29 @@
             loadedQuotes.push(newEntry);
             loadedQuotes.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
-            localStorage.setItem('soloparausted_historial', JSON.stringify(loadedQuotes));
+            localStorage.setItem('soloparausted_frases_private', JSON.stringify(loadedQuotes));
 
-            document.getElementById('admin-feedback').textContent = "¡Frase guardada en el historial independiente!";
+            document.getElementById('admin-feedback').textContent = "¡Frase guardada con éxito en la carpeta privada /frases/!";
             document.getElementById('new-quote-text').value = '';
             
-            renderHistory();
+            renderPrivateHistory();
 
             setTimeout(() => {
                 document.getElementById('admin-feedback').textContent = '';
             }, 3000);
         }
 
-        // Renderizar el historial independiente
-        function renderHistory() {
+        // Renderizar el historial de la carpeta privada /frases/
+        function renderPrivateHistory() {
+            if (!isAdminAuthenticated) return;
+
             const historyList = document.getElementById('history-list');
             const totalCount = document.getElementById('total-count');
             historyList.innerHTML = '';
-            totalCount.textContent = loadedQuotes.length;
+            totalCount.textContent = `${loadedQuotes.length} frases`;
 
             if (loadedQuotes.length === 0) {
-                historyList.innerHTML = '<p style="font-size: 0.85rem; color: var(--texto-secundario); text-align: center; padding: 1rem;">La carpeta de historial está vacía.</p>';
+                historyList.innerHTML = '<p style="font-size: 0.85rem; color: var(--texto-secundario); text-align: center; padding: 1rem;">La carpeta privada /frases/ está vacía.</p>';
                 return;
             }
 
@@ -702,35 +763,40 @@
         }
 
         function deleteQuote(id) {
-            if (confirm("¿Estás seguro de que deseas eliminar esta frase de la carpeta de historial?")) {
+            if (!isAdminAuthenticated) return;
+
+            if (confirm("¿Estás seguro de que deseas eliminar esta frase de la carpeta privada /frases/?")) {
                 loadedQuotes = loadedQuotes.filter(q => q.id !== id);
-                localStorage.setItem('soloparausted_historial', JSON.stringify(loadedQuotes));
-                renderHistory();
-                showToast("Frase eliminada con éxito");
+                localStorage.setItem('soloparausted_frases_private', JSON.stringify(loadedQuotes));
+                renderPrivateHistory();
+                showToast("Frase eliminada de la carpeta /frases/");
             }
         }
 
-        // Cambio de Tema (Modo Noche / Rosé Cream)
+        // Cambio de Tema (Modo Noche / Día con Iconos Exclusivos)
         function toggleTheme() {
             const body = document.body;
-            const btn = document.getElementById('theme-btn');
+            const themeIcon = document.getElementById('theme-icon');
+            
             if (body.getAttribute('data-theme') === 'rose') {
                 body.setAttribute('data-theme', 'midnight');
-                btn.textContent = '☀️ Modo Día';
+                // Icono de Sol SVG para cambiar a Día
+                themeIcon.innerHTML = `<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>`;
                 localStorage.setItem('soloparausted_theme', 'midnight');
             } else {
                 body.setAttribute('data-theme', 'rose');
-                btn.textContent = '🌙 Modo Noche';
+                // Icono de Luna SVG para cambiar a Noche
+                themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>`;
                 localStorage.setItem('soloparausted_theme', 'rose');
             }
         }
 
-        // Cargar tema guardado
+        // Cargar tema e inicialización
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('soloparausted_theme');
             if (savedTheme === 'midnight') {
                 document.body.setAttribute('data-theme', 'midnight');
-                document.getElementById('theme-btn').textContent = '☀️ Modo Día';
+                document.getElementById('theme-icon').innerHTML = `<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>`;
             }
             loadQuotes();
         });
@@ -760,12 +826,10 @@
             canvas.height = 1080;
             const ctx = canvas.getContext('2d');
 
-            // Fondo
             const isDark = document.body.getAttribute('data-theme') === 'midnight';
             ctx.fillStyle = isDark ? '#2A1B20' : '#FFF5F7';
             ctx.fillRect(0, 0, 1080, 1080);
 
-            // Tarjeta interior blanca/oscura
             ctx.fillStyle = isDark ? '#362228' : '#FFFFFF';
             ctx.shadowColor = 'rgba(107, 62, 72, 0.1)';
             ctx.shadowBlur = 40;
@@ -773,26 +837,22 @@
             ctx.roundRect(90, 90, 900, 900, 30);
             ctx.fill();
 
-            // Texto de fecha
             ctx.shadowBlur = 0;
             ctx.fillStyle = isDark ? '#D4A5B4' : '#8C6A72';
             ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText(todayFormatted.toUpperCase(), 540, 240);
 
-            // Frase principal
             ctx.fillStyle = isDark ? '#F3D2DB' : '#6B3E48';
             ctx.font = 'italic 48px "Cormorant Garamond", serif';
             
             const text = document.getElementById('quote-text').textContent;
             wrapText(ctx, text, 540, 420, 720, 65);
 
-            // Footer / Logo Marca
             ctx.fillStyle = isDark ? '#A66879' : '#D8A4B8';
             ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
             ctx.fillText("SOLOPARAUSTED.COM", 540, 880);
 
-            // Descargar
             const link = document.createElement('a');
             link.download = `SoloParaUsted-${todayISO}.png`;
             link.href = canvas.toDataURL('image/png');
