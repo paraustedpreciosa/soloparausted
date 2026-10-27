@@ -175,6 +175,34 @@
             line-height: 1.1;
         }
 
+        /* 🌙 Banner Recordatorio Nocturno Sutil */
+        .night-reminder {
+            display: none;
+            background: var(--bg-tarjeta);
+            border: 1px solid var(--borde-suave);
+            padding: 0.6rem 1rem;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            color: var(--vino-suave);
+            margin-bottom: 1rem;
+            box-shadow: var(--sombra-elegante);
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(5px);
+            z-index: 2;
+        }
+
+        .night-reminder button {
+            background: var(--rosa-empolvado);
+            border: none;
+            color: var(--vino-suave);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
         /* 🎛️ Barra de Opciones Superior */
         .top-tools-bar {
             display: flex;
@@ -315,7 +343,6 @@
             gap: 0.4rem;
         }
 
-        /* Botón Estilizado Minimalista (Zen & Sorpresa) */
         .zen-btn {
             background: none;
             border: none;
@@ -354,6 +381,21 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 0.5rem;
+        }
+
+        /* Insignia de Carta Especial (Módulo de Carta) */
+        .letter-badge {
+            display: none;
+            background: linear-gradient(135deg, var(--vino-suave), var(--rosa-acento));
+            color: var(--bg-tarjeta);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
         }
 
         .fav-btn {
@@ -456,6 +498,64 @@
             background-color: var(--vino-suave);
             color: var(--bg-tarjeta);
             border: none;
+        }
+
+        /* Modal / Vista de Carta Completa */
+        .letter-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .letter-modal-content {
+            background: var(--bg-tarjeta);
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: var(--sombra-elegante);
+            border: 1px solid var(--borde-suave);
+            text-align: left;
+            position: relative;
+        }
+
+        .letter-modal-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--vino-suave);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--borde-suave);
+            padding-bottom: 0.5rem;
+        }
+
+        .letter-modal-body {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--vino-suave);
+            white-space: pre-line;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--texto-secundario);
+            cursor: pointer;
         }
 
         /* Panel de Administración */
@@ -654,7 +754,7 @@
     </header>
 
     <div class="main-container">
-        <!-- VISTA PRINCIPAL: FRASE DEL DÍA -->
+        <!-- VISTA PRINCIPAL -->
         <div id="home-view" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             <div class="logo-container" id="zen-logo">
                 <svg class="logo-svg" viewBox="0 0 24 24">
@@ -663,15 +763,19 @@
                 <h1 class="logo-title">SoloParaUsted</h1>
             </div>
 
-            <!-- 🎛️ BARRA DE HERRAMIENTAS SUPERIOR -->
+            <!-- 🌙 RECORDATORIO NOCTURNO SUTIL -->
+            <div class="night-reminder" id="night-reminder-banner">
+                <span>🌙 Es hora nocturna, ¿activamos el modo Midnight?</span>
+                <button onclick="enableNightModeFromBanner()">Activar</button>
+            </div>
+
+            <!-- BARRA DE HERRAMIENTAS -->
             <div class="top-tools-bar" id="zen-tools">
-                <!-- Selector de Tipografía -->
                 <select class="tool-select" id="font-selector" onchange="changeFontFamily(this.value)" title="Estilo de Fuente">
                     <option value="Cormorant Garamond">Cormorant (Clásica)</option>
                     <option value="Playfair Display">Playfair (Elegante)</option>
                     <option value="Plus Jakarta Sans">Jakarta (Moderna)</option>
                 </select>
-                <!-- Selector de Paleta de Colores -->
                 <select class="tool-select" id="theme-selector" onchange="changeColorPalette(this.value)" title="Paleta de Colores">
                     <option value="rose">Rosé Cream</option>
                     <option value="midnight">Midnight Rose</option>
@@ -680,7 +784,7 @@
                 </select>
             </div>
 
-            <!-- 📅 Módulo de Calendario Manual -->
+            <!-- CALENDARIO -->
             <div class="calendar-bar" id="zen-calendar">
                 <button class="cal-btn" onclick="changeDay(-1)" title="Día anterior">‹</button>
                 <input type="date" id="calendar-picker" onchange="onCalendarChange()">
@@ -688,7 +792,7 @@
                 <button class="cal-btn" onclick="resetToToday()" title="Ir a hoy" style="font-size: 0.65rem; font-weight: 600; width: auto; padding: 0 0.5rem; border-radius: 10px;">Hoy</button>
             </div>
 
-            <!-- Categorías / Filtros -->
+            <!-- CATEGORÍAS -->
             <div class="categories-nav" id="zen-categories">
                 <button class="cat-chip active" onclick="filterCategory('Todas')">Todas</button>
                 <button class="cat-chip" onclick="filterCategory('Amor')">Amor</button>
@@ -701,24 +805,22 @@
 
             <div class="quote-card" id="quote-card">
                 <div class="milestone-badge" id="milestone-badge">✨ Fecha Especial</div>
+                <!-- Insignia de Carta Especial -->
+                <div class="letter-badge" id="letter-badge" onclick="openLetterModal()">💌 Carta Especial — Leer</div>
                 
                 <div class="quote-header-info">
                     <div class="quote-date" id="current-date">Cargando fecha...</div>
                     <div class="header-actions-right">
-                        <!-- Botón Sorpresa Estilizado (Estrella/Destello Minimalista) -->
                         <button class="zen-btn" onclick="getRandomSurpriseQuote()" title="Frase Sorpresa Aleatoria">
                             <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/></svg>
                         </button>
-                        <!-- Botón Modo Zen -->
                         <button class="zen-btn" onclick="toggleZenMode()" id="zen-toggle-btn" title="Modo Enfoque / Zen">
                             <svg viewBox="0 0 24 24" fill="none"><path d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </button>
-                        <!-- Botón Favorito -->
                         <button class="fav-btn" id="current-fav-btn" onclick="toggleCurrentFavorite()" title="Marcar como favorito">❤️</button>
                     </div>
                 </div>
                 
-                <!-- Carrusel de Frases -->
                 <div class="carousel-container">
                     <button class="carousel-btn" id="prev-btn" onclick="prevCarousel()" style="display:none;">‹</button>
                     <div class="quote-text" id="quote-text">"Cargando frase con amor..."</div>
@@ -743,6 +845,15 @@
             </div>
         </div>
 
+        <!-- MODAL DE CARTA -->
+        <div class="letter-modal" id="letter-modal">
+            <div class="letter-modal-content">
+                <button class="close-modal-btn" onclick="closeLetterModal()">×</button>
+                <div class="letter-modal-title" id="letter-modal-title">Carta Especial</div>
+                <div class="letter-modal-body" id="letter-modal-body">Contenido de la carta...</div>
+            </div>
+        </div>
+
         <!-- VISTA DE ADMINISTRADOR -->
         <div id="admin-view" class="admin-panel">
             <h2>Panel de Creación</h2>
@@ -760,6 +871,13 @@
             <div class="form-group" style="background: var(--bg-rosa-suave); padding: 1rem; border-radius: 12px; border: 1px solid var(--borde-suave);">
                 <label style="font-weight: 600; color: var(--vino-suave);">✨ Registrar como Fecha Especial (Hito)</label>
                 <input type="text" id="milestone-title-input" placeholder="Ej: Aniversario, Nuestro Primer Beso..." style="margin-top: 0.4rem;">
+            </div>
+
+            <!-- Redacción de Carta Dedicatoria -->
+            <div class="form-group" style="background: var(--bg-rosa-suave); padding: 1rem; border-radius: 12px; border: 1px solid var(--borde-suave); margin-top: 1rem;">
+                <label style="font-weight: 600; color: var(--vino-suave);">💌 Escribir Carta Especial (Dedicatoria Larga)</label>
+                <input type="text" id="letter-title-input" placeholder="Título de la carta (Ej: Para el amor de mi vida)" style="margin-top: 0.4rem; margin-bottom: 0.6rem;">
+                <textarea id="letter-text-input" rows="4" placeholder="Escribe tu carta o mensaje largo aquí..."></textarea>
             </div>
 
             <hr style="border: none; border-top: 1px solid var(--borde-suave); margin: 1.2rem 0;">
@@ -812,6 +930,7 @@
     <script>
         const STORAGE_KEY = 'soloparausted_frases_db_v3';
         const MILESTONES_KEY = 'soloparausted_milestones_db';
+        const LETTERS_KEY = 'soloparausted_letters_db';
         const todayISO = new Date().toISOString().split('T')[0];
         let selectedDate = todayISO;
         let isAdminAuthenticated = false;
@@ -823,6 +942,7 @@
 
         let loadedQuotes = [];
         let savedMilestones = {};
+        let savedLetters = {};
         let currentCategoryFilter = 'Todas';
         let currentCarouselIndex = 0;
 
@@ -834,7 +954,7 @@
             },
             "Ternura": {
                 inicios: ["Tu mano encaja en la mía,", "Hay una paz infinita en tu mirada,", "Cada caricia tuya es un poema silencioso,", "Abrazarte suavemente al atardecer,", "Tienes la dulzura exacta que,", "En la sutileza de tu voz encuentro,", "Cuidarte y verte sonreír con tranquilidad,", "Tu ternura es el manto más cálido,", "En la pausa suave de tus labios,", "Tus gestos pequeños y sinceros,"],
-                centros: ["como si el universo la hubiera diseñado solo para sostenerla,", "que hace que el ruido del mundo exterior simplemente desaparezca,", "escrito con la paciencia más noble directo en mi piel,", "es sentir que todo en mi vida vuelve a estar en su lugar,", "transforma cualquier día gris en una mañana serena y tibia,", "el descanso más profundo que mi alma necesitó siempre,", "se ha convertido en mi forma preferida de celebrar la vida,", "que protege a mi corazón de cualquier tormenta inesperada,", "habita la promesa más pura de un cariño verdadero,", "revelan la grandeza de un sentimiento que no pide nada a cambio,"],
+                centros: ["como si el universo la hubiera设计的 solo para sostenerla,", "que hace que el ruido del mundo exterior simplemente desaparezca,", "escrito con la paciencia más noble directo en mi piel,", "es sentir que todo en mi vida vuelve a estar en su lugar,", "transforma cualquier día gris en una mañana serena y tibia,", "el descanso más profundo que mi alma necesitó siempre,", "se ha convertido en mi forma preferida de celebrar la vida,", "que protege a mi corazón de cualquier tormenta inesperada,", "habita la promesa más pura de un cariño verdadero,", "revelan la grandeza de un sentimiento que no pide nada a cambio,"],
                 finales: ["brindándome una seguridad dulce en cada paso.", "dejando únicamente un silencio lleno de amor puro.", "con la delicadeza de quien sabe amar de verdad.", "reparando cualquier rincón que antes estuvo en penumbras.", "iluminando el presente con una luz tierna y única.", "renovando la esperanza en cada pequeño amanecer.", "guardando tu alegría como el tesoro más valioso.", "creando un hogar seguro en medio del caos del mundo.", "donde el tiempo se detiene con infinita gentileza.", "escribiendo recuerdos dulces que jamás se borrarán."]
             },
             "Distancia": {
@@ -858,6 +978,7 @@
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(loadedQuotes));
                 localStorage.setItem(MILESTONES_KEY, JSON.stringify(savedMilestones));
+                localStorage.setItem(LETTERS_KEY, JSON.stringify(savedLetters));
             } catch (e) {
                 console.error("Error al guardar:", e);
             }
@@ -866,12 +987,16 @@
         function loadQuotes() {
             const rawData = localStorage.getItem(STORAGE_KEY);
             const rawMilestones = localStorage.getItem(MILESTONES_KEY);
+            const rawLetters = localStorage.getItem(LETTERS_KEY);
             
             if (rawData) {
                 try { loadedQuotes = JSON.parse(rawData); } catch(e) { loadedQuotes = []; }
             }
             if (rawMilestones) {
                 try { savedMilestones = JSON.parse(rawMilestones); } catch(e) { savedMilestones = {}; }
+            }
+            if (rawLetters) {
+                try { savedLetters = JSON.parse(rawLetters); } catch(e) { savedLetters = {}; }
             }
             
             if (!loadedQuotes || loadedQuotes.length === 0) {
@@ -882,6 +1007,24 @@
                 saveToStorage();
             }
             updateViewDate();
+            checkNightReminder();
+        }
+
+        /* MÓDULO: RECORDATORIO NOCTURNO SUTIL */
+        function checkNightReminder() {
+            const currentHour = new Date().getHours();
+            const currentTheme = localStorage.getItem('soloparausted_palette');
+            // Si es después de las 20:00 y no está activo el tema midnight
+            if (currentHour >= 20 && currentTheme !== 'midnight') {
+                document.getElementById('night-reminder-banner').style.display = 'flex';
+            }
+        }
+
+        function enableNightModeFromBanner() {
+            changeColorPalette('midnight');
+            document.getElementById('theme-selector').value = 'midnight';
+            document.getElementById('night-reminder-banner').style.display = 'none';
+            showToast("🌙 Modo Midnight activado");
         }
 
         function updateViewDate() {
@@ -897,6 +1040,14 @@
                 milestoneBadge.style.display = 'inline-block';
             } else {
                 milestoneBadge.style.display = 'none';
+            }
+
+            const letterBadge = document.getElementById('letter-badge');
+            if (savedLetters[selectedDate]) {
+                letterBadge.textContent = `💌 ${savedLetters[selectedDate].title || 'Carta Especial'} — Leer`;
+                letterBadge.style.display = 'inline-block';
+            } else {
+                letterBadge.style.display = 'none';
             }
 
             currentCarouselIndex = 0;
@@ -1033,6 +1184,19 @@
             showToast(`✨ Frase sorpresa [${randomQuote.categoria}]`);
         }
 
+        /* MODAL DE CARTA */
+        function openLetterModal() {
+            const letter = savedLetters[selectedDate];
+            if (!letter) return;
+            document.getElementById('letter-modal-title').textContent = letter.title || 'Carta Especial';
+            document.getElementById('letter-modal-body').textContent = letter.text;
+            document.getElementById('letter-modal').style.display = 'flex';
+        }
+
+        function closeLetterModal() {
+            document.getElementById('letter-modal').style.display = 'none';
+        }
+
         function toggleZenMode() {
             isZenModeActive = !isZenModeActive;
             const logo = document.getElementById('zen-logo');
@@ -1043,8 +1207,10 @@
             const header = document.getElementById('main-header');
             const footer = document.getElementById('main-footer');
             const zenBtn = document.getElementById('zen-toggle-btn');
+            const reminder = document.getElementById('night-reminder-banner');
 
             if (isZenModeActive) {
+                if (reminder) reminder.style.display = 'none';
                 logo.style.opacity = '0';
                 logo.style.height = '0';
                 logo.style.overflow = 'hidden';
@@ -1069,6 +1235,7 @@
                 zenBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
                 showToast("Modo Zen activado (Lectura pura)");
             } else {
+                checkNightReminder();
                 logo.style.opacity = '1';
                 logo.style.height = 'auto';
                 logo.style.overflow = 'visible';
@@ -1098,6 +1265,8 @@
         function generateBatchQuotes() {
             const date = document.getElementById('batch-date').value;
             const milestoneText = document.getElementById('milestone-title-input').value.trim();
+            const letterTitle = document.getElementById('letter-title-input').value.trim();
+            const letterText = document.getElementById('letter-text-input').value.trim();
 
             if (!date) {
                 alert("Por favor selecciona una fecha válida.");
@@ -1107,6 +1276,12 @@
             if (milestoneText) {
                 savedMilestones[date] = milestoneText;
                 document.getElementById('milestone-title-input').value = '';
+            }
+
+            if (letterText) {
+                savedLetters[date] = { title: letterTitle || 'Nuestra Carta', text: letterText };
+                document.getElementById('letter-title-input').value = '';
+                document.getElementById('letter-text-input').value = '';
             }
 
             const categorias = ["Amor", "Ternura", "Distancia", "Gratitud", "Pasión"];
@@ -1141,7 +1316,7 @@
             });
 
             saveToStorage();
-            document.getElementById('admin-feedback').textContent = "¡Lote de 5 frases y hito guardados con éxito!";
+            document.getElementById('admin-feedback').textContent = "¡Lote de 5 frases, hito y carta guardados con éxito!";
             selectedDate = date;
             updateViewDate();
             renderFolderHistory();
@@ -1196,6 +1371,8 @@
             const date = document.getElementById('new-quote-date').value;
             const category = document.getElementById('new-quote-category').value;
             const milestoneText = document.getElementById('milestone-title-input').value.trim();
+            const letterTitle = document.getElementById('letter-title-input').value.trim();
+            const letterText = document.getElementById('letter-text-input').value.trim();
 
             if (!text || !date) {
                 alert("Por favor completa la frase y la fecha.");
@@ -1205,6 +1382,12 @@
             if (milestoneText) {
                 savedMilestones[date] = milestoneText;
                 document.getElementById('milestone-title-input').value = '';
+            }
+
+            if (letterText) {
+                savedLetters[date] = { title: letterTitle || 'Nuestra Carta', text: letterText };
+                document.getElementById('letter-title-input').value = '';
+                document.getElementById('letter-text-input').value = '';
             }
 
             const newEntry = {
