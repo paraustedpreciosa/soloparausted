@@ -7,7 +7,7 @@
     <!-- Google Fonts: Cormorant Garamond (Serif elegante) y Plus Jakarta Sans (Sans-serif limpia) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -21,8 +21,6 @@
             --borde-suave: rgba(216, 164, 184, 0.25);
             --sombra-elegante: 0 10px 30px rgba(107, 62, 72, 0.05);
             --rojo-suave: #D96868;
-            --carpeta-bg: #FFE5EC;
-            --carpeta-borde: #F2AEC1;
         }
 
         [data-theme="midnight"] {
@@ -35,15 +33,13 @@
             --texto-secundario: #D4A5B4;
             --borde-suave: rgba(166, 104, 121, 0.3);
             --sombra-elegante: 0 10px 30px rgba(0, 0, 0, 0.3);
-            --carpeta-bg: #422930;
-            --carpeta-borde: #6E414F;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
@@ -69,31 +65,22 @@
             padding-bottom: 1.5rem;
         }
 
-        .brand-logo {
-            font-weight: 700;
-            color: var(--vino-suave);
-            letter-spacing: 0.5px;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
         nav {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            gap: 1rem;
         }
 
         nav a {
             color: var(--texto-secundario);
             text-decoration: none;
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 500;
             transition: color 0.3s ease;
+            cursor: pointer;
         }
 
-        nav a:hover, nav a.active {
+        nav a:hover {
             color: var(--vino-suave);
         }
 
@@ -110,7 +97,6 @@
             transition: color 0.3s ease, transform 0.2s ease;
             min-width: 40px;
             min-height: 40px;
-            touch-action: manipulation;
         }
 
         .icon-btn:hover {
@@ -164,10 +150,9 @@
             color: var(--texto-secundario);
             margin-top: 0.4rem;
             margin-bottom: 1.2rem;
-            font-weight: 600;
         }
 
-        /* 📅 Calendario Manual Responsivo */
+        /* 📅 Módulo de Calendario Manual */
         .calendar-bar {
             display: flex;
             align-items: center;
@@ -180,7 +165,6 @@
             box-shadow: var(--sombra-elegante);
             margin-bottom: 1.2rem;
             max-width: 100%;
-            flex-wrap: wrap;
         }
 
         .calendar-bar input[type="date"] {
@@ -207,15 +191,14 @@
             justify-content: center;
             cursor: pointer;
             font-size: 0.9rem;
-            transition: background 0.2s, transform 0.1s;
-            touch-action: manipulation;
+            transition: background 0.2s;
         }
 
         .cal-btn:hover {
             background-color: var(--rosa-empolvado);
         }
 
-        /* Categorías / Filtros Adaptativos */
+        /* Categorías / Filtros */
         .categories-nav {
             display: flex;
             justify-content: center;
@@ -234,10 +217,9 @@
             border-radius: 20px;
             font-size: clamp(0.75rem, 2vw, 0.8rem);
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 500;
             transition: all 0.3s ease;
             white-space: nowrap;
-            touch-action: manipulation;
         }
 
         .cat-chip.active, .cat-chip:hover {
@@ -246,7 +228,7 @@
             border-color: var(--rosa-acento);
         }
 
-        /* Tarjeta de Frase */
+        /* Tarjeta de Frase Minimalista */
         .quote-card {
             background-color: var(--bg-tarjeta);
             width: 100%;
@@ -258,16 +240,44 @@
             margin-bottom: 1.5rem;
         }
 
+        .quote-header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
         .quote-date {
             font-size: clamp(0.75rem, 2vw, 0.85rem);
             color: var(--texto-secundario);
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-bottom: 1rem;
-            font-weight: 600;
+            font-weight: 500;
         }
 
-        /* Controles de Carrusel */
+        /* Botón de Favorito (Corazón ❤️) */
+        .fav-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.4rem;
+            color: var(--rosa-acento);
+            transition: transform 0.2s ease, color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.3rem;
+        }
+
+        .fav-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .fav-btn.active {
+            color: var(--rojo-suave);
+        }
+
+        /* Carrusel de Frases */
         .carousel-container {
             position: relative;
             display: flex;
@@ -285,15 +295,13 @@
             font-size: 2.2rem;
             cursor: pointer;
             padding: 0.5rem;
-            transition: color 0.2s, transform 0.2s;
+            transition: color 0.2s;
             user-select: none;
-            touch-action: manipulation;
             line-height: 1;
         }
 
         .carousel-btn:hover {
             color: var(--vino-suave);
-            transform: scale(1.15);
         }
 
         .quote-text {
@@ -331,7 +339,7 @@
             border-radius: 50px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: clamp(0.8rem, 2vw, 0.85rem);
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
@@ -339,9 +347,8 @@
             gap: 0.5rem;
             transition: all 0.3s ease;
             text-decoration: none;
-            touch-action: manipulation;
             flex: 1 1 auto;
-            min-width: 130px;
+            min-width: 120px;
         }
 
         .btn:hover {
@@ -385,7 +392,7 @@
             font-size: 0.85rem;
             color: var(--texto-secundario);
             margin-bottom: 0.4rem;
-            font-weight: 600;
+            font-weight: 500;
         }
 
         .form-group textarea, .form-group input, .form-group select {
@@ -408,82 +415,61 @@
             margin-bottom: 1.5rem;
         }
 
-        /* 📁 Carpeta Estilo Sistema Operativo (Cerrada / Desplegable) */
+        /* Carpeta Pública Estilo Dispositivo Cerrada */
         .folder-section {
             margin-top: 2rem;
             border-top: 1px solid var(--borde-suave);
-            padding-top: 1.5rem;
+            padding-top: 1.2rem;
         }
 
-        .folder-wrapper {
-            background: var(--carpeta-bg);
-            border: 2px dashed var(--carpeta-borde);
-            border-radius: 16px;
-            padding: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .folder-wrapper:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-        }
-
-        .folder-header-ui {
+        .folder-card-os {
+            background: var(--bg-rosa-suave);
+            border: 1px solid var(--borde-suave);
+            border-radius: 14px;
+            padding: 1rem 1.2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
-        .folder-icon-title {
+        .folder-card-os:hover {
+            background-color: var(--rosa-empolvado);
+        }
+
+        .folder-info-os {
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            font-family: 'Cormorant Garamond', serif;
-            color: var(--vino-suave);
-            font-size: 1.4rem;
+        }
+
+        .folder-icon {
+            font-size: 1.5rem;
+        }
+
+        .folder-name {
             font-weight: 600;
+            color: var(--vino-suave);
+            font-size: 0.95rem;
         }
 
-        .folder-svg {
-            width: 36px;
-            height: 36px;
-            fill: var(--rosa-acento);
-            transition: transform 0.3s ease;
-        }
-
-        .folder-status-badge {
+        .folder-status {
             font-size: 0.75rem;
-            background: var(--bg-tarjeta);
-            color: var(--vino-suave);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 600;
-            border: 1px solid var(--borde-suave);
+            color: var(--texto-secundario);
         }
 
-        .folder-content {
+        .folder-contents {
             display: none;
-            margin-top: 1.2rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--borde-suave);
-            cursor: default;
-        }
-
-        .folder-content.open {
-            display: block;
-        }
-
-        .history-list {
-            max-height: 280px;
+            margin-top: 1rem;
+            max-height: 250px;
             overflow-y: auto;
-            display: flex;
             flex-direction: column;
             gap: 0.75rem;
-            padding-right: 0.3rem;
+        }
+
+        .folder-contents.open {
+            display: flex;
         }
 
         .history-item {
@@ -505,7 +491,7 @@
         .history-date {
             font-size: 0.75rem;
             color: var(--texto-secundario);
-            font-weight: 700;
+            font-weight: 600;
             margin-bottom: 0.2rem;
             text-transform: uppercase;
         }
@@ -522,14 +508,13 @@
             color: var(--rojo-suave);
             cursor: pointer;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 500;
             padding: 0.3rem 0.5rem;
             border-radius: 4px;
-            transition: background 0.2s;
         }
 
         .btn-delete:hover {
-            background: rgba(217, 104, 104, 0.15);
+            background: rgba(217, 104, 104, 0.1);
         }
 
         .toast {
@@ -546,8 +531,6 @@
             z-index: 1000;
             max-width: 90%;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            font-weight: 600;
         }
 
         .toast.show {
@@ -559,35 +542,21 @@
             font-size: 0.8rem;
             color: var(--texto-secundario);
             padding-top: 1.5rem;
-            font-weight: 500;
-        }
-
-        @media (max-width: 480px) {
-            body { padding: 1rem 0.75rem; }
-            .quote-actions { flex-direction: column; }
-            .btn { width: 100%; }
-            .carousel-btn { font-size: 1.8rem; padding: 0.2rem; }
-            .calendar-bar { width: 100%; justify-content: space-between; }
         }
     </style>
 </head>
 <body data-theme="rose">
 
     <header>
-        <div class="brand-logo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--rosa-acento)">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
-            SoloParaUsted
-        </div>
+        <div style="font-weight: 600; color: var(--vino-suave); letter-spacing: 0.5px;">SoloParaUsted</div>
         <nav>
-            <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="Cambiar Tema">
+            <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="Cambiar Modo">
                 <svg id="theme-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
                 </svg>
             </button>
-            <a href="#" id="nav-home" class="active" onclick="showHome(event)">Inicio</a>
-            <a href="#admin" id="nav-admin" onclick="showAdmin(event)">Administrador</a>
+            <a href="#" onclick="showHome(event)">Inicio</a>
+            <a href="#admin" onclick="showAdmin(event)">Administrador</a>
         </nav>
     </header>
 
@@ -602,12 +571,12 @@
                 <p class="logo-subtitle">Frases románticas diarias</p>
             </div>
 
-            <!-- 📅 Calendario Manual -->
+            <!-- 📅 Módulo de Calendario Manual -->
             <div class="calendar-bar">
                 <button class="cal-btn" onclick="changeDay(-1)" title="Día anterior">‹</button>
                 <input type="date" id="calendar-picker" onchange="onCalendarChange()">
                 <button class="cal-btn" onclick="changeDay(1)" title="Día siguiente">›</button>
-                <button class="cal-btn" onclick="resetToToday()" title="Ir a hoy" style="font-size: 0.75rem; font-weight: 700; width: auto; padding: 0 0.7rem; border-radius: 12px;">Hoy</button>
+                <button class="cal-btn" onclick="resetToToday()" title="Ir a hoy" style="font-size: 0.7rem; font-weight: 600; width: auto; padding: 0 0.6rem; border-radius: 12px;">Hoy</button>
             </div>
 
             <!-- Categorías / Filtros -->
@@ -618,12 +587,16 @@
                 <button class="cat-chip" onclick="filterCategory('Distancia')">Distancia</button>
                 <button class="cat-chip" onclick="filterCategory('Gratitud')">Gratitud</button>
                 <button class="cat-chip" onclick="filterCategory('Pasión')">Pasión</button>
+                <button class="cat-chip" onclick="filterCategory('Favoritos')">❤️ Favoritos</button>
             </div>
 
-            <!-- Tarjeta de Frase -->
             <div class="quote-card" id="quote-card">
-                <div class="quote-date" id="current-date">Cargando fecha...</div>
+                <div class="quote-header-info">
+                    <div class="quote-date" id="current-date">Cargando fecha...</div>
+                    <button class="fav-btn" id="current-fav-btn" onclick="toggleCurrentFavorite()" title="Marcar como favorito">❤️</button>
+                </div>
                 
+                <!-- Carrusel de Frases -->
                 <div class="carousel-container">
                     <button class="carousel-btn" id="prev-btn" onclick="prevCarousel()" style="display:none;">‹</button>
                     <div class="quote-text" id="quote-text">"Cargando frase con amor..."</div>
@@ -642,20 +615,20 @@
                     </button>
                     <button class="btn btn-primary" onclick="downloadQuoteCard()">
                         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                        Descargar Imagen
+                        Descargar
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- VISTA DE ADMINISTRADOR -->
+        <!-- VISTA DE ADMINISTRADOR PÚBLICA -->
         <div id="admin-view" class="admin-panel">
-            <h2>Panel Administrador</h2>
+            <h2>Panel de Creación</h2>
             
             <!-- Generación Simultánea por Categorías -->
             <div class="batch-box">
-                <label style="font-size: 0.9rem; font-weight: 700; color: var(--vino-suave); margin-bottom: 0.2rem; display: block;">⚡ Generar Lote Diario Simultáneo</label>
-                <p style="font-size: 0.8rem; color: var(--texto-secundario); margin-bottom: 0.8rem;">Crea 5 frases al instante (una por cada categoría) guardadas en la carpeta.</p>
+                <label style="font-size: 0.9rem; font-weight: 600; color: var(--vino-suave); margin-bottom: 0.5px; display: block;">⚡ Generar Lote Diario Simultáneo</label>
+                <p style="font-size: 0.8rem; color: var(--texto-secundario); margin-bottom: 0.8rem;">Crea de golpe una frase para cada una de las 5 categorías de forma inmediata.</p>
                 <div class="form-group" style="margin-bottom: 0.8rem;">
                     <label for="batch-date">Fecha del Lote</label>
                     <input type="date" id="batch-date">
@@ -667,7 +640,7 @@
 
             <div class="form-group">
                 <label for="new-quote-text">Frase Individual</label>
-                <textarea id="new-quote-text" rows="3" placeholder="Escribe aquí tu frase de amor..."></textarea>
+                <textarea id="new-quote-text" rows="3" placeholder="Escribe aquí la nueva frase..."></textarea>
             </div>
             <div class="form-group">
                 <label for="new-quote-date">Fecha de Publicación</label>
@@ -683,30 +656,23 @@
                     <option value="Pasión">Pasión</option>
                 </select>
             </div>
-            <button class="btn btn-primary" onclick="saveNewQuote()" style="width: 100%; justify-content: center;">Guardar Frase en Carpeta /frases/</button>
-            <p id="admin-feedback" style="font-size: 0.85rem; color: var(--vino-suave); margin-top: 0.8rem; text-align: center; font-weight: 600;"></p>
+            <button class="btn" onclick="saveNewQuote()" style="background-color: var(--vino-suave); color: var(--bg-tarjeta); width: 100%; justify-content: center;">Guardar Frase en Carpeta "frases"</button>
+            <p id="admin-feedback" style="font-size: 0.8rem; color: var(--texto-secundario); margin-top: 1rem; text-align: center;"></p>
 
-            <!-- 📁 Carpeta Cerrada Estilo OS -->
+            <!-- CARPETA PÚBLICA "FRASES" CERRADA TIPO DISPOSITIVO -->
             <div class="folder-section">
-                <div class="folder-wrapper" id="folder-wrapper" onclick="toggleFolder()">
-                    <div class="folder-header-ui">
-                        <div class="folder-icon-title">
-                            <!-- Icono SVG de Carpeta OS -->
-                            <svg class="folder-svg" id="folder-svg-icon" viewBox="0 0 24 24">
-                                <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
-                            </svg>
-                            <span>Carpeta /frases/</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.6rem;">
-                            <span class="folder-status-badge" id="folder-status-text">🔒 Cerrada</span>
-                            <span style="font-size: 0.85rem; color: var(--texto-secundario); font-weight: 700;" id="total-count">0</span>
+                <div class="folder-card-os" onclick="toggleFolder()">
+                    <div class="folder-info-os">
+                        <span class="folder-icon" id="folder-icon-symbol">📁</span>
+                        <div>
+                            <div class="folder-name">Carpeta /frases/</div>
+                            <div class="folder-status" id="folder-status-text">Carpeta cerrada (Clic para abrir)</div>
                         </div>
                     </div>
-
-                    <!-- Contenido Interno de la Carpeta -->
-                    <div class="folder-content" id="folder-content" onclick="event.stopPropagation()">
-                        <div class="history-list" id="history-list"></div>
-                    </div>
+                    <span style="font-size: 0.85rem; color: var(--texto-secundario); font-weight: 600;" id="total-count">0</span>
+                </div>
+                <div class="folder-contents" id="folder-contents">
+                    <div class="history-list" id="history-list"></div>
                 </div>
             </div>
         </div>
@@ -716,18 +682,10 @@
         Hecho con amor para ti • SoloParaUsted © 2026
     </footer>
 
-    <div class="toast" id="toast">¡Frase copiada al portapapeles!</div>
+    <div class="toast" id="toast">¡Acción realizada con éxito!</div>
 
     <script>
-        const STORAGE_KEY = 'soloparausted_frases_private';
-        
-        // Inicializar fecha actual de Chile/Local
-        const todayObj = new Date();
-        const year = todayObj.getFullYear();
-        const month = String(todayObj.getMonth() + 1).padStart(2, '0');
-        const day = String(todayObj.getDate()).padStart(2, '0');
-        const todayISO = `${year}-${month}-${day}`;
-
+        const todayISO = new Date().toISOString().split('T')[0];
         let selectedDate = todayISO;
         document.getElementById('calendar-picker').value = selectedDate;
         document.getElementById('new-quote-date').value = selectedDate;
@@ -736,44 +694,40 @@
         let loadedQuotes = [];
         let currentCategoryFilter = 'Todas';
         let currentCarouselIndex = 0;
-        let isFolderOpen = false;
 
-        // Base de datos inicial para el primer uso
-        const initialSeedQuotes = [
-            { id: 1, fecha: todayISO, texto: "Eres mi primer pensamiento al despertar y el último antes de soñar. Eres mi hoy y todos mis mañanas.", autor: "SoloParaUsted", categoria: "Amor" },
-            { id: 2, fecha: todayISO, texto: "Contigo aprendí que el hogar no es un lugar, es la persona en cuyos brazos decides quedarte para siempre.", autor: "SoloParaUsted", categoria: "Ternura" },
-            { id: 3, fecha: todayISO, texto: "Aunque nos separen los kilómetros, mi pensamiento cruza la distancia para abrazarte en cada latido.", autor: "SoloParaUsted", categoria: "Distancia" },
-            { id: 4, fecha: todayISO, texto: "Gracias por llegar a mi vida y hacer de lo cotidiano algo completamente extraordinario.", autor: "SoloParaUsted", categoria: "Gratitud" },
-            { id: 5, fecha: todayISO, texto: "En tus ojos descubrí el fuego exacto que enciende todos mis deseos.", autor: "SoloParaUsted", categoria: "Pasión" }
-        ];
-
-        // Cargar desde LocalStorage (Persistencia Real Permanente)
-        function initStorage() {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) {
-                try {
-                    loadedQuotes = JSON.parse(stored);
-                } catch(e) {
-                    loadedQuotes = [...initialSeedQuotes];
-                    saveToStorage();
-                }
+        // Inicialización y persistencia inmediata
+        async function loadQuotes() {
+            const localStored = localStorage.getItem('soloparausted_frases_persisted');
+            if (localStored) {
+                loadedQuotes = JSON.parse(localStored);
             } else {
-                loadedQuotes = [...initialSeedQuotes];
+                try {
+                    const response = await fetch('frases/historial.json');
+                    if (response.ok) {
+                        const data = await response.json();
+                        loadedQuotes = data.frases;
+                    } else {
+                        throw new Error();
+                    }
+                } catch (e) {
+                    loadedQuotes = [
+                        { id: 1, fecha: todayISO, texto: "Eres mi primer pensamiento al despertar y el último antes de soñar. Eres mi hoy y todos mis mañanas.", autor: "SoloParaUsted", categoria: "Amor", favorito: false },
+                        { id: 2, fecha: todayISO, texto: "Contigo aprendí que el hogar no es un lugar, es la persona en cuyos brazos decides quedarte para siempre.", autor: "SoloParaUsted", categoria: "Ternura", favorito: false }
+                    ];
+                }
                 saveToStorage();
             }
             updateViewDate();
         }
 
         function saveToStorage() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(loadedQuotes));
+            localStorage.setItem('soloparausted_frases_persisted', JSON.stringify(loadedQuotes));
         }
 
-        // 📅 Navegación por fechas y calendario
         function updateViewDate() {
             document.getElementById('calendar-picker').value = selectedDate;
-            
-            const [y, m, d] = selectedDate.split('-');
-            const dateObj = new Date(y, m - 1, d);
+            const [year, month, day] = selectedDate.split('-');
+            const dateObj = new Date(year, month - 1, day);
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             document.getElementById('current-date').textContent = dateObj.toLocaleDateString('es-ES', options);
 
@@ -787,19 +741,15 @@
         }
 
         function changeDay(days) {
-            const [y, m, d] = selectedDate.split('-');
-            const dateObj = new Date(y, m - 1, d);
+            const [year, month, day] = selectedDate.split('-');
+            const dateObj = new Date(year, month - 1, day);
             dateObj.setDate(dateObj.getDate() + days);
-            
-            const ny = dateObj.getFullYear();
-            const nm = String(dateObj.getMonth() + 1).padStart(2, '0');
-            const nd = String(dateObj.getDate()).padStart(2, '0');
-            selectedDate = `${ny}-${nm}-${nd}`;
+            selectedDate = dateObj.toISOString().split('T')[0];
             updateViewDate();
         }
 
         function resetToToday() {
-            selectedDate = todayISO;
+            selectedDate = new Date().toISOString().split('T')[0];
             updateViewDate();
         }
 
@@ -807,13 +757,16 @@
             currentCategoryFilter = cat;
             currentCarouselIndex = 0;
             document.querySelectorAll('.cat-chip').forEach(chip => {
-                chip.classList.toggle('active', chip.textContent === cat);
+                chip.classList.toggle('active', chip.textContent.includes(cat));
             });
             displayFilteredQuotes();
         }
 
-        // 🎠 Filtrado y Carrusel
+        // Obtener frases filtradas
         function getActiveFilteredQuotes() {
+            if (currentCategoryFilter === 'Favoritos') {
+                return loadedQuotes.filter(q => q.favorito === true);
+            }
             let filtered = loadedQuotes.filter(q => q.fecha === selectedDate);
             if (currentCategoryFilter !== 'Todas') {
                 filtered = filtered.filter(q => q.categoria === currentCategoryFilter);
@@ -827,21 +780,33 @@
             const indicators = document.getElementById('carousel-indicators');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
+            const favBtn = document.getElementById('current-fav-btn');
 
             if (quotes.length === 0) {
-                textElement.textContent = `"No hay frases registradas para esta fecha y categoría."`;
+                textElement.textContent = currentCategoryFilter === 'Favoritos' ? `"Aún no tienes frases marcadas como favoritas."` : `"No hay frases registradas para esta fecha y categoría."`;
                 indicators.textContent = "";
                 prevBtn.style.display = 'none';
                 nextBtn.style.display = 'none';
+                favBtn.style.display = 'none';
                 return;
             }
 
+            favBtn.style.display = 'flex';
             if (currentCarouselIndex >= quotes.length) {
                 currentCarouselIndex = 0;
             }
 
             const currentQ = quotes[currentCarouselIndex];
             textElement.textContent = `"${currentQ.texto}"`;
+
+            // Estado del botón de favorito
+            if (currentQ.favorito) {
+                favBtn.classList.add('active');
+                favBtn.innerHTML = '❤️';
+            } else {
+                favBtn.classList.remove('active');
+                favBtn.innerHTML = '🤍';
+            }
 
             if (quotes.length > 1) {
                 prevBtn.style.display = 'block';
@@ -870,25 +835,124 @@
             }
         }
 
-        // 📁 Lógica de Carpeta Estilo OS (Cerrada / Abierta)
-        function toggleFolder() {
-            isFolderOpen = !isFolderOpen;
-            const content = document.getElementById('folder-content');
-            const badge = document.getElementById('folder-status-text');
-            const icon = document.getElementById('folder-svg-icon');
+        function toggleCurrentFavorite() {
+            const quotes = getActiveFilteredQuotes();
+            if (quotes.length === 0) return;
+            const currentQ = quotes[currentCarouselIndex];
+            
+            // Buscar en la lista global y alternar estado
+            const index = loadedQuotes.findIndex(q => q.id === currentQ.id);
+            if (index !== -1) {
+                loadedQuotes[index].favorito = !loadedQuotes[index].favorito;
+                saveToStorage();
+                displayFilteredQuotes();
+                renderFolderHistory();
+                showToast(loadedQuotes[index].favorito ? "¡Agregado a favoritos ❤️!" : "Removido de favoritos");
+            }
+        }
 
-            if (isFolderOpen) {
-                content.classList.add('open');
-                badge.textContent = "📂 Abierta";
-                badge.style.backgroundColor = "var(--rosa-empolvado)";
-                icon.style.transform = "scale(1.15)";
+        // Abrir/Cerrar Carpeta estilo Dispositivo en Admin
+        function toggleFolder() {
+            const contents = document.getElementById('folder-contents');
+            const symbol = document.getElementById('folder-icon-symbol');
+            const status = document.getElementById('folder-status-text');
+            
+            contents.classList.toggle('open');
+            if (contents.classList.contains('open')) {
+                symbol.textContent = '📂';
+                status.textContent = 'Carpeta abierta';
                 renderFolderHistory();
             } else {
-                content.classList.remove('open');
-                badge.textContent = "🔒 Cerrada";
-                badge.style.backgroundColor = "var(--bg-tarjeta)";
-                icon.style.transform = "scale(1)";
+                symbol.textContent = '📁';
+                status.textContent = 'Carpeta cerrada (Clic para abrir)';
             }
+        }
+
+        // Generar Lote Simultáneo
+        function generateBatchQuotes() {
+            const date = document.getElementById('batch-date').value;
+            if (!date) {
+                alert("Selecciona una fecha válida.");
+                return;
+            }
+
+            const categorias = ["Amor", "Ternura", "Distancia", "Gratitud", "Pasión"];
+            const bancoFrases = {
+                "Amor": ["Amar no es mirarse el uno al otro, es mirar juntos en la misma dirección.", "Eres la casualidad más hermosa."],
+                "Ternura": ["Tu mano encaja en la mía perfectamente.", "Hay tanta paz en tu mirada."],
+                "Distancia": ["Aunque los kilómetros nos separen, mi pensamiento te abraza.", "La distancia es solo una prueba."],
+                "Gratitud": ["Gracias por aparecer en mi vida.", "Mi mayor bendición tiene tu nombre."],
+                "Pasión": ["Tu fuego enciende cada rincón de mi ser.", "Nuestros cuerpos hablan un idioma secreto."]
+            };
+
+            let addedCount = 0;
+            categorias.forEach(cat => {
+                const arrayCat = bancoFrases[cat];
+                const randomText = arrayCat[Math.floor(Math.random() * arrayCat.length)];
+                const newId = loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1;
+                
+                loadedQuotes.push({
+                    id: newId + addedCount,
+                    fecha: date,
+                    texto: randomText,
+                    autor: "SoloParaUsted",
+                    categoria: cat,
+                    favorito: false
+                });
+                addedCount++;
+            });
+
+            saveToStorage();
+            document.getElementById('admin-feedback').textContent = `¡Lote inmediato guardado en la carpeta!`;
+            selectedDate = date;
+            updateViewDate();
+            renderFolderHistory();
+
+            setTimeout(() => { document.getElementById('admin-feedback').textContent = ''; }, 3000);
+        }
+
+        function showAdmin(e) {
+            e.preventDefault();
+            document.getElementById('home-view').style.display = 'none';
+            document.getElementById('admin-view').style.display = 'block';
+        }
+
+        function showHome(e) {
+            e.preventDefault();
+            document.getElementById('admin-view').style.display = 'none';
+            document.getElementById('home-view').style.display = 'flex';
+            updateViewDate();
+        }
+
+        function saveNewQuote() {
+            const text = document.getElementById('new-quote-text').value.trim();
+            const date = document.getElementById('new-quote-date').value;
+            const category = document.getElementById('new-quote-category').value;
+
+            if (!text || !date) {
+                alert("Por favor completa la frase y la fecha.");
+                return;
+            }
+
+            const newEntry = {
+                id: loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1,
+                fecha: date,
+                texto: text,
+                autor: "SoloParaUsted",
+                categoria: category,
+                favorito: false
+            };
+
+            loadedQuotes.push(newEntry);
+            saveToStorage();
+
+            document.getElementById('admin-feedback').textContent = "¡Frase guardada de forma inmediata!";
+            document.getElementById('new-quote-text').value = '';
+            selectedDate = date;
+            updateViewDate();
+            renderFolderHistory();
+
+            setTimeout(() => { document.getElementById('admin-feedback').textContent = ''; }, 3000);
         }
 
         function renderFolderHistory() {
@@ -898,18 +962,17 @@
             totalCount.textContent = `${loadedQuotes.length} frases`;
 
             if (loadedQuotes.length === 0) {
-                historyList.innerHTML = '<p style="font-size: 0.85rem; color: var(--texto-secundario); text-align: center; padding: 1rem;">La carpeta /frases/ está vacía.</p>';
+                historyList.innerHTML = '<p style="font-size: 0.85rem; color: var(--texto-secundario); text-align: center; padding: 1rem;">Carpeta vacía.</p>';
                 return;
             }
 
             const sortedForHistory = [...loadedQuotes].reverse();
-
             sortedForHistory.forEach((q) => {
                 const item = document.createElement('div');
                 item.className = 'history-item';
                 item.innerHTML = `
                     <div class="history-info">
-                        <div class="history-date">📅 ${q.fecha} — [${q.categoria}]</div>
+                        <div class="history-date">📅 ${q.fecha} — [${q.categoria}] ${q.favorito ? '❤️' : ''}</div>
                         <div class="history-text">"${q.texto}"</div>
                     </div>
                     <button class="btn-delete" onclick="deleteQuote(${q.id})">Eliminar</button>
@@ -919,124 +982,15 @@
         }
 
         function deleteQuote(id) {
-            loadedQuotes = loadedQuotes.filter(q => q.id !== id);
-            saveToStorage();
-            renderFolderHistory();
-            updateViewDate();
-            showToast("Frase eliminada de la carpeta");
-        }
-
-        // ⚡ Generación de Lote e Inserción Individual Instantánea
-        function generateBatchQuotes() {
-            const date = document.getElementById('batch-date').value;
-            if (!date) {
-                showToast("Por favor selecciona una fecha");
-                return;
+            if (confirm("¿Eliminar esta frase de la carpeta?")) {
+                loadedQuotes = loadedQuotes.filter(q => q.id !== id);
+                saveToStorage();
+                renderFolderHistory();
+                updateViewDate();
+                showToast("Frase eliminada");
             }
-
-            const categorias = ["Amor", "Ternura", "Distancia", "Gratitud", "Pasión"];
-            const bancoFrases = {
-                "Amor": [
-                    "Amar no es mirarse el uno al otro, es mirar juntos en la misma dirección.",
-                    "Eres la casualidad más hermosa que llegó a darle sentido a mi vida."
-                ],
-                "Ternura": [
-                    "Tu mano encaja perfectamente en la mía como si estuvieran diseñadas juntas.",
-                    "Hay una paz inmensa en tu mirada que calma todo mi universo."
-                ],
-                "Distancia": [
-                    "La distancia solo prueba que el verdadero amor no entiende de kilómetros.",
-                    "Aunque estés lejos, te siento más cerca que nunca en mi corazón."
-                ],
-                "Gratitud": [
-                    "Gracias por llegar a mi vida y transformar cada día en un motivo para sonreír.",
-                    "Agradezco cada instante a tu lado, porque contigo todo es mejor."
-                ],
-                "Pasión": [
-                    "Tu presencia enciende en mi alma un fuego eterno e inigualable.",
-                    "En cada beso contigo descubro un nuevo rincón de la felicidad."
-                ]
-            };
-
-            let addedCount = 0;
-            categorias.forEach(cat => {
-                const arrayCat = bancoFrases[cat];
-                const randomText = arrayCat[Math.floor(Math.random() * arrayCat.length)];
-                
-                const newId = loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1;
-                loadedQuotes.push({
-                    id: newId + addedCount,
-                    fecha: date,
-                    texto: randomText,
-                    autor: "SoloParaUsted",
-                    categoria: cat
-                });
-                addedCount++;
-            });
-
-            loadedQuotes.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
-            saveToStorage();
-
-            document.getElementById('admin-feedback').textContent = `¡Lote de 5 frases guardado al instante en /frases/!`;
-            if (isFolderOpen) renderFolderHistory();
-            selectedDate = date;
-            updateViewDate();
-
-            setTimeout(() => { document.getElementById('admin-feedback').textContent = ''; }, 3500);
         }
 
-        function saveNewQuote() {
-            const text = document.getElementById('new-quote-text').value.trim();
-            const date = document.getElementById('new-quote-date').value;
-            const category = document.getElementById('new-quote-category').value;
-
-            if (!text || !date) {
-                showToast("Ingresa el texto y la fecha");
-                return;
-            }
-
-            const newEntry = {
-                id: loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1,
-                fecha: date,
-                texto: text,
-                autor: "SoloParaUsted",
-                categoria: category
-            };
-
-            loadedQuotes.push(newEntry);
-            loadedQuotes.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
-            saveToStorage();
-
-            document.getElementById('admin-feedback').textContent = "¡Frase guardada instantáneamente en /frases/!";
-            document.getElementById('new-quote-text').value = '';
-            
-            if (isFolderOpen) renderFolderHistory();
-            selectedDate = date;
-            updateViewDate();
-
-            setTimeout(() => { document.getElementById('admin-feedback').textContent = ''; }, 3000);
-        }
-
-        // Navegación Pública
-        function showAdmin(e) {
-            e.preventDefault();
-            document.getElementById('home-view').style.display = 'none';
-            document.getElementById('admin-view').style.display = 'block';
-            document.getElementById('nav-home').classList.remove('active');
-            document.getElementById('nav-admin').classList.add('active');
-            document.getElementById('total-count').textContent = `${loadedQuotes.length} frases`;
-        }
-
-        function showHome(e) {
-            e.preventDefault();
-            document.getElementById('admin-view').style.display = 'none';
-            document.getElementById('home-view').style.display = 'flex';
-            document.getElementById('nav-admin').classList.remove('active');
-            document.getElementById('nav-home').classList.add('active');
-            updateViewDate();
-        }
-
-        // Cambio de Tema
         function toggleTheme() {
             const body = document.body;
             const themeIcon = document.getElementById('theme-icon');
@@ -1052,7 +1006,15 @@
             }
         }
 
-        // Utilidades e imágenes
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('soloparausted_theme');
+            if (savedTheme === 'midnight') {
+                document.body.setAttribute('data-theme', 'midnight');
+                document.getElementById('theme-icon').innerHTML = `<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>`;
+            }
+            loadQuotes();
+        });
+
         function copyQuote() {
             const text = document.getElementById('quote-text').textContent;
             navigator.clipboard.writeText(text).then(() => { showToast("¡Frase copiada al portapapeles!"); });
@@ -1087,37 +1049,34 @@
 
             ctx.shadowBlur = 0;
             ctx.fillStyle = isDark ? '#D4A5B4' : '#8C6A72';
-            ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+            ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText(document.getElementById('current-date').textContent.toUpperCase(), 540, 240);
 
             ctx.fillStyle = isDark ? '#F3D2DB' : '#6B3E48';
             ctx.font = 'italic 48px "Cormorant Garamond", serif';
-            
             const text = document.getElementById('quote-text').textContent;
             wrapText(ctx, text, 540, 420, 720, 65);
 
             ctx.fillStyle = isDark ? '#A66879' : '#D8A4B8';
-            ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
-            ctx.fillText("SOLOPARAUSTED", 540, 880);
+            ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText("SOLOPARAUSTED.COM", 540, 880);
 
             const link = document.createElement('a');
             link.download = `SoloParaUsted-${selectedDate}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
-            showToast("¡Imagen descargada!");
+            showToast("¡Imagen HD descargada!");
         }
 
         function wrapText(context, text, x, y, maxWidth, lineHeight) {
             const words = text.split(' ');
             let line = '';
             let currentY = y;
-
             for(let n = 0; n < words.length; n++) {
                 let testLine = line + words[n] + ' ';
                 let metrics = context.measureText(testLine);
-                let testWidth = metrics.width;
-                if (testWidth > maxWidth && n > 0) {
+                if (metrics.width > maxWidth && n > 0) {
                     context.fillText(line, x, currentY);
                     line = words[n] + ' ';
                     currentY += lineHeight;
@@ -1134,15 +1093,6 @@
             toast.classList.add('show');
             setTimeout(() => { toast.classList.remove('show'); }, 3000);
         }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('soloparausted_theme');
-            if (savedTheme === 'midnight') {
-                document.body.setAttribute('data-theme', 'midnight');
-                document.getElementById('theme-icon').innerHTML = `<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>`;
-            }
-            initStorage();
-        });
     </script>
 </body>
 </html>
