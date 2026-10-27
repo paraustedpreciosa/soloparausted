@@ -175,7 +175,7 @@
             line-height: 1.1;
         }
 
-        /* 🌙 Banner Recordatorio Nocturno Sutil */
+        /* 🌙 Recordatorio Nocturno Sutil */
         .night-reminder {
             display: none;
             background: var(--bg-tarjeta);
@@ -228,7 +228,7 @@
             backdrop-filter: blur(5px);
         }
 
-        /* Botón de Carta en la barra superior (Nuevo) */
+        /* Botón de Carta en la barra superior */
         .top-letter-btn {
             display: none;
             background: linear-gradient(135deg, var(--vino-suave), var(--rosa-acento));
@@ -899,11 +899,12 @@
                 <input type="text" id="milestone-title-input" placeholder="Ej: Aniversario, Nuestro Primer Beso..." style="margin-top: 0.4rem;">
             </div>
 
-            <!-- Redacción de Carta Dedicatoria -->
+            <!-- Redacción de Carta Dedicatoria con su propio Botón de Guardado -->
             <div class="form-group" style="background: var(--bg-rosa-suave); padding: 1rem; border-radius: 12px; border: 1px solid var(--borde-suave); margin-top: 1rem;">
                 <label style="font-weight: 600; color: var(--vino-suave);">💌 Escribir Carta Especial (Dedicatoria Larga)</label>
                 <input type="text" id="letter-title-input" placeholder="Título de la carta (Ej: Para el amor de mi vida)" style="margin-top: 0.4rem; margin-bottom: 0.6rem;">
                 <textarea id="letter-text-input" rows="4" placeholder="Escribe tu carta o mensaje largo aquí..."></textarea>
+                <button class="btn btn-primary" onclick="saveOnlyLetter()" style="width: 100%; justify-content: center; margin-top: 0.8rem;">Guardar Carta Especial</button>
             </div>
 
             <hr style="border: none; border-top: 1px solid var(--borde-suave); margin: 1.2rem 0;">
@@ -980,7 +981,7 @@
             },
             "Ternura": {
                 inicios: ["Tu mano encaja en la mía,", "Hay una paz infinita en tu mirada,", "Cada caricia tuya es un poema silencioso,", "Abrazarte suavemente al atardecer,", "Tienes la dulzura exacta que,", "En la sutileza de tu voz encuentro,", "Cuidarte y verte sonreír con tranquilidad,", "Tu ternura es el manto más cálido,", "En la pausa suave de tus labios,", "Tus gestos pequeños y sinceros,"],
-                centros: ["como si el universo la hubiera diseñado solo para sostenerla,", "que hace que el ruido del mundo exterior simplemente desaparezca,", "escrito con la paciencia más noble directo en mi piel,", "es sentir que todo en mi vida vuelve a estar en su lugar,", "transforma cualquier día gris en una mañana serena y tibia,", "el descanso más profundo que mi alma necesitó siempre,", "se ha convertido en mi forma preferida de celebrar la vida,", "que protege a mi corazón de cualquier tormenta inesperada,", "habita la promesa más pura de un cariño verdadero,", "revelan la grandeza de un sentimiento que no pide nada a cambio,"],
+                centros: ["como si el universo la hubiera diseñada solo para sostenerla,", "que hace que el ruido del mundo exterior simplemente desaparezca,", "escrito con la paciencia más noble directo en mi piel,", "es sentir que todo en mi vida vuelve a estar en su lugar,", "transforma cualquier día gris en una mañana serena y tibia,", "el descanso más profundo que mi alma necesitó siempre,", "se ha convertido en mi forma preferida de celebrar la vida,", "que protege a mi corazón de cualquier tormenta inesperada,", "habita la promesa más pura de un cariño verdadero,", "revelan la grandeza de un sentimiento que no pide nada a cambio,"],
                 finales: ["brindándome una seguridad dulce en cada paso.", "dejando únicamente un silencio lleno de amor puro.", "con la delicadeza de quien sabe amar de verdad.", "reparando cualquier rincón que antes estuvo en penumbras.", "iluminando el presente con una luz tierna y única.", "renovando la esperanza en cada pequeño amanecer.", "guardando tu alegría como el tesoro más valioso.", "creando un hogar seguro en medio del caos del mundo.", "donde el tiempo se detiene con infinita gentileza.", "escribiendo recuerdos dulces que jamás se borrarán."]
             },
             "Distancia": {
@@ -995,8 +996,7 @@
             },
             "Pasión": {
                 inicios: ["Tu fuego enciende cada rincón de mi ser,", "Bajo el roce suave de tu piel,", "Nuestros cuerpos hablan un idioma secreto,", "Un solo instante cerca de tus labios,", "Eres el deseo constante que habita en mi mente,", "Perderme en la magia de tu boca,", "Hay un magnetismo irrefrenable entre los dos,", "En el calor intenso de tu abrazo,", "Cada mirada tuya desata una tormenta,", "Tus besos son el refugio clandestino,"],
-                centros: ["transformando la calma de la noche en pura magia ardiente,", "descubrí el latido exacto de la eternidad y la devoción,", "donde el tiempo se detiene por completo al encontrarnos,", "basta para desatar la tormenta más dulce en mi pecho,", "que despierta con fuerza en cada amanecer a tu lado,", "es la forma más bella que conozco de volver a encontrarme,", "que desafía a la razón y vuelve eterno cada segundo juntos,", "la realidad se disuelve dejando solo el pulso de la pasión,", "que enciende mis sentidos y acelera cada latido de mi piel,", "donde el alma y el deseo se funden sin pedir permiso,"],
-                finales: ["dejando una llama encendida que jamás se extingue.", "escribiendo una historia de deseo escrita en la piel.", "donde solo existes tú y la intensidad de este amor.", "haciendo temblar el universo en un abrazo eterno.", "alimentando una devoción profunda que no conoce frenos.", "sumergiéndome en un océano de sensaciones inolvidables.", "demostrando que el deseo verdadero jamás se apaga.", "haciendo que el mundo exterior pierda toda importancia.", "transformando la noche en un poema de fuego y ternura.", "creando un recuerdo ardiente que permanece en el alma."]
+                centros: ["transformando la calma de la noche en pura magia ardiente,", "descubrí el latido exacto de la eternidad y la devoción,", "donde el tiempo se detiene por completo al encontrarnos,", "basta para desatar la tormenta más dulce en mi pecho,", "que despierta con fuerza en cada amanecer a tu lado,", "es la forma más bella que conozco de volver a encontrarme,", "que desafía a la razón y vuelve eterno cada segundo juntos,", "la realidad se disuelve dejando solo el pulso de la pasión,", "que enciende mis sentidos y acelera cada latido de mi piel,", "donde el alma y el deseo se funden sin pedir permiso,", "finales": ["dejando una llama encendida que jamás se extingue.", "escribiendo una historia de deseo escrita en la piel.", "donde solo existes tú y la intensidad de este amor.", "haciendo temblar el universo en un abrazo eterno.", "alimentando una devoción profunda que no conoce frenos.", "sumergiéndome en un océano de sensaciones inolvidables.", "demostrando que el deseo verdadero jamás se apaga.", "haciendo que el mundo exterior pierda toda importancia.", "transformando la noche en un poema de fuego y ternura.", "creando un recuerdo ardiente que permanece en el alma."]
             }
         };
 
@@ -1227,6 +1227,32 @@
 
         function closeLetterModal() {
             document.getElementById('letter-modal').style.display = 'none';
+        }
+
+        /* FUNCIÓN EXCLUSIVA PARA GUARDAR SOLO LA CARTA */
+        function saveOnlyLetter() {
+            const date = document.getElementById('new-quote-date').value || selectedDate;
+            const letterTitle = document.getElementById('letter-title-input').value.trim();
+            const letterText = document.getElementById('letter-text-input').value.trim();
+
+            if (!letterText) {
+                alert("Por favor escribe el contenido de la carta antes de guardar.");
+                return;
+            }
+
+            savedLetters[date] = { 
+                title: letterTitle || 'Nuestra Carta', 
+                text: letterText 
+            };
+
+            saveToStorage();
+
+            document.getElementById('letter-title-input').value = '';
+            document.getElementById('letter-text-input').value = '';
+
+            selectedDate = date;
+            updateViewDate();
+            showToast("💌 ¡Carta Especial guardada con éxito!");
         }
 
         function toggleZenMode() {
