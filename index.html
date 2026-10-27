@@ -4,634 +4,443 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SoloParaUsted - Frases Románticas Diarias</title>
-    
-    <!-- Meta tags SEO y Redes Sociales -->
-    <meta name="description" content="Una frase romántica única cada día, creada para dedicar y compartir.">
-    <meta name="theme-color" content="#fce4ec">
-    <meta property="og:title" content="SoloParaUsted - Frases Románticas Diarias">
-    <meta property="og:description" content="Una frase romántica única cada día, creada para dedicar y compartir.">
-    <meta property="og:type" content="website">
-
-    <!-- Tipografía Google Fonts: Playfair Display (Serif Elegante) + Plus Jakarta Sans (Sans-serif limpia) -->
+    <!-- Google Fonts: Cormorant Garamond (Serif elegante) y Plus Jakarta Sans (Sans-serif limpia) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    
     <style>
-        /* ==========================================================================
-           1. VARIABLES Y DISEÑO DEL TEMA (PALETA DE ROSAS MINIMALISTA)
-           ========================================================================== */
         :root {
-            /* Paleta Principal de Colores */
-            --bg-main: #fff5f7;              /* Fondo suave blanco-rosado */
-            --bg-card: #ffffff;              /* Blanco puro para tarjetas */
-            --bg-card-subtle: #fce4ec;       /* Rosa pastel claro */
-            
-            --text-primary: #5c1d30;         /* Vino profundo elegante */
-            --text-secondary: #8c4a5c;       /* Rosa terroso / palo de rosa */
-            --text-muted: #b07282;           /* Rosa suave apagado */
-            
-            --accent-pink: #f0829d;          /* Rosa romántico activo */
-            --accent-soft: #f8bbd0;          /* Rosa empolvado */
-            --accent-hover: #e06382;         /* Rosa acento al hacer hover */
-            
-            --border-pink: #f8d7e3;          /* Bordes finos rosados */
-            --shadow-soft: 0 10px 30px -5px rgba(184, 82, 110, 0.08);
-            --shadow-hover: 0 15px 35px -5px rgba(184, 82, 110, 0.15);
-
-            /* Tipografía */
-            --font-serif: 'Playfair Display', Georgia, serif;
-            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-            
-            /* Transiciones */
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-rosa-suave: #FFF5F7;
+            --bg-tarjeta: #FFFFFF;
+            --rosa-empolvado: #FAD2E1;
+            --rosa-acento: #D8A4B8;
+            --vino-suave: #6B3E48;
+            --texto-principal: #4A2E35;
+            --texto-secundario: #8C6A72;
+            --borde-suave: rgba(216, 164, 184, 0.25);
+            --sombra-elegante: 0 10px 30px rgba(107, 62, 72, 0.05);
         }
 
-        /* Soporte para Modo Oscuro Romántico (Automático según preferencias del usuario) */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-main: #1a0c12;
-                --bg-card: #28131d;
-                --bg-card-subtle: #361a27;
-                --text-primary: #fce4ec;
-                --text-secondary: #f48fb1;
-                --text-muted: #ce93d8;
-                --border-pink: #4a2133;
-                --shadow-soft: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
-            }
-        }
-
-        /* ==========================================================================
-           2. RESETEO Y ESTILOS BASE
-           ========================================================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: var(--font-sans);
-            background-color: var(--bg-main);
-            color: var(--text-primary);
+            background-color: var(--bg-rosa-suave);
+            color: var(--texto-principal);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem 1.25rem;
-            line-height: 1.6;
-            overflow-x: hidden;
-            transition: background-color 0.5s ease;
+            padding: 2rem 1rem;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ==========================================================================
-           3. ENCABEZADO Y LOGO (SoloParaUsted)
-           ========================================================================== */
-        .header {
-            text-align: center;
-            margin-top: 1rem;
-            margin-bottom: 2.5rem;
-            animation: fadeInDown 0.8s ease-out;
+        header {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 2rem;
         }
 
-        /* Contenedor del Logo con Formas de Corazón SVG */
-        .logo-container {
-            display: inline-flex;
+        nav a {
+            color: var(--texto-secundario);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-left: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--vino-suave);
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
             flex-direction: column;
             align-items: center;
-            text-decoration: none;
-            color: inherit;
+            text-align: center;
+            flex: 1;
+            justify-content: center;
         }
 
-        .logo-icon {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 0.5rem;
-            color: var(--accent-pink);
-            transition: transform 0.4s ease;
+        /* Logo Vectorial en Tonos Rosa */
+        .logo-container {
+            margin-bottom: 2.5rem;
         }
 
-        .logo-container:hover .logo-icon {
-            transform: scale(1.1) rotate(-5deg);
+        .logo-svg {
+            width: 70px;
+            height: 70px;
+            fill: var(--rosa-acento);
+            margin-bottom: 0.5srem;
+            animation: pulseHeart 3s infinite ease-in-out;
+        }
+
+        @keyframes pulseHeart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
         }
 
         .logo-title {
-            font-family: var(--font-serif);
+            font-family: 'Cormorant Garamond', serif;
             font-size: 2.8rem;
             font-weight: 600;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-pink) 100%);
+            background: linear-gradient(135deg, var(--vino-suave), var(--rosa-acento));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
             line-height: 1.1;
         }
 
         .logo-subtitle {
-            font-family: var(--font-sans);
             font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.25em;
             text-transform: uppercase;
-            color: var(--text-secondary);
-            margin-top: 0.5rem;
-            opacity: 0.9;
+            letter-spacing: 3px;
+            color: var(--texto-secundario);
+            margin-top: 0.4rem;
         }
 
-        /* ==========================================================================
-           4. TARJETA CENTRAL Y CONTENIDO DE LA FRASE
-           ========================================================================== */
-        .main-container {
-            width: 100%;
-            max-width: 680px;
-            margin: 0 auto;
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
+        /* Tarjeta de Frase Minimalista */
         .quote-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-pink);
-            border-radius: 24px;
-            padding: 3.5rem 2.5rem;
+            background-color: var(--bg-tarjeta);
             width: 100%;
-            text-align: center;
-            box-shadow: var(--shadow-soft);
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--sombra-elegante);
+            border: 1px solid var(--borde-suave);
             position: relative;
-            transition: var(--transition-smooth);
-            animation: fadeInUp 0.9s ease-out;
+            margin-bottom: 2rem;
         }
 
-        .quote-card:hover {
-            box-shadow: var(--shadow-hover);
-        }
-
-        /* Badge con Fecha */
-        .date-badge {
-            display: inline-block;
+        .quote-date {
             font-size: 0.85rem;
+            color: var(--texto-secundario);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1.5rem;
             font-weight: 500;
-            color: var(--text-secondary);
-            background-color: var(--bg-card-subtle);
-            padding: 0.4rem 1.2rem;
-            border-radius: 50px;
-            margin-bottom: 2.5rem;
-            letter-spacing: 0.02em;
-            text-transform: capitalize;
-        }
-
-        /* Texto de la Frase */
-        .quote-text-container {
-            min-height: 140px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 2.5rem;
-            position: relative;
         }
 
         .quote-text {
-            font-family: var(--font-serif);
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.85rem;
-            font-weight: 500;
-            line-height: 1.5;
-            color: var(--text-primary);
-            font-style: italic;
-            transition: opacity 0.4s ease;
+            line-height: 1.4;
+            color: var(--vino-suave);
+            margin-bottom: 2rem;
+            font-weight: 400;
         }
 
-        .quote-text::before {
-            content: "“";
-            color: var(--accent-soft);
-            font-size: 3rem;
-            line-height: 0;
-            vertical-align: -0.4em;
-            margin-right: 0.2rem;
-        }
-
-        .quote-text::after {
-            content: "”";
-            color: var(--accent-soft);
-            font-size: 3rem;
-            line-height: 0;
-            vertical-align: -0.4em;
-            margin-left: 0.2rem;
-        }
-
-        /* Spinner de Carga */
-        .loading-spinner {
-            display: none;
-            width: 36px;
-            height: 36px;
-            border: 3px solid var(--bg-card-subtle);
-            border-top: 3px solid var(--accent-pink);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        /* ==========================================================================
-           5. BOTONES E INTERACCIONES
-           ========================================================================== */
-        .actions-group {
+        .quote-actions {
             display: flex;
-            gap: 1rem;
             justify-content: center;
+            gap: 1rem;
             flex-wrap: wrap;
         }
 
         .btn {
+            background-color: var(--bg-rosa-suave);
+            color: var(--vino-suave);
+            border: 1px solid var(--rosa-empolvado);
+            padding: 0.65rem 1.25rem;
+            border-radius: 50px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 0.6rem;
-            font-family: var(--font-sans);
-            font-size: 0.95rem;
-            font-weight: 600;
-            padding: 0.85rem 1.6rem;
-            border-radius: 50px;
-            border: 1px solid var(--border-pink);
-            background-color: var(--bg-card-subtle);
-            color: var(--text-primary);
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            outline: none;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .btn:hover {
-            background-color: var(--accent-pink);
-            color: #ffffff;
-            border-color: var(--accent-pink);
+            background-color: var(--rosa-empolvado);
             transform: translateY(-2px);
         }
 
-        .btn:active {
-            transform: translateY(0);
+        /* Panel de Administración */
+        .admin-panel {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            background: var(--bg-tarjeta);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--sombra-elegante);
+            border: 1px solid var(--borde-suave);
+            text-align: left;
+            margin-top: 1rem;
         }
 
-        .btn-icon {
-            width: 18px;
-            height: 18px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        .admin-panel h2 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--vino-suave);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
         }
 
-        /* ==========================================================================
-           6. NOTIFICACIÓN TOAST (MENSAJE FLOTANTE AL COPIAR)
-           ========================================================================== */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--texto-secundario);
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+        }
+
+        .form-group textarea, .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--rosa-empolvado);
+            border-radius: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-rosa-suave);
+            color: var(--texto-principal);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-group textarea:focus, .form-group input:focus {
+            border-color: var(--vino-suave);
+        }
+
+        /* Toast de notificación */
         .toast {
             position: fixed;
             bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background-color: var(--text-primary);
-            color: var(--bg-main);
+            background-color: var(--vino-suave);
+            color: #FFFFFF;
             padding: 0.75rem 1.5rem;
             border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            font-size: 0.85rem;
             opacity: 0;
-            transition: var(--transition-smooth);
-            z-index: 100;
+            transition: opacity 0.3s ease;
             pointer-events: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .toast.show {
-            transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
 
-        /* ==========================================================================
-           7. PIE DE PÁGINA (FOOTER)
-           ========================================================================== */
-        .footer {
-            margin-top: 3rem;
+        footer {
             text-align: center;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            animation: fadeIn 1s ease-out;
+            font-size: 0.8rem;
+            color: var(--texto-secundario);
+            padding-top: 2rem;
         }
 
-        .footer p {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.3rem;
-        }
-
-        .footer-heart {
-            color: var(--accent-pink);
-            display: inline-block;
-            animation: pulse 2s infinite;
-        }
-
-        /* ==========================================================================
-           8. ANIMACIONES CSS
-           ========================================================================== */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
-
-        /* ==========================================================================
-           9. ADAPTABILIDAD MOBILE-FIRST (MEDIA QUERIES)
-           ========================================================================== */
         @media (max-width: 600px) {
-            body {
-                padding: 1.5rem 1rem;
-            }
-
-            .logo-title {
-                font-size: 2.2rem;
-            }
-
-            .quote-card {
-                padding: 2.5rem 1.5rem;
-                border-radius: 20px;
-            }
-
-            .quote-text {
-                font-size: 1.45rem;
-            }
-
-            .actions-group {
-                width: 100%;
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
+            .logo-title { font-size: 2.2rem; }
+            .quote-text { font-size: 1.5rem; }
+            .quote-card { padding: 2rem 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ENCABEZADO Y LOGO -->
-    <header class="header">
-        <a href="#" class="logo-container" aria-label="SoloParaUsted - Inicio">
-            <!-- Icono de Corazón Elegante de Trazo Suave -->
-            <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
-            <h1 class="logo-title">SoloParaUsted</h1>
-            <p class="logo-subtitle">Frases Románticas Diarias</p>
-        </a>
+    <header>
+        <div style="font-weight: 600; color: var(--vino-suave); letter-spacing: 0.5px;">SoloParaUsted</div>
+        <nav>
+            <a href="#" onclick="showHome(event)">Inicio</a>
+            <a href="#admin" onclick="showAdmin(event)">Administrador</a>
+        </nav>
     </header>
 
-    <!-- CONTENIDO PRINCIPAL / TARJETA DE FRASE -->
-    <main class="main-container">
-        <article class="quote-card">
-            <!-- Fecha Formateada -->
-            <time id="current-date" class="date-badge" datetime="">Cargando fecha...</time>
-
-            <!-- Contenedor del Texto de la Frase o Cargador -->
-            <div class="quote-text-container">
-                <div id="loading-spinner" class="loading-spinner" aria-label="Cargando frase del día..."></div>
-                <blockquote id="quote-text" class="quote-text">
-                    Eres mi primer pensamiento al despertar y el último antes de soñar. Eres mi hoy y todos mis mañanas.
-                </blockquote>
+    <div class="main-container">
+        <!-- VISTA PRINCIPAL: FRASE DEL DÍA -->
+        <div id="home-view" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <div class="logo-container">
+                <svg class="logo-svg" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <h1 class="logo-title">SoloParaUsted</h1>
+                <p class="logo-subtitle">Frases románticas diarias</p>
             </div>
 
-            <!-- Botones de Acción -->
-            <div class="actions-group">
-                <button id="btn-copy" class="btn" aria-label="Copiar frase al portapapeles">
-                    <svg class="btn-icon" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                    Copiar Frase
-                </button>
-                <button id="btn-share" class="btn" aria-label="Compartir frase">
-                    <svg class="btn-icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-                    Compartir
-                </button>
+            <div class="quote-card">
+                <div class="quote-date" id="current-date">Cargando fecha...</div>
+                <div class="quote-text" id="quote-text">"Cargando frase con amor..."</div>
+                <div class="quote-actions">
+                    <button class="btn" onclick="copyQuote()">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                        Copiar Frase
+                    </button>
+                    <button class="btn" onclick="shareQuote()">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                        Compartir
+                    </button>
+                </div>
             </div>
-        </article>
-    </main>
+        </div>
 
-    <!-- PIE DE PÁGINA -->
-    <footer class="footer">
-        <p>SoloParaUsted <span class="footer-heart">♥</span> Creado para inspirar amor cada día</p>
-    </footer>
-
-    <!-- NOTIFICACIÓN TOAST -->
-    <div id="toast" class="toast" role="alert" aria-live="polite">
-        <span>✓ Frase copiada al portapapeles</span>
+        <!-- VISTA DE ADMINISTRADOR -->
+        <div id="admin-view" class="admin-panel">
+            <h2>Panel de Creación</h2>
+            <div class="form-group">
+                <label for="new-quote-text">Nueva Frase Romántica</label>
+                <textarea id="new-quote-text" rows="3" placeholder="Escribe aquí la nueva frase..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="new-quote-date">Fecha de Publicación</label>
+                <input type="date" id="new-quote-date">
+            </div>
+            <div class="form-group">
+                <label for="new-quote-category">Categoría</label>
+                <input type="text" id="new-quote-category" value="Amor">
+            </div>
+            <button class="btn" onclick="saveNewQuote()" style="background-color: var(--vino-suave); color: #FFF; width: 100%; justify-content: center;">Guardar y Publicar en GitHub</button>
+            <p id="admin-feedback" style="font-size: 0.8rem; color: var(--texto-secundario; margin-top: 1rem; text-align: center;"></p>
+        </div>
     </div>
 
-    <!-- LÓGICA JAVASCRIPT VANILLA -->
+    <footer>
+        Hecho con amor para ti • SoloParaUsted © 2026
+    </footer>
+
+    <div class="toast" id="toast">¡Frase copiada al portapapeles!</div>
+
     <script>
-        /**
-         * CONFIGURACIÓN PRINCIPAL
-         * Cuando publiquemos el Web App en Google Apps Script, pegaremos la URL aquí.
-         */
-        const API_URL = ""; // Ejemplo: "https://script.google.com/macros/s/AKfycbx.../exec"
+        // Formatear fecha actual en español
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const todayFormatted = new Date().toLocaleDateString('es-ES', options);
+        document.getElementById('current-date').textContent = todayFormatted;
 
-        // Frase por defecto inicial mientras no haya backend conectado
-        const DEFAULT_QUOTE = "Eres mi primer pensamiento al despertar y el último antes de soñar. Eres mi hoy y todos mis mañanas.";
+        // Fecha en formato YYYY-MM-DD para comparar con el JSON
+        const todayISO = new Date().toISOString().split('T')[0];
+        document.getElementById('new-quote-date').value = todayISO;
 
-        // Elementos del DOM
-        const quoteTextEl = document.getElementById('quote-text');
-        const currentDateEl = document.getElementById('current-date');
-        const loadingSpinnerEl = document.getElementById('loading-spinner');
-        const btnCopy = document.getElementById('btn-copy');
-        const btnShare = document.getElementById('btn-share');
-        const toastEl = document.getElementById('toast');
+        let loadedQuotes = [];
 
-        /**
-         * Formatea y muestra la fecha actual en español
-         * Ejemplo: "lunes, 26 de octubre de 2026"
-         */
-        function displayCurrentDate() {
-            const now = new Date();
-            const options = { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            };
-            const formattedDate = now.toLocaleDateString('es-ES', options);
-            currentDateEl.textContent = formattedDate;
-            currentDateEl.setAttribute('datetime', now.toISOString().split('T')[0]);
+        // Cargar las frases desde el archivo JSON local en GitHub
+        async function loadQuotes() {
+            try {
+                // Comprobar si hay frases añadidas localmente por el admin
+                const localStored = localStorage.getItem('soloparausted_frases');
+                if (localStored) {
+                    loadedQuotes = JSON.parse(localStored);
+                } else {
+                    const response = await fetch('frases.json');
+                    const data = await response.json();
+                    loadedQuotes = data.frases;
+                    localStorage.setItem('soloparausted_frases', JSON.stringify(loadedQuotes));
+                }
+                displayTodayQuote();
+            } catch (error) {
+                console.error("Error cargando frases:", error);
+                document.getElementById('quote-text').textContent = "“Eres el pensamiento más bonito que habita en mi corazón.”";
+            }
         }
 
-        /**
-         * Consulta la API del backend en Google Apps Script o usa la frase por defecto
-         */
-        async function fetchDailyQuote() {
-            // Si no hay URL configurada aún, usamos la frase por defecto
-            if (!API_URL || API_URL.trim() === "") {
-                setQuote(DEFAULT_QUOTE);
+        function displayTodayQuote() {
+            // Buscar frase para hoy, si no hay, tomar la última o una aleatoria
+            let currentQuote = loadedQuotes.find(q => q.fecha === todayISO);
+            if (!currentQuote && loadedQuotes.length > 0) {
+                currentQuote = loadedQuotes[loadedQuotes.length - 1];
+            }
+            if (currentQuote) {
+                document.getElementById('quote-text').textContent = `"${currentQuote.texto}"`;
+            }
+        }
+
+        // Navegación entre vistas
+        function showAdmin(e) {
+            e.preventDefault();
+            // Solicitar contraseña sencilla o clave secreta de administración
+            const pass = prompt("Ingresa la clave de administrador:");
+            if (pass === "1234") { // Puedes cambiar tu clave aquí
+                document.getElementById('home-view').style.display = 'none';
+                document.getElementById('admin-view').style.display = 'block';
+            } else if (pass !== null) {
+                alert("Clave incorrecta.");
+            }
+        }
+
+        function showHome(e) {
+            e.preventDefault();
+            document.getElementById('admin-view').style.display = 'none';
+            document.getElementById('home-view').style.display = 'flex';
+        }
+
+        // Guardar nueva frase desde el panel de administración
+        function saveNewQuote() {
+            const text = document.getElementById('new-quote-text').value.trim();
+            const date = document.getElementById('new-quote-date').value;
+            const category = document.getElementById('new-quote-category').value.trim();
+
+            if (!text || !date) {
+                alert("Por favor completa la frase y la fecha.");
                 return;
             }
 
-            showLoading(true);
+            const newEntry = {
+                id: loadedQuotes.length + 1,
+                fecha: date,
+                texto: text,
+                autor: "SoloParaUsted",
+                categoria: category || "Amor"
+            };
 
-            try {
-                const response = await fetch(API_URL);
-                if (!response.ok) {
-                    throw new Error(`Error HTTP status: ${response.status}`);
-                }
-                const data = await response.json();
-                
-                if (data && data.frase) {
-                    setQuote(data.frase);
-                } else {
-                    setQuote(DEFAULT_QUOTE);
-                }
-            } catch (error) {
-                console.warn('No se pudo conectar a la API de frases. Usando frase de respaldo:', error);
-                setQuote(DEFAULT_QUOTE);
-            } finally {
-                showLoading(false);
-            }
-        }
+            loadedQuotes.push(newEntry);
+            localStorage.setItem('soloparausted_frases', JSON.stringify(loadedQuotes));
 
-        /**
-         * Actualiza el texto de la frase con una animación suave
-         */
-        function setQuote(text) {
-            quoteTextEl.style.opacity = '0';
+            document.getElementById('admin-feedback').textContent = "¡Frase guardada con éxito en el navegador! (Si deseas que sea permanente para todos, actualiza tu archivo frases.json en GitHub con este contenido).";
+            document.getElementById('new-quote-text').value = '';
+            
             setTimeout(() => {
-                quoteTextEl.textContent = text;
-                quoteTextEl.style.opacity = '1';
-            }, 200);
+                showHome(new Event('click'));
+                displayTodayQuote();
+            }, 2500);
         }
 
-        /**
-         * Alterna el spinner de carga
-         */
-        function showLoading(isLoading) {
-            if (isLoading) {
-                quoteTextEl.style.display = 'none';
-                loadingSpinnerEl.style.display = 'block';
+        // Acciones de copiado y compartir
+        function copyQuote() {
+            const text = document.getElementById('quote-text').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("¡Frase copiada al portapapeles!");
+            });
+        }
+
+        function shareQuote() {
+            const text = document.getElementById('quote-text').textContent + " ✨ — SoloParaUsted";
+            if (navigator.share) {
+                navigator.share({
+                    title: 'SoloParaUsted',
+                    text: text,
+                    url: window.location.href,
+                }).catch(() => {});
             } else {
-                loadingSpinnerEl.style.display = 'none';
-                quoteTextEl.style.display = 'block';
+                // Fallback directo a WhatsApp
+                const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+                window.open(whatsappUrl, '_blank');
             }
         }
 
-        /**
-         * Muestra una notificación Toast temporal
-         */
         function showToast(message) {
-            if (message) {
-                toastEl.querySelector('span').textContent = message;
-            }
-            toastEl.classList.add('show');
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
             setTimeout(() => {
-                toastEl.classList.remove('show');
+                toast.classList.remove('show');
             }, 3000);
         }
 
-        /**
-         * Copia la frase al portapapeles con fallback compatible
-         */
-        function copyToClipboard() {
-            const textToCopy = `"${quoteTextEl.textContent.trim()}" — SoloParaUsted`;
-
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(textToCopy)
-                    .then(() => showToast('✓ Frase copiada al portapapeles'))
-                    .catch(() => fallbackCopy(textToCopy));
-            } else {
-                fallbackCopy(textToCopy);
-            }
-        }
-
-        /**
-         * Método secundario para copiar en navegadores o entornos donde execCommand sea necesario
-         */
-        function fallbackCopy(text) {
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            textArea.style.position = 'fixed';
-            textArea.style.left = '-999999px';
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-
-            try {
-                document.execCommand('copy');
-                showToast('✓ Frase copiada al portapapeles');
-            } catch (err) {
-                showToast('No se pudo copiar la frase.');
-            } finally {
-                document.body.removeChild(textArea);
-            }
-        }
-
-        /**
-         * Comparte la frase usando Web Share API o fallback a WhatsApp
-         */
-        function shareQuote() {
-            const quote = quoteTextEl.textContent.trim();
-            const shareData = {
-                title: 'SoloParaUsted - Frase Romántica',
-                text: `"${quote}" — Descubierto en SoloParaUsted:`,
-                url: window.location.href
-            };
-
-            // Intentar Web Share API nativo (Móviles / Navegadores modernos)
-            if (navigator.share) {
-                navigator.share(shareData).catch((err) => {
-                    if (err.name !== 'AbortError') {
-                        fallbackShareWhatsApp(quote);
-                    }
-                });
-            } else {
-                fallbackShareWhatsApp(quote);
-            }
-        }
-
-        /**
-         * Fallback para compartir directamente por WhatsApp Web / App
-         */
-        function fallbackShareWhatsApp(quote) {
-            const message = encodeURIComponent(`"${quote}"\n\nDescubre más frases en: ${window.location.href}`);
-            const whatsappUrl = `https://api.whatsapp.com/send?text=${message}`;
-            window.open(whatsappUrl, '_blank');
-        }
-
-        /* ==========================================================================
-           INICIALIZACIÓN
-           ========================================================================== */
-        document.addEventListener('DOMContentLoaded', () => {
-            displayCurrentDate();
-            fetchDailyQuote();
-
-            // Event Listeners
-            btnCopy.addEventListener('click', copyToClipboard);
-            btnShare.addEventListener('click', shareQuote);
-        });
+        // Inicializar al cargar
+        window.onload = loadQuotes;
     </script>
 </body>
 </html>
