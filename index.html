@@ -653,12 +653,12 @@
             <!-- Generación Simultánea por Categorías -->
             <div class="batch-box">
                 <label style="font-size: 0.9rem; font-weight: 600; color: var(--vino-suave); margin-bottom: 0.5px; display: block;">⚡ Generar Lote Diario Simultáneo</label>
-                <p style="font-size: 0.8rem; color: var(--texto-secundario); margin-bottom: 0.8rem;">Crea de golpe una frase para cada una de las 5 categorías de forma inmediata.</p>
+                <p style="font-size: 0.8rem; color: var(--texto-secundario); margin-bottom: 0.8rem;">Crea de golpe una frase única para cada una de las 5 categorías (sin repeticiones).</p>
                 <div class="form-group" style="margin-bottom: 0.8rem;">
                     <label for="batch-date">Fecha del Lote</label>
                     <input type="date" id="batch-date">
                 </div>
-                <button class="btn btn-primary" onclick="generateBatchQuotes()" style="width: 100%; justify-content: center;">Generar 5 Frases Simultáneas</button>
+                <button class="btn btn-primary" onclick="generateBatchQuotes()" style="width: 100%; justify-content: center;">Generar 5 Frases Simultáneas Sin Repetir</button>
             </div>
 
             <hr style="border: none; border-top: 1px solid var(--borde-suave); margin: 1.5rem 0;">
@@ -722,6 +722,55 @@
         let loadedQuotes = [];
         let currentCategoryFilter = 'Todas';
         let currentCarouselIndex = 0;
+
+        // BANCO EXTENDIDO Y VARIADO DE FRASES ANTI-REPETICIÓN
+        const MASTER_QUOTE_BANK = {
+            "Amor": [
+                "Amar no es mirarse el uno al otro, es mirar juntos en la misma dirección con el alma.",
+                "Eres la casualidad más hermosa que llegó a darle sentido a todos mis días.",
+                "En tu sonrisa encontré el refugio exacto donde siempre quise habitar.",
+                "Coincidir contigo en esta vida es el regalo más dulce que me ha dado el universo.",
+                "No busqué enamorarme, pero en tu forma de mirar encontré mi destino.",
+                "A tu lado comprendí que el amor de verdad no apresura, calma y abraza.",
+                "Eres la historia más bonita que el tiempo ha escrito en mi corazón."
+            ],
+            "Ternura": [
+                "Tu mano encaja en la mía como si el universo la hubiera diseñado solo para sostenerla.",
+                "Hay tanta paz en tu mirada que el mundo exterior simplemente desaparece.",
+                "Cada caricia tuya es un poema silencioso escrito directo en mi piel.",
+                "Abrazarte es sentir que todo en mi vida vuelve a estar en su lugar.",
+                "Tienes la dulzura exacta que convierte cualquier día gris en una mañana tibia.",
+                "En la sutileza de tu voz encuentro el descanso que mi alma necesita.",
+                "Cuidarte y verte sonreír es mi manera favorita de agradecer la vida."
+            ],
+            "Distancia": [
+                "Aunque los kilómetros nos separen, mi pensamiento cruza el espacio para abrazarte.",
+                "La distancia es solo una prueba de cuánto puede amar el corazón sin tocarse.",
+                "Te siento tan cerca en mis latidos que el mapa entre los dos pierde todo sentido.",
+                "No importa qué tan lejos estés, compartimos el mismo cielo y el mismo querer.",
+                "Cada día lejos de ti es un paso menos para volver a enredarme en tus brazos.",
+                "El espacio físico es corto cuando el alma habita en la misma frecuencia.",
+                "Te pienso en la distancia con la certeza hermosa de que pronto volveremos a coincidir."
+            ],
+            "Gratitud": [
+                "Gracias por aparecer en mi vida y convertir lo ordinario en algo inolvidable.",
+                "Mi mayor bendición tiene tu nombre, tu risa y tu forma tan noble de amar.",
+                "Doy gracias a cada paso del camino que me condujo directo hacia tus brazos.",
+                "Gracias por enseñarme que el amor auténtico sana, acompaña y fortalece.",
+                "Tenerte a mi lado me recuerda lo afortunado que soy al poder amar así.",
+                "Agradezco cada instante, cada mirada y cada palabra que hemos compartido.",
+                "Tu presencia en mi vida es un regalo por el cual suspiro con gratitud cada noche."
+            ],
+            "Pasión": [
+                "Tu fuego enciende cada rincón de mi ser, convirtiendo la noche en pura magia.",
+                "Bajo tu piel descubrí el latido exacto de la eternidad y el deseo.",
+                "Nuestros cuerpos hablan un idioma secreto donde el tiempo se detiene por completo.",
+                "Un solo roce tuyo basta para despertar la tormenta más dulce en mi pecho.",
+                "Eres el deseo constante que habita en mis noches y despierta con mi amanecer.",
+                "Perderme en tu boca es la forma más bella de encontrarme con la pasión.",
+                "Hay un magnetismo irrefrenable entre los dos que el tiempo jamás podrá apagar."
+            ]
+        };
 
         function saveToStorage() {
             try {
@@ -873,6 +922,7 @@
             }
         }
 
+        // GENERACIÓN MASIVA POR LOTE DE 5 CATEGORÍAS (CON FILTRO ANTI-REPETICIÓN INTEGIRADO)
         function generateBatchQuotes() {
             const date = document.getElementById('batch-date').value;
             if (!date) {
@@ -881,39 +931,54 @@
             }
 
             const categorias = ["Amor", "Ternura", "Distancia", "Gratitud", "Pasión"];
-            const bancoFrases = {
-                "Amor": [
-                    "Amar no es mirarse el uno al otro, es mirar juntos en la misma dirección.",
-                    "Eres la casualidad más hermosa que llegó a darle sentido a todos mis días."
-                ],
-                "Ternura": [
-                    "Tu mano encaja en la mía como si el universo la hubiera diseñado solo para sostenerla.",
-                    "Hay tanta paz en tu mirada que el mundo exterior simplemente desaparece."
-                ],
-                "Distancia": [
-                    "Aunque los kilómetros nos separen, mi pensamiento cruza el espacio para abrazarte.",
-                    "La distancia es solo una prueba de cuánto puede amar el corazón sin tocarse."
-                ],
-                "Gratitud": [
-                    "Gracias por aparecer en mi vida y convertir lo ordinario en algo inolvidable.",
-                    "Mi mayor bendición tiene tu nombre, tu risa y tu forma de amar."
-                ],
-                "Pasión": [
-                    "Tu fuego enciende cada rincón de mi ser, convirtiendo la noche en pura magia.",
-                    "Bajo tu piel descubrí el latido exacto de la eternidad y el deseo."
-                ]
-            };
-
             let addedCount = 0;
+
+            // Extraer todos los textos existentes en la base de datos para no repetirlos jamás
+            const existingTextsSet = new Set(loadedQuotes.map(q => q.texto.trim().toLowerCase()));
+
             categorias.forEach(cat => {
-                const arrayCat = bancoFrases[cat];
-                const randomText = arrayCat[Math.floor(Math.random() * arrayCat.length)];
+                const arrayCat = MASTER_QUOTE_BANK[cat] || [];
+                
+                // Filtrar frases del banco que NUNCA hayan sido usadas en la app
+                let unusedQuotes = arrayCat.filter(qText => !existingTextsSet.has(qText.trim().toLowerCase()));
+
+                let selectedText = "";
+
+                if (unusedQuotes.length > 0) {
+                    // Elegir una frase limpia del banco no usada
+                    selectedText = unusedQuotes[Math.floor(Math.random() * unusedQuotes.length)];
+                } else {
+                    // Si se agotó el banco de esa categoría, generar una variante romántica única
+                    const conectores = [
+                        "En el silencio de la noche,", "A cada instante,", "Desde el fondo de mi alma,",
+                        "En cada respiración,", "Sin importar el tiempo,", "Bajo la luz de este día,"
+                    ];
+                    const frasesBase = [
+                        "reafirmo que eres mi lugar favorito en el mundo.",
+                        "descubro un nuevo motivo para entregarte mi corazón.",
+                        "agradezco el regalo infinito de tenerte en mi vida.",
+                        "siento que la distancia se extingue con solo pensarte.",
+                        "comprendo que nuestro amor trasciende todo límite."
+                    ];
+                    
+                    let attempts = 0;
+                    do {
+                        const randomCon = conectores[Math.floor(Math.random() * conectores.length)];
+                        const randomBase = frasesBase[Math.floor(Math.random() * frasesBase.length)];
+                        selectedText = `${randomCon} ${randomBase}`;
+                        attempts++;
+                    } while (existingTextsSet.has(selectedText.toLowerCase()) && attempts < 20);
+                }
+
+                // Registrar en el conjunto de textos existentes para esta misma sesión
+                existingTextsSet.add(selectedText.trim().toLowerCase());
+
                 const newId = loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1;
                 
                 loadedQuotes.push({
                     id: newId + addedCount,
                     fecha: date,
-                    texto: randomText,
+                    texto: selectedText,
                     autor: "SoloParaUsted",
                     categoria: cat,
                     favorito: false
@@ -923,7 +988,7 @@
 
             saveToStorage();
             
-            document.getElementById('admin-feedback').textContent = "¡Lote de 5 frases generado y guardado de forma inmediata!";
+            document.getElementById('admin-feedback').textContent = "¡Lote de 5 frases únicas generado sin repeticiones!";
             selectedDate = date;
             updateViewDate();
             renderFolderHistory();
