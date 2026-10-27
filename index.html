@@ -171,6 +171,18 @@
             transform: translateY(-2px);
         }
 
+        .btn-ai {
+            background: linear-gradient(135deg, var(--rosa-empolvado), var(--rosa-acento));
+            color: var(--vino-suave);
+            border: none;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .btn-ai:hover {
+            opacity: 0.9;
+        }
+
         /* Panel de Administración */
         .admin-panel {
             display: none;
@@ -235,7 +247,7 @@
         }
 
         .history-list {
-            max-height: 300px;
+            max-height: 250px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -300,6 +312,7 @@
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
+            z-index: 1000;
         }
 
         .toast.show {
@@ -360,9 +373,18 @@
         <!-- VISTA DE ADMINISTRADOR -->
         <div id="admin-view" class="admin-panel">
             <h2>Panel de Creación</h2>
+            
+            <!-- Configuración de API Key de Gemini -->
             <div class="form-group">
-                <label for="new-quote-text">Nueva Frase Romántica</label>
-                <textarea id="new-quote-text" rows="3" placeholder="Escribe aquí la nueva frase..."></textarea>
+                <label for="admin-api-key">Gemini API Key (Se guarda en tu navegador)</label>
+                <input type="password" id="admin-api-key" placeholder="Pega aquí tu API Key de Google AI Studio" onchange="saveApiKey()">
+            </div>
+
+            <button class="btn btn-ai" onclick="generateWithAI()">✨ Generar Frase Romántica con IA</button>
+
+            <div class="form-group">
+                <label for="new-quote-text">Frase Romántica</label>
+                <textarea id="new-quote-text" rows="3" placeholder="Escribe o genera la frase aquí..."></textarea>
             </div>
             <div class="form-group">
                 <label for="new-quote-date">Fecha de Publicación</label>
@@ -402,6 +424,21 @@
         document.getElementById('new-quote-date').value = todayISO;
 
         let loadedQuotes = [];
+
+        // Cargar API Key guardada previamente
+        window.onload = function() {
+            const savedKey = localStorage.getItem('soloparausted_gemini_key');
+            if (savedKey) {
+                document.getElementById('admin-api-key').value = savedKey;
+            }
+            loadQuotes();
+        };
+
+        function saveApiKey() {
+            const key = document.getElementById('admin-api-key').value.trim();
+            localStorage.setItem('soloparausted_gemini_key', key);
+            showToast("API Key guardada de forma segura en tu navegador");
+        }
 
         // Cargar las frases desde el archivo JSON local o localStorage
         async function loadQuotes() {
@@ -453,6 +490,57 @@
             displayTodayQuote();
         }
 
+        // Generar frase usando Gemini API directamente desde el navegador
+        async function generateWithAI() {
+            const apiKey = document.getElementById('admin-api-key').value.trim();
+            if (!apiKey) {
+                alert("Por favor ingresa primero tu API Key de Gemini arriba.");
+                return;
+            }
+
+            const feedback = document.getElementById('admin-feedback');
+            feedback.textContent = "✨ Conectando con Gemini para crear una frase mágica...";
+
+            // Obtener frases recientes para evitar repeticiones
+            const recentTexts = loadedQuotes.slice(-20).map(q => q.texto).join(" | ");
+            const promptText = `Escribe una frase romántica original, breve (máximo 25 palabras), poética pero natural, en español neutro, sin clichés repetidos, sin emojis, sin comillas y sin repetir ninguna de estas frases recientes: [${recentTexts}]. Devuelve solo la frase.`;
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: promptText }]
+                }],
+                generationConfig: {
+                    temperature: 0.8,
+                    maxOutputTokens: 100
+                }
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                
+                if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                    let aiText = data.candidates[0].content.parts[0].text.replace(/^["'«]+|["'»]+$/g, '').trim();
+                    document.getElementById('new-quote-text').value = aiText;
+                    feedback.textContent = "¡Frase generada con éxito con IA!";
+                } else {
+                    throw new Error("Respuesta inválida de la API");
+                }
+            } catch (error) {
+                console.error(error);
+                feedback.textContent = "Error al conectar con Gemini. Revisa tu API Key.";
+            }
+
+            setTimeout(() => { feedback.textContent = ''; }, 4000);
+        }
+
         // Guardar nueva frase
         function saveNewQuote() {
             const text = document.getElementById('new-quote-text').value.trim();
@@ -473,7 +561,6 @@
             };
 
             loadedQuotes.push(newEntry);
-            // Ordenar por fecha cronológicamente
             loadedQuotes.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
             localStorage.setItem('soloparausted_frases', JSON.stringify(loadedQuotes));
@@ -500,11 +587,10 @@
                 return;
             }
 
-            // Mostrar desde la más reciente a la más antigua en el panel
             const sortedForHistory = [...loadedQuotes].reverse();
 
             sortedForHistory.forEach((q) => {
-                const item = document.div = document.createElement('div');
+                const item = document.createElement('div');
                 item.className = 'history-item';
                 item.innerHTML = `
                     <div class="history-info">
@@ -557,8 +643,6 @@
                 toast.classList.remove('show');
             }, 3000);
         }
-
-        window.onload = loadQuotes;
     </script>
 </body>
 </html>
