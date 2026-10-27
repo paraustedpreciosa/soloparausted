@@ -20,6 +20,7 @@
             --texto-secundario: #8C6A72;
             --borde-suave: rgba(216, 164, 184, 0.25);
             --sombra-elegante: 0 10px 30px rgba(107, 62, 72, 0.05);
+            --rojo-suave: #D96868;
         }
 
         * {
@@ -83,7 +84,7 @@
             width: 70px;
             height: 70px;
             fill: var(--rosa-acento);
-            margin-bottom: 0.5srem;
+            margin-bottom: 0.5rem;
             animation: pulseHeart 3s infinite ease-in-out;
         }
 
@@ -174,7 +175,7 @@
         .admin-panel {
             display: none;
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             background: var(--bg-tarjeta);
             padding: 2.5rem;
             border-radius: 20px;
@@ -217,6 +218,74 @@
 
         .form-group textarea:focus, .form-group input:focus {
             border-color: var(--vino-suave);
+        }
+
+        /* Historial en Admin */
+        .history-section {
+            margin-top: 2.5rem;
+            border-top: 1px solid var(--borde-suave);
+            padding-top: 1.5rem;
+        }
+
+        .history-section h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--vino-suave);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding-right: 0.5rem;
+        }
+
+        .history-item {
+            background: var(--bg-rosa-suave);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid var(--borde-suave);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .history-info {
+            flex: 1;
+        }
+
+        .history-date {
+            font-size: 0.75rem;
+            color: var(--texto-secundario);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            text-transform: uppercase;
+        }
+
+        .history-text {
+            font-size: 0.9rem;
+            color: var(--vino-suave);
+            font-style: italic;
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            color: var(--rojo-suave);
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .btn-delete:hover {
+            background: rgba(217, 104, 104, 0.1);
         }
 
         /* Toast de notificación */
@@ -303,8 +372,16 @@
                 <label for="new-quote-category">Categoría</label>
                 <input type="text" id="new-quote-category" value="Amor">
             </div>
-            <button class="btn" onclick="saveNewQuote()" style="background-color: var(--vino-suave); color: #FFF; width: 100%; justify-content: center;">Guardar y Publicar en GitHub</button>
-            <p id="admin-feedback" style="font-size: 0.8rem; color: var(--texto-secundario; margin-top: 1rem; text-align: center;"></p>
+            <button class="btn" onclick="saveNewQuote()" style="background-color: var(--vino-suave); color: #FFF; width: 100%; justify-content: center;">Guardar Nueva Frase</button>
+            <p id="admin-feedback" style="font-size: 0.8rem; color: var(--texto-secundario); margin-top: 1rem; text-align: center;"></p>
+
+            <!-- SECCIÓN DE HISTORIAL -->
+            <div class="history-section">
+                <h3>Historial de Frases (<span id="total-count">0</span>)</h3>
+                <div class="history-list" id="history-list">
+                    <!-- Las frases se cargan aquí dinámicamente -->
+                </div>
+            </div>
         </div>
     </div>
 
@@ -320,16 +397,15 @@
         const todayFormatted = new Date().toLocaleDateString('es-ES', options);
         document.getElementById('current-date').textContent = todayFormatted;
 
-        // Fecha en formato YYYY-MM-DD para comparar con el JSON
+        // Fecha en formato YYYY-MM-DD
         const todayISO = new Date().toISOString().split('T')[0];
         document.getElementById('new-quote-date').value = todayISO;
 
         let loadedQuotes = [];
 
-        // Cargar las frases desde el archivo JSON local en GitHub
+        // Cargar las frases desde el archivo JSON local o localStorage
         async function loadQuotes() {
             try {
-                // Comprobar si hay frases añadidas localmente por el admin
                 const localStored = localStorage.getItem('soloparausted_frases');
                 if (localStored) {
                     loadedQuotes = JSON.parse(localStored);
@@ -340,6 +416,7 @@
                     localStorage.setItem('soloparausted_frases', JSON.stringify(loadedQuotes));
                 }
                 displayTodayQuote();
+                renderHistory();
             } catch (error) {
                 console.error("Error cargando frases:", error);
                 document.getElementById('quote-text').textContent = "“Eres el pensamiento más bonito que habita en mi corazón.”";
@@ -347,7 +424,6 @@
         }
 
         function displayTodayQuote() {
-            // Buscar frase para hoy, si no hay, tomar la última o una aleatoria
             let currentQuote = loadedQuotes.find(q => q.fecha === todayISO);
             if (!currentQuote && loadedQuotes.length > 0) {
                 currentQuote = loadedQuotes[loadedQuotes.length - 1];
@@ -360,11 +436,11 @@
         // Navegación entre vistas
         function showAdmin(e) {
             e.preventDefault();
-            // Solicitar contraseña sencilla o clave secreta de administración
             const pass = prompt("Ingresa la clave de administrador:");
             if (pass === "1234") { // Puedes cambiar tu clave aquí
                 document.getElementById('home-view').style.display = 'none';
                 document.getElementById('admin-view').style.display = 'block';
+                renderHistory();
             } else if (pass !== null) {
                 alert("Clave incorrecta.");
             }
@@ -374,9 +450,10 @@
             e.preventDefault();
             document.getElementById('admin-view').style.display = 'none';
             document.getElementById('home-view').style.display = 'flex';
+            displayTodayQuote();
         }
 
-        // Guardar nueva frase desde el panel de administración
+        // Guardar nueva frase
         function saveNewQuote() {
             const text = document.getElementById('new-quote-text').value.trim();
             const date = document.getElementById('new-quote-date').value;
@@ -388,7 +465,7 @@
             }
 
             const newEntry = {
-                id: loadedQuotes.length + 1,
+                id: loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1,
                 fecha: date,
                 texto: text,
                 autor: "SoloParaUsted",
@@ -396,15 +473,58 @@
             };
 
             loadedQuotes.push(newEntry);
+            // Ordenar por fecha cronológicamente
+            loadedQuotes.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+
             localStorage.setItem('soloparausted_frases', JSON.stringify(loadedQuotes));
 
-            document.getElementById('admin-feedback').textContent = "¡Frase guardada con éxito en el navegador! (Si deseas que sea permanente para todos, actualiza tu archivo frases.json en GitHub con este contenido).";
+            document.getElementById('admin-feedback').textContent = "¡Frase guardada con éxito en el sistema!";
             document.getElementById('new-quote-text').value = '';
             
+            renderHistory();
+
             setTimeout(() => {
-                showHome(new Event('click'));
-                displayTodayQuote();
-            }, 2500);
+                document.getElementById('admin-feedback').textContent = '';
+            }, 3000);
+        }
+
+        // Renderizar el historial en el panel de administración
+        function renderHistory() {
+            const historyList = document.getElementById('history-list');
+            const totalCount = document.getElementById('total-count');
+            historyList.innerHTML = '';
+            totalCount.textContent = loadedQuotes.length;
+
+            if (loadedQuotes.length === 0) {
+                historyList.innerHTML = '<p style="font-size: 0.85rem; color: var(--texto-secundario); text-align: center; padding: 1rem;">No hay frases guardadas aún.</p>';
+                return;
+            }
+
+            // Mostrar desde la más reciente a la más antigua en el panel
+            const sortedForHistory = [...loadedQuotes].reverse();
+
+            sortedForHistory.forEach((q) => {
+                const item = document.div = document.createElement('div');
+                item.className = 'history-item';
+                item.innerHTML = `
+                    <div class="history-info">
+                        <div class="history-date">📅 ${q.fecha} — [${q.categoria}]</div>
+                        <div class="history-text">"${q.texto}"</div>
+                    </div>
+                    <button class="btn-delete" onclick="deleteQuote(${q.id})">Eliminar</button>
+                `;
+                historyList.appendChild(item);
+            });
+        }
+
+        // Eliminar una frase del historial
+        function deleteQuote(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar esta frase?")) {
+                loadedQuotes = loadedQuotes.filter(q => q.id !== id);
+                localStorage.setItem('soloparausted_frases', JSON.stringify(loadedQuotes));
+                renderHistory();
+                showToast("Frase eliminada con éxito");
+            }
         }
 
         // Acciones de copiado y compartir
@@ -424,7 +544,6 @@
                     url: window.location.href,
                 }).catch(() => {});
             } else {
-                // Fallback directo a WhatsApp
                 const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
                 window.open(whatsappUrl, '_blank');
             }
@@ -439,7 +558,6 @@
             }, 3000);
         }
 
-        // Inicializar al cargar
         window.onload = loadQuotes;
     </script>
 </body>
