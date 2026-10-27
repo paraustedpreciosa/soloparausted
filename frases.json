@@ -1,0 +1,18 @@
+{
+  "frases": [
+    {
+      "id": 1,
+      "fecha": "2026-10-26",
+      "texto": "Eres mi primer pensamiento al despertar y el último antes de soñar. Eres mi hoy y todos mis mañanas.",
+      "autor": "SoloParaUsted",
+      "categoria": "Amor"
+    },
+    {
+      "id": 2,
+      "fecha": "2026-10-27",
+      "texto": "Contigo aprendí que el hogar no es un lugar, es la persona en cuyos brazos decides quedarte para siempre.",
+      "autor": "SoloParaUsted",
+      "categoria": "Ternura"
+    }
+  ]
+}
