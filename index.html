@@ -7,7 +7,1636 @@
     <!-- Google Fonts: Cormorant Garamond, Playfair Display, Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,4<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SoloParaUsted - Frases Románticas Diarias</title>
+    <!-- Google Fonts: Cormorant Garamond, Playfair Display, Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-rosa-suave: #FFF5F7;
+            --bg-tarjeta: #FFFFFF;
+            --rosa-empolvado: #FAD2E1;
+            --rosa-acento: #D8A4B8;
+            --vino-suave: #6B3E48;
+            --texto-principal: #4A2E35;
+            --texto-secundario: #8C6A72;
+            --borde-suave: rgba(216, 164, 184, 0.35);
+            --sombra-elegante: 0 10px 30px rgba(107, 62, 72, 0.08);
+            --rojo-suave: #D96868;
+            --rose-pattern-opacity: 0.18;
+            --quote-font: 'Cormorant Garamond', serif;
+        }
+
+        [data-theme="midnight"] {
+            --bg-rosa-suave: #2A1B20;
+            --bg-tarjeta: #362228;
+            --rosa-empolvado: #5E3943;
+            --rosa-acento: #A66879;
+            --vino-suave: #F3D2DB;
+            --texto-principal: #F9E6EC;
+            --texto-secundario: #D4A5B4;
+            --borde-suave: rgba(166, 104, 121, 0.35);
+            --sombra-elegante: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --rose-pattern-opacity: 0.12;
+        }
+
+        [data-theme="lavender"] {
+            --bg-rosa-suave: #F5F3FF;
+            --bg-tarjeta: #FFFFFF;
+            --rosa-empolvado: #DDD6FE;
+            --rosa-acento: #A78BFA;
+            --vino-suave: #4C1D95;
+            --texto-principal: #3B0764;
+            --texto-secundario: #6D28D9;
+            --borde-suave: rgba(167, 139, 250, 0.35);
+            --sombra-elegante: 0 10px 30px rgba(76, 29, 149, 0.08);
+            --rojo-suave: #E11D48;
+            --rose-pattern-opacity: 0.15;
+        }
+
+        [data-theme="creme"] {
+            --bg-rosa-suave: #FDFBF7;
+            --bg-tarjeta: #FFFFFF;
+            --rosa-empolvado: #FDE68A;
+            --rosa-acento: #D97706;
+            --vino-suave: #78350F;
+            --texto-principal: #451A03;
+            --texto-secundario: #92400E;
+            --borde-suave: rgba(217, 119, 6, 0.25);
+            --sombra-elegante: 0 10px 30px rgba(120, 53, 15, 0.06);
+            --rojo-suave: #DC2626;
+            --rose-pattern-opacity: 0.12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-rosa-suave);
+            color: var(--texto-principal);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 1rem;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* FONDO PATRÓN DE ROSAS */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            opacity: var(--rose-pattern-opacity);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23d8a4b8'%3E%3Cpath d='M20 12c-2.5 0-4.5 1.8-4.5 4 0 3 3.5 5.5 4.5 8 1-2.5 4.5-5 4.5-8 0-2.2-2-4-4.5-4zm0 2a2.3 2.3 0 0 1 2.5 2c0 1.2-1.6 3-2.5 4.7-.9-1.7-2.5-3.5-2.5-4.7 0-.8.9-2 2.5-2z'/%3E%3Cpath d='M20 22c-5 0-8 3-8 6.5 0 5 6 9.5 8 11.5 2-2 8-6.5 8-11.5 0-3.5-3-6.5-8-6.5zm0 2.5c3.2 0 5.5 1.8 5.5 4 0 3-4.2 6.5-5.5 8-1.3-1.5-5.5-5-5.5-8 0-2.2 2.3-4 5.5-4z'/%3E%3Cpath d='M60 52c-2.5 0-4.5 1.8-4.5 4 0 3 3.5 5.5 4.5 8 1-2.5 4.5-5 4.5-8 0-2.2-2-4-4.5-4zm0 2a2.3 2.3 0 0 1 2.5 2c0 1.2-1.6 3-2.5 4.7-.9-1.7-2.5-3.5-2.5-4.7 0-.8.9-2 2.5-2z'/%3E%3Cpath d='M60 62c-5 0-8 3-8 6.5 0 5 6 9.5 8 11.5 2-2 8-6.5 8-11.5 0-3.5-3-6.5-8-6.5zm0 2.5c3.2 0 5.5 1.8 5.5 4 0 3-4.2 6.5-5.5 8-1.3-1.5-5.5-5-5.5-8 0-2.2 2.3-4 5.5-4z'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: repeat;
+        }
+
+        header {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        nav a {
+            color: var(--texto-secundario);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: var(--vino-suave);
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 720px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-container {
+            margin-bottom: 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-svg {
+            width: clamp(50px, 7vw, 70px);
+            height: clamp(50px, 7vw, 70px);
+            fill: var(--rosa-acento);
+            margin-bottom: 0.4rem;
+            animation: pulseHeart 3s infinite ease-in-out;
+        }
+
+        @keyframes pulseHeart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+
+        .logo-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5.5vw, 3rem);
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--vino-suave), var(--rosa-acento));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        /* 🌙 Recordatorio Nocturno Sutil */
+        .night-reminder {
+            display: none;
+            background: var(--bg-tarjeta);
+            border: 1px solid var(--borde-suave);
+            padding: 0.6rem 1rem;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            color: var(--vino-suave);
+            margin-bottom: 1rem;
+            box-shadow: var(--sombra-elegante);
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(5px);
+            z-index: 2;
+        }
+
+        .night-reminder button {
+            background: var(--rosa-empolvado);
+            border: none;
+            color: var(--vino-suave);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* 🎛️ Barra de Opciones Superior */
+        .top-tools-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            transition: opacity 0.3s ease;
+        }
+
+        .tool-select {
+            background-color: var(--bg-tarjeta);
+            color: var(--vino-suave);
+            border: 1px solid var(--borde-suave);
+            padding: 0.3rem 0.6rem;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            outline: none;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Botón de Carta en la barra superior */
+        .top-letter-btn {
+            display: none;
+            background: linear-gradient(135deg, var(--vino-suave), var(--rosa-acento));
+            color: var(--bg-tarjeta);
+            border: none;
+            padding: 0.35rem 0.8rem;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--sombra-elegante);
+            align-items: center;
+            gap: 0.3rem;
+            transition: transform 0.2s ease;
+        }
+
+        .top-letter-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* 📅 Módulo de Calendario Manual */
+        .calendar-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: var(--bg-tarjeta);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            border: 1px solid var(--borde-suave);
+            box-shadow: var(--sombra-elegante);
+            margin-bottom: 1.2rem;
+            max-width: 100%;
+            backdrop-filter: blur(5px);
+            transition: opacity 0.3s ease;
+        }
+
+        .calendar-bar input[type="date"] {
+            background: none;
+            border: none;
+            color: var(--vino-suave);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .cal-btn {
+            background: var(--bg-rosa-suave);
+            border: 1px solid var(--rosa-empolvado);
+            color: var(--vino-suave);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .cal-btn:hover {
+            background-color: var(--rosa-empolvado);
+        }
+
+        /* Categorías / Filtros */
+        .categories-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 0 0.5rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .cat-chip {
+            background-color: var(--bg-tarjeta);
+            color: var(--texto-secundario);
+            border: 1px solid var(--borde-suave);
+            padding: 0.35rem 0.8rem;
+            border-radius: 20px;
+            font-size: clamp(0.7rem, 2vw, 0.78rem);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            backdrop-filter: blur(5px);
+        }
+
+        .cat-chip.active, .cat-chip:hover {
+            background-color: var(--rosa-empolvado);
+            color: var(--vino-suave);
+            border-color: var(--rosa-acento);
+        }
+
+        /* Tarjeta de Frase Minimalista */
+        .quote-card {
+            background-color: var(--bg-tarjeta);
+            width: 100%;
+            padding: clamp(1.6rem, 5vw, 2.8rem) clamp(1rem, 4vw, 2.2rem);
+            border-radius: 24px;
+            box-shadow: var(--sombra-elegante);
+            border: 1px solid var(--borde-suave);
+            position: relative;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease, padding 0.3s ease;
+        }
+
+        .quote-header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .quote-date {
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
+            color: var(--texto-secundario);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+        }
+
+        .header-actions-right {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .zen-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--rosa-acento);
+            transition: transform 0.2s ease, color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.3rem;
+            width: 32px;
+            height: 32px;
+        }
+
+        .zen-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            stroke: currentColor;
+            stroke-width: 1.5;
+        }
+
+        .zen-btn:hover {
+            transform: scale(1.15);
+            color: var(--vino-suave);
+        }
+
+        .milestone-badge {
+            display: none;
+            background: linear-gradient(135deg, var(--rosa-empolvado), var(--rosa-acento));
+            color: var(--vino-suave);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Insignia dentro de la tarjeta de frase */
+        .letter-badge {
+            display: none;
+            background: linear-gradient(135deg, var(--vino-suave), var(--rosa-acento));
+            color: var(--bg-tarjeta);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .fav-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--rosa-acento);
+            transition: transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.3rem;
+        }
+
+        .fav-btn:hover {
+            transform: scale(1.2);
+        }
+
+        /* Carrusel de Frases */
+        .carousel-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100px;
+            margin-bottom: 1rem;
+            gap: 0.4rem;
+        }
+
+        .carousel-btn {
+            background: none;
+            border: none;
+            color: var(--rosa-acento);
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.4rem;
+            transition: color 0.2s;
+            user-select: none;
+            line-height: 1;
+        }
+
+        .carousel-btn:hover {
+            color: var(--vino-suave);
+        }
+
+        .quote-text {
+            font-family: var(--quote-font);
+            font-size: clamp(1.3rem, 4.2vw, 1.9rem);
+            line-height: 1.4;
+            color: var(--vino-suave);
+            font-weight: 400;
+            flex: 1;
+            padding: 0 0.2rem;
+            word-wrap: break-word;
+        }
+
+        .carousel-indicators {
+            font-size: 0.7rem;
+            color: var(--texto-secundario);
+            margin-bottom: 1.2rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .quote-actions {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .btn {
+            background-color: var(--bg-rosa-suave);
+            color: var(--vino-suave);
+            border: 1px solid var(--rosa-empolvado);
+            padding: 0.55rem 1.1rem;
+            border-radius: 50px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(0.75rem, 2vw, 0.82rem);
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            flex: 1 1 auto;
+            min-width: 110px;
+        }
+
+        .btn:hover {
+            background-color: var(--rosa-empolvado);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background-color: var(--vino-suave);
+            color: var(--bg-tarjeta);
+            border: none;
+        }
+
+        /* Modal / Vista de Carta Completa */
+        .letter-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .letter-modal-content {
+            background: var(--bg-tarjeta);
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: var(--sombra-elegante);
+            border: 1px solid var(--borde-suave);
+            text-align: left;
+            position: relative;
+        }
+
+        .letter-modal-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--vino-suave);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--borde-suave);
+            padding-bottom: 0.5rem;
+        }
+
+        .letter-modal-body {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--vino-suave);
+            white-space: pre-line;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--texto-secundario);
+            cursor: pointer;
+        }
+
+        /* Panel de Administración */
+        .admin-panel {
+            display: none;
+            width: 100%;
+            max-width: 650px;
+            background: var(--bg-tarjeta);
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            border-radius: 20px;
+            box-shadow: var(--sombra-elegante);
+            border: 1px solid var(--borde-suave);
+            text-align: left;
+            margin-top: 1rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .admin-panel h2 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--vino-suave);
+            font-size: clamp(1.5rem, 4vw, 1.9rem);
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--texto-secundario);
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        .form-group textarea, .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.65rem;
+            border: 1px solid var(--rosa-empolvado);
+            border-radius: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-rosa-suave);
+            color: var(--texto-principal);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .batch-box {
+            background: var(--bg-rosa-suave);
+            padding: 1.1rem;
+            border-radius: 12px;
+            border: 1px dashed var(--rosa-acento);
+            margin-bottom: 1.2rem;
+        }
+
+        .folder-section {
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--borde-suave);
+            padding-top: 1rem;
+        }
+
+        .folder-card-os {
+            background: var(--bg-rosa-suave);
+            border: 1px solid var(--borde-suave);
+            border-radius: 12px;
+            padding: 0.9rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .folder-card-os:hover {
+            background-color: var(--rosa-empolvado);
+        }
+
+        .folder-info-os {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .folder-icon {
+            font-size: 1.4rem;
+        }
+
+        .folder-name {
+            font-weight: 600;
+            color: var(--vino-suave);
+            font-size: 0.9rem;
+        }
+
+        .folder-status {
+            font-size: 0.7rem;
+            color: var(--texto-secundario);
+        }
+
+        .folder-contents {
+            display: none;
+            margin-top: 0.8rem;
+            max-height: 220px;
+            overflow-y: auto;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .folder-contents.open {
+            display: flex;
+        }
+
+        .history-item {
+            background: var(--bg-tarjeta);
+            padding: 0.8rem;
+            border-radius: 10px;
+            border: 1px solid var(--borde-suave);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.7rem;
+            text-align: left;
+        }
+
+        .history-info {
+            flex: 1;
+        }
+
+        .history-date {
+            font-size: 0.7rem;
+            color: var(--texto-secundario);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            text-transform: uppercase;
+        }
+
+        .history-text {
+            font-size: 0.82rem;
+            color: var(--vino-suave);
+            font-style: italic;
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            color: var(--rojo-suave);
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        .btn-delete:hover {
+            background: rgba(217, 104, 104, 0.1);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            background-color: var(--vino-suave);
+            color: var(--bg-tarjeta);
+            padding: 0.7rem 1.4rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--texto-secundario);
+            padding-top: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body data-theme="rose">
+
+    <header id="main-header">
+        <div style="font-weight: 600; color: var(--vino-suave); letter-spacing: 0.5px;">SoloParaUsted</div>
+        <nav>
+            <a href="#" onclick="showHome(event)">Inicio</a>
+            <a href="#admin" onclick="showAdmin(event)">Administrador</a>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <!-- VISTA PRINCIPAL -->
+        <div id="home-view" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <div class="logo-container" id="zen-logo">
+                <svg class="logo-svg" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <h1 class="logo-title">SoloParaUsted</h1>
+            </div>
+
+            <!-- 🌙 RECORDATORIO NOCTURNO SUTIL -->
+            <div class="night-reminder" id="night-reminder-banner">
+                <span>🌙 Es hora nocturna, ¿activamos el modo Midnight?</span>
+                <button onclick="enableNightModeFromBanner()">Activar</button>
+            </div>
+
+            <!-- BARRA DE HERRAMIENTAS Y BOTÓN DE CARTA DINÁMICO -->
+            <div class="top-tools-bar" id="zen-tools">
+                <select class="tool-select" id="font-selector" onchange="changeFontFamily(this.value)" title="Estilo de Fuente">
+                    <option value="Cormorant Garamond">Cormorant (Clásica)</option>
+                    <option value="Playfair Display">Playfair (Elegante)</option>
+                    <option value="Plus Jakarta Sans">Jakarta (Moderna)</option>
+                </select>
+                <select class="tool-select" id="theme-selector" onchange="changeColorPalette(this.value)" title="Paleta de Colores">
+                    <option value="rose">Rosé Cream</option>
+                    <option value="midnight">Midnight Rose</option>
+                    <option value="lavender">Lavanda Suave</option>
+                    <option value="creme">Creme Brûlée</option>
+                </select>
+                <!-- Botón de Carta en la pantalla de inicio -->
+                <button class="top-letter-btn" id="top-letter-btn" onclick="openLetterModal()">
+                    💌 <span id="top-letter-label">Carta Especial</span>
+                </button>
+            </div>
+
+            <!-- CALENDARIO -->
+            <div class="calendar-bar" id="zen-calendar">
+                <button class="cal-btn" onclick="changeDay(-1)" title="Día anterior">‹</button>
+                <input type="date" id="calendar-picker" onchange="onCalendarChange()">
+                <button class="cal-btn" onclick="changeDay(1)" title="Día siguiente">›</button>
+                <button class="cal-btn" onclick="resetToToday()" title="Ir a hoy" style="font-size: 0.65rem; font-weight: 600; width: auto; padding: 0 0.5rem; border-radius: 10px;">Hoy</button>
+            </div>
+
+            <!-- CATEGORÍAS -->
+            <div class="categories-nav" id="zen-categories">
+                <button class="cat-chip active" onclick="filterCategory('Todas')">Todas</button>
+                <button class="cat-chip" onclick="filterCategory('Amor')">Amor</button>
+                <button class="cat-chip" onclick="filterCategory('Ternura')">Ternura</button>
+                <button class="cat-chip" onclick="filterCategory('Distancia')">Distancia</button>
+                <button class="cat-chip" onclick="filterCategory('Gratitud')">Gratitud</button>
+                <button class="cat-chip" onclick="filterCategory('Pasión')">Pasión</button>
+                <button class="cat-chip" onclick="filterCategory('Favoritos')">❤️ Favoritos</button>
+            </div>
+
+            <div class="quote-card" id="quote-card">
+                <div class="milestone-badge" id="milestone-badge">✨ Fecha Especial</div>
+                <!-- Insignia de Carta dentro de la tarjeta -->
+                <div class="letter-badge" id="letter-badge" onclick="openLetterModal()">💌 Carta Especial — Leer</div>
+                
+                <div class="quote-header-info">
+                    <div class="quote-date" id="current-date">Cargando fecha...</div>
+                    <div class="header-actions-right">
+                        <button class="zen-btn" onclick="getRandomSurpriseQuote()" title="Frase Sorpresa Aleatoria">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/></svg>
+                        </button>
+                        <button class="zen-btn" onclick="toggleZenMode()" id="zen-toggle-btn" title="Modo Enfoque / Zen">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <button class="fav-btn" id="current-fav-btn" onclick="toggleCurrentFavorite()" title="Marcar como favorito">❤️</button>
+                    </div>
+                </div>
+                
+                <div class="carousel-container">
+                    <button class="carousel-btn" id="prev-btn" onclick="prevCarousel()" style="display:none;">‹</button>
+                    <div class="quote-text" id="quote-text">"Cargando frase con amor..."</div>
+                    <button class="carousel-btn" id="next-btn" onclick="nextCarousel()" style="display:none;">›</button>
+                </div>
+                <div class="carousel-indicators" id="carousel-indicators"></div>
+
+                <div class="quote-actions" id="zen-actions">
+                    <button class="btn" onclick="copyQuote()">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                        Copiar
+                    </button>
+                    <button class="btn" onclick="shareQuote()">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                        Compartir
+                    </button>
+                    <button class="btn btn-primary" onclick="downloadQuoteCard()">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        Descargar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL DE CARTA -->
+        <div class="letter-modal" id="letter-modal">
+            <div class="letter-modal-content">
+                <button class="close-modal-btn" onclick="closeLetterModal()">×</button>
+                <div class="letter-modal-title" id="letter-modal-title">Carta Especial</div>
+                <div class="letter-modal-body" id="letter-modal-body">Contenido de la carta...</div>
+            </div>
+        </div>
+
+        <!-- VISTA DE ADMINISTRADOR -->
+        <div id="admin-view" class="admin-panel">
+            <h2>Panel de Creación</h2>
+            
+            <div class="batch-box">
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--vino-suave); margin-bottom: 0.3rem; display: block;">⚡ Generar Lote Diario Simultáneo</label>
+                <p style="font-size: 0.75rem; color: var(--texto-secundario); margin-bottom: 0.7rem;">Crea de golpe una frase única para cada una de las 5 categorías (sin repeticiones).</p>
+                <div class="form-group" style="margin-bottom: 0.7rem;">
+                    <label for="batch-date">Fecha del Lote</label>
+                    <input type="date" id="batch-date">
+                </div>
+                <button class="btn btn-primary" onclick="generateBatchQuotes()" style="width: 100%; justify-content: center;">Generar 5 Frases Sin Repetir</button>
+            </div>
+
+            <div class="form-group" style="background: var(--bg-rosa-suave); padding: 1rem; border-radius: 12px; border: 1px solid var(--borde-suave);">
+                <label style="font-weight: 600; color: var(--vino-suave);">✨ Registrar como Fecha Especial (Hito)</label>
+                <input type="text" id="milestone-title-input" placeholder="Ej: Aniversario, Nuestro Primer Beso..." style="margin-top: 0.4rem;">
+            </div>
+
+            <!-- Redacción de Carta Dedicatoria con Botón Propio -->
+            <div class="form-group" style="background: var(--bg-rosa-suave); padding: 1rem; border-radius: 12px; border: 1px solid var(--borde-suave); margin-top: 1rem;">
+                <label style="font-weight: 600; color: var(--vino-suave);">💌 Escribir Carta Especial (Dedicatoria Larga)</label>
+                <input type="text" id="letter-title-input" placeholder="Título de la carta (Ej: Para el amor de mi vida)" style="margin-top: 0.4rem; margin-bottom: 0.6rem;">
+                <textarea id="letter-text-input" rows="4" placeholder="Escribe tu carta o mensaje largo aquí..."></textarea>
+                <button class="btn btn-primary" onclick="saveOnlyLetter()" style="width: 100%; justify-content: center; margin-top: 0.8rem;">Guardar Carta Especial</button>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid var(--borde-suave); margin: 1.2rem 0;">
+
+            <div class="form-group">
+                <label for="new-quote-text">Frase Individual</label>
+                <textarea id="new-quote-text" rows="3" placeholder="Escribe aquí la nueva frase..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="new-quote-date">Fecha de Publicación</label>
+                <input type="date" id="new-quote-date">
+            </div>
+            <div class="form-group">
+                <label for="new-quote-category">Categoría</label>
+                <select id="new-quote-category">
+                    <option value="Amor">Amor</option>
+                    <option value="Ternura">Ternura</option>
+                    <option value="Distancia">Distancia</option>
+                    <option value="Gratitud">Gratitud</option>
+                    <option value="Pasión">Pasión</option>
+                </select>
+            </div>
+            <button class="btn" onclick="saveNewQuote()" style="background-color: var(--vino-suave); color: var(--bg-tarjeta); width: 100%; justify-content: center;">Guardar Frase en Carpeta "frases"</button>
+            <p id="admin-feedback" style="font-size: 0.8rem; color: var(--texto-secundario); margin-top: 0.8rem; text-align: center;"></p>
+
+            <div class="folder-section">
+                <div class="folder-card-os" onclick="toggleFolder()">
+                    <div class="folder-info-os">
+                        <span class="folder-icon" id="folder-icon-symbol">📁</span>
+                        <div>
+                            <div class="folder-name">Carpeta /frases/</div>
+                            <div class="folder-status" id="folder-status-text">Carpeta cerrada (Clic para abrir)</div>
+                        </div>
+                    </div>
+                    <span style="font-size: 0.8rem; color: var(--texto-secundario); font-weight: 600;" id="total-count">0</span>
+                </div>
+                <div class="folder-contents" id="folder-contents">
+                    <div class="history-list" id="history-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="main-footer">
+        Hecho con amor para ti • SoloParaUsted © 2026
+    </footer>
+
+    <div class="toast" id="toast">¡Acción realizada con éxito!</div>
+
+    <script>
+        const STORAGE_KEY = 'soloparausted_frases_db_v3';
+        const MILESTONES_KEY = 'soloparausted_milestones_db';
+        const LETTERS_KEY = 'soloparausted_letters_db';
+        const todayISO = new Date().toISOString().split('T')[0];
+        let selectedDate = todayISO;
+        let isAdminAuthenticated = false;
+        let isZenModeActive = false;
+
+        document.getElementById('calendar-picker').value = selectedDate;
+        document.getElementById('new-quote-date').value = selectedDate;
+        document.getElementById('batch-date').value = selectedDate;
+
+        let loadedQuotes = [];
+        let savedMilestones = {};
+        let savedLetters = {};
+        let currentCategoryFilter = 'Todas';
+        let currentCarouselIndex = 0;
+
+        const COMBINATORIC_GENERATOR = {
+            "Amor": {
+                inicios: ["Amar no es mirarse el uno al otro,", "Coincidir contigo en esta vida,", "En tu mirada encontré el verdadero refugio,", "Desde el instante en que llegaste a mi camino,", "No busqué enamorarme, pero en tu esencia,", "Eres la historia más hermosa que el tiempo,", "Cada segundo que comparto a tu lado,", "El amor cobró un sentido completamente nuevo,", "Saber que existes y que caminamos juntos,", "En el universo de tus abrazos,"],
+                centros: ["es mirar juntos hacia el mismo horizonte con el alma,", "es la casualidad más perfecta que jamás pude imaginar,", "donde habita toda la paz que mi corazón buscaba,", "entendí que los milagros existen y tienen tu nombre,", "descubrí el destino más dulce que jamás soñé,", "ha escrito con trazos indelebles en mi ser,", "reafirma que el amor auténtico no apresura, solo permanece,", "cuando tus manos tomaron suavemente las mías,", "llena de luz cálida cada uno de mis días,", "he descubierto el rincón donde la eternidad se hace real,"],
+                finales: ["convirtiendo cada momento en un recuerdo eterno.", "dándole un valor infinito a todo nuestro andar.", "y llenando de calma cada latido de mi pecho.", "haciendo que el presente sea el mejor lugar para estar.", "demostrando que las almas afines siempre se encuentran.", "escrito con la sutileza de una promesa sincera.", "recordándome que amar es el regalo más noble.", "dejando una huella indeleble que nunca se apaga.", "iluminando hasta la noche más profunda de mi ser.", "donde mi corazón decide quedarse para siempre."]
+            },
+            "Ternura": {
+                inicios: ["Tu mano encaja en la mía,", "Hay una paz infinita en tu mirada,", "Cada caricia tuya es un poema silencioso,", "Abrazarte suavemente al atardecer,", "Tienes la dulzura exacta que,", "En la sutileza de tu voz encuentro,", "Cuidarte y verte sonreír con tranquilidad,", "Tu ternura es el manto más cálido,", "En la pausa suave de tus labios,", "Tus gestos pequeños y sinceros,"],
+                centros: ["como si el universo la hubiera diseñado solo para sostenerla,", "que hace que el ruido del mundo exterior simplemente desaparezca,", "escrito con la paciencia más noble directo en mi piel,", "es sentir que todo en mi vida vuelve a estar en su lugar,", "transforma cualquier día gris en una mañana serena y tibia,", "el descanso más profundo que mi alma necesitó siempre,", "se ha convertido en mi forma preferida de celebrar la vida,", "que protege a mi corazón de cualquier tormenta inesperada,", "habita la promesa más pura de un cariño verdadero,", "revelan la grandeza de un sentimiento que no pide nada a cambio,"],
+                finales: ["brindándome una seguridad dulce en cada paso.", "dejando únicamente un silencio lleno de amor puro.", "con la delicadeza de quien sabe amar de verdad.", "reparando cualquier rincón que antes estuvo en penumbras.", "iluminando el presente con una luz tierna y única.", "renovando la esperanza en cada pequeño amanecer.", "guardando tu alegría como el tesoro más valioso.", "creando un hogar seguro en medio del caos del mundo.", "donde el tiempo se detiene con infinita gentileza.", "escribiendo recuerdos dulces que jamás se borrarán."]
+            },
+            "Distancia": {
+                inicios: ["Aunque los kilómetros intenten separarnos,", "La distancia es solo una brecha física que,", "Te siento tan cerca en cada latido,", "No importa cuánta geografía se interponga,", "Cada día que pasa en la distancia,", "El espacio se vuelve diminuto cuando,", "Te pienso en la lejanía con la certeza,", "Aunque mis ojos no puedan contemplarte hoy,", "El mapa entre los dos pierde su poder,", "Tu recuerdo cruza miles de carreteras,"],
+                centros: ["mi pensamiento cruza cualquier espacio para abrazarte,", "jamás podrá debilitar la fuerza con la que te llevo dentro,", "que el mapa entre nosotros pierde todo sentido y valor,", "compartimos el mismo cielo y el mismo suspiro al anochecer,", "es un paso más cercano al momento dulce del reencuentro,", "dos almas habitan exactamente en la misma frecuencia de amor,", "de que ningún camino es demasiado largo cuando hay amor,", "mi alma te siente tan viva en cada rincón de este hogar,", "en el instante exacto en que cierro los ojos y te evoco,", "llegando a mi pecho como una brisa tibia y reconfortante,"],
+                finales: ["recordándome que el amor no sabe de barreras.", "demostrando que el querer de verdad vence cualquier ausencia.", "porque donde tú estás, habita también mi pensamiento.", "sabiendo que bajo las mismas estrellas soñamos juntos.", "aguardando con paciencia el día de volver a enredar las manos.", "uniendo dos corazones que late con un solo compás.", "haciendo que la espera valga cada instante vivido.", "dibujando tu rostro con total nitidez en mi memoria.", "transformando la lejanía en un lazo cada vez más fuerte.", "llenando mi soledad con la promesa de volvernos a ver."]
+            },
+            "Gratitud": {
+                inicios: ["Gracias por aparecer en mi vida y,", "Mi mayor bendición en este mundo,", "Doy gracias a cada paso del camino que,", "Agradezco a la vida el regalo infinito de,", "Tenerte a mi lado me recuerda diariamente,", "Agradezco cada instante compartido,", "Tu presencia noble en mi caminar,", "Gracias por enseñarme que el amor auténtico,", "Mi corazón se llena de gratitud al recordar,", "Celebro la dicha de coincidir contigo,"],
+                centros: ["convertir lo cotidiano en un recuerdo inolvidable y hermoso,", "lleva grabado tu nombre, tu risa y tu forma única de amar,", "me condujo de manera perfecta directo hacia tus brazos,", "escuchar tu voz y saber que caminamos juntos el presente,", "lo afortunado que soy al poder amar de una forma tan pura,", "cada palabra tierna y cada gesto que ha sanado mi alma,", "es una luz brillante que ilumina mis decisiones y días,", "sana, acompaña, fortalece y no exige nada a cambio,", "cómo llegaste a mi vida a poner orden en mis sentimientos,", "porque contigo he descubierto la forma más bella de existir,"],
+                finales: ["haciendo de la vida una experiencia verdaderamente poética.", "brindándole un sentido único a todo lo que construimos.", "agradeciendo cada segundo que el destino nos concede.", "guardando tu existencia como el don más valioso de mi ser.", "haciendo que mi alma suspire llena de paz cada noche.", "creando un tesoro de momentos que atesoraré por siempre.", "guiándome con nobleza en cada nuevo amanecer juntos.", "demostrando que el amor genuino es la mayor fortuna.", "transformando el pasado en agradecimiento puro.", "sabiendo que a tu lado la vida es infinitamente mejor."]
+            },
+            "Pasión": {
+                inicios: ["Tu fuego enciende cada rincón de mi ser,", "Bajo el roce suave de tu piel,", "Nuestros cuerpos hablan un idioma secreto,", "Un solo instante cerca de tus labios,", "Eres el deseo constante que habita en mi mente,", "Perderme en la magia de tu boca,", "Hay un magnetismo irrefrenable entre los dos,", "En el calor intenso de tu abrazo,", "Cada mirada tuya desata una tormenta,", "Tus besos son el refugio clandestino,"],
+                centros: ["transformando la calma de la noche en pura magia ardiente,", "descubrí el latido exacto de la eternidad y la devoción,", "donde el tiempo se detiene por completo al encontrarnos,", "basta para desatar la tormenta más dulce en mi pecho,", "que despierta con fuerza en cada amanecer a tu lado,", "es la forma más bella que conozco de volver a encontrarme,", "que desafía a la razón y vuelve eterno cada segundo juntos,", "la realidad se disuelve dejando solo el pulso de la pasión,", "que enciende mis sentidos y acelera cada latido de mi piel,", "donde el alma y el deseo se funden sin pedir permiso,"],
+                finales: ["dejando una llama encendida que jamás se extingue.", "escribiendo una historia de deseo escrita en la piel.", "donde solo existes tú y la intensidad de este amor.", "haciendo temblar el universo en un abrazo eterno.", "alimentando una devoción profunda que no conoce frenos.", "sumergiéndome en un océano de sensaciones inolvidables.", "demostrando que el deseo verdadero jamás se apaga.", "haciendo que el mundo exterior pierda toda importancia.", "transformando la noche en un poema de fuego y ternura.", "creando un recuerdo ardiente que permanece en el alma."]
+            }
+        };
+
+        function saveToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(loadedQuotes));
+                localStorage.setItem(MILESTONES_KEY, JSON.stringify(savedMilestones));
+                localStorage.setItem(LETTERS_KEY, JSON.stringify(savedLetters));
+            } catch (e) {
+                console.error("Error al guardar:", e);
+            }
+        }
+
+        function loadQuotes() {
+            const rawData = localStorage.getItem(STORAGE_KEY);
+            const rawMilestones = localStorage.getItem(MILESTONES_KEY);
+            const rawLetters = localStorage.getItem(LETTERS_KEY);
+            
+            if (rawData) {
+                try { loadedQuotes = JSON.parse(rawData); } catch(e) { loadedQuotes = []; }
+            }
+            if (rawMilestones) {
+                try { savedMilestones = JSON.parse(rawMilestones); } catch(e) { savedMilestones = {}; }
+            }
+            if (rawLetters) {
+                try { savedLetters = JSON.parse(rawLetters); } catch(e) { savedLetters = {}; }
+            }
+            
+            if (!loadedQuotes || loadedQuotes.length === 0) {
+                loadedQuotes = [
+                    { id: 1, fecha: todayISO, texto: "Eres mi primer pensamiento al despertar y el último antes de soñar. Eres mi hoy y todos mis mañanas.", autor: "SoloParaUsted", categoria: "Amor", favorito: false },
+                    { id: 2, fecha: todayISO, texto: "Contigo aprendí que el hogar no es un lugar, es la persona en cuyos brazos decides quedarte para siempre.", autor: "SoloParaUsted", categoria: "Ternura", favorito: false }
+                ];
+                saveToStorage();
+            }
+            updateViewDate();
+            checkNightReminder();
+        }
+
+        function checkNightReminder() {
+            const currentHour = new Date().getHours();
+            const currentTheme = localStorage.getItem('soloparausted_palette');
+            if (currentHour >= 20 && currentTheme !== 'midnight') {
+                document.getElementById('night-reminder-banner').style.display = 'flex';
+            }
+        }
+
+        function enableNightModeFromBanner() {
+            changeColorPalette('midnight');
+            document.getElementById('theme-selector').value = 'midnight';
+            document.getElementById('night-reminder-banner').style.display = 'none';
+            showToast("🌙 Modo Midnight activado");
+        }
+
+        function updateViewDate() {
+            document.getElementById('calendar-picker').value = selectedDate;
+            const [year, month, day] = selectedDate.split('-');
+            const dateObj = new Date(year, month - 1, day);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = dateObj.toLocaleDateString('es-ES', options);
+
+            const milestoneBadge = document.getElementById('milestone-badge');
+            if (savedMilestones[selectedDate]) {
+                milestoneBadge.textContent = `✨ ${savedMilestones[selectedDate]}`;
+                milestoneBadge.style.display = 'inline-block';
+            } else {
+                milestoneBadge.style.display = 'none';
+            }
+
+            const letterBadge = document.getElementById('letter-badge');
+            const topLetterBtn = document.getElementById('top-letter-btn');
+            const topLetterLabel = document.getElementById('top-letter-label');
+
+            if (savedLetters[selectedDate]) {
+                const titleText = savedLetters[selectedDate].title || 'Carta Especial';
+                letterBadge.textContent = `💌 ${titleText} — Leer`;
+                letterBadge.style.display = 'inline-block';
+                
+                topLetterLabel.textContent = titleText;
+                topLetterBtn.style.display = 'inline-flex';
+            } else {
+                letterBadge.style.display = 'none';
+                topLetterBtn.style.display = 'none';
+            }
+
+            currentCarouselIndex = 0;
+            displayFilteredQuotes();
+        }
+
+        function onCalendarChange() {
+            selectedDate = document.getElementById('calendar-picker').value;
+            updateViewDate();
+        }
+
+        function changeDay(days) {
+            const [year, month, day] = selectedDate.split('-');
+            const dateObj = new Date(year, month - 1, day);
+            dateObj.setDate(dateObj.getDate() + days);
+            selectedDate = dateObj.toISOString().split('T')[0];
+            updateViewDate();
+        }
+
+        function resetToToday() {
+            selectedDate = new Date().toISOString().split('T')[0];
+            updateViewDate();
+        }
+
+        function filterCategory(cat) {
+            currentCategoryFilter = cat;
+            currentCarouselIndex = 0;
+            document.querySelectorAll('.cat-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.textContent.includes(cat));
+            });
+            displayFilteredQuotes();
+        }
+
+        function getActiveFilteredQuotes() {
+            if (currentCategoryFilter === 'Favoritos') {
+                return loadedQuotes.filter(q => q.favorito === true);
+            }
+            let filtered = loadedQuotes.filter(q => q.fecha === selectedDate);
+            if (currentCategoryFilter !== 'Todas') {
+                filtered = filtered.filter(q => q.categoria === currentCategoryFilter);
+            }
+            return filtered;
+        }
+
+        function displayFilteredQuotes() {
+            const quotes = getActiveFilteredQuotes();
+            const textElement = document.getElementById('quote-text');
+            const indicators = document.getElementById('carousel-indicators');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const favBtn = document.getElementById('current-fav-btn');
+
+            if (quotes.length === 0) {
+                textElement.textContent = currentCategoryFilter === 'Favoritos' ? `"Aún no tienes frases marcadas como favoritas."` : `"No hay frases registradas para esta fecha y categoría."`;
+                indicators.textContent = "";
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                favBtn.style.display = 'none';
+                return;
+            }
+
+            favBtn.style.display = 'flex';
+            if (currentCarouselIndex >= quotes.length) {
+                currentCarouselIndex = 0;
+            }
+
+            const currentQ = quotes[currentCarouselIndex];
+            textElement.textContent = `"${currentQ.texto}"`;
+
+            if (currentQ.favorito) {
+                favBtn.innerHTML = '❤️';
+            } else {
+                favBtn.innerHTML = '🤍';
+            }
+
+            if (quotes.length > 1) {
+                prevBtn.style.display = 'block';
+                nextBtn.style.display = 'block';
+                indicators.textContent = `Frase ${currentCarouselIndex + 1} de ${quotes.length} [${currentQ.categoria}]`;
+            } else {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                indicators.textContent = `[${currentQ.categoria}]`;
+            }
+        }
+
+        function nextCarousel() {
+            const quotes = getActiveFilteredQuotes();
+            if (quotes.length > 1) {
+                currentCarouselIndex = (currentCarouselIndex + 1) % quotes.length;
+                displayFilteredQuotes();
+            }
+        }
+
+        function prevCarousel() {
+            const quotes = getActiveFilteredQuotes();
+            if (quotes.length > 1) {
+                currentCarouselIndex = (currentCarouselIndex - 1 + quotes.length) % quotes.length;
+                displayFilteredQuotes();
+            }
+        }
+
+        function toggleCurrentFavorite() {
+            const quotes = getActiveFilteredQuotes();
+            if (quotes.length === 0) return;
+            const currentQ = quotes[currentCarouselIndex];
+            
+            const index = loadedQuotes.findIndex(q => q.id === currentQ.id);
+            if (index !== -1) {
+                loadedQuotes[index].favorito = !loadedQuotes[index].favorito;
+                saveToStorage();
+                displayFilteredQuotes();
+                renderFolderHistory();
+                showToast(loadedQuotes[index].favorito ? "¡Agregado a favoritos ❤️!" : "Removido de favoritos");
+            }
+        }
+
+        function getRandomSurpriseQuote() {
+            if (!loadedQuotes || loadedQuotes.length === 0) return;
+            const randomQuote = loadedQuotes[Math.floor(Math.random() * loadedQuotes.length)];
+            selectedDate = randomQuote.fecha;
+            currentCategoryFilter = 'Todas';
+            document.querySelectorAll('.cat-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.textContent.includes('Todas'));
+            });
+            updateViewDate();
+            
+            const activeQuotes = getActiveFilteredQuotes();
+            const foundIndex = activeQuotes.findIndex(q => q.id === randomQuote.id);
+            if (foundIndex !== -1) {
+                currentCarouselIndex = foundIndex;
+                displayFilteredQuotes();
+            }
+            showToast(`✨ Frase sorpresa [${randomQuote.categoria}]`);
+        }
+
+        /* MODAL DE CARTA */
+        function openLetterModal() {
+            const letter = savedLetters[selectedDate];
+            if (!letter) return;
+            document.getElementById('letter-modal-title').textContent = letter.title || 'Carta Especial';
+            document.getElementById('letter-modal-body').textContent = letter.text;
+            document.getElementById('letter-modal').style.display = 'flex';
+        }
+
+        function closeLetterModal() {
+            document.getElementById('letter-modal').style.display = 'none';
+        }
+
+        /* GUARDAR SOLO CARTA */
+        function saveOnlyLetter() {
+            const date = document.getElementById('new-quote-date').value || selectedDate;
+            const letterTitle = document.getElementById('letter-title-input').value.trim();
+            const letterText = document.getElementById('letter-text-input').value.trim();
+
+            if (!letterText) {
+                alert("Por favor escribe el contenido de la carta antes de guardar.");
+                return;
+            }
+
+            savedLetters[date] = { 
+                title: letterTitle || 'Nuestra Carta', 
+                text: letterText 
+            };
+
+            saveToStorage();
+
+            document.getElementById('letter-title-input').value = '';
+            document.getElementById('letter-text-input').value = '';
+
+            selectedDate = date;
+            updateViewDate();
+            showToast("💌 ¡Carta Especial guardada con éxito!");
+        }
+
+        function toggleZenMode() {
+            isZenModeActive = !isZenModeActive;
+            const logo = document.getElementById('zen-logo');
+            const tools = document.getElementById('zen-tools');
+            const calendar = document.getElementById('zen-calendar');
+            const categories = document.getElementById('zen-categories');
+            const actions = document.getElementById('zen-actions');
+            const header = document.getElementById('main-header');
+            const footer = document.getElementById('main-footer');
+            const zenBtn = document.getElementById('zen-toggle-btn');
+            const reminder = document.getElementById('night-reminder-banner');
+
+            if (isZenModeActive) {
+                if (reminder) reminder.style.display = 'none';
+                logo.style.opacity = '0';
+                logo.style.height = '0';
+                logo.style.overflow = 'hidden';
+                logo.style.marginBottom = '0';
+                tools.style.opacity = '0';
+                tools.style.height = '0';
+                tools.style.overflow = 'hidden';
+                tools.style.marginBottom = '0';
+                calendar.style.opacity = '0';
+                calendar.style.height = '0';
+                calendar.style.overflow = 'hidden';
+                calendar.style.marginBottom = '0';
+                categories.style.opacity = '0';
+                categories.style.height = '0';
+                categories.style.overflow = 'hidden';
+                categories.style.marginBottom = '0';
+                actions.style.opacity = '0';
+                actions.style.height = '0';
+                actions.style.overflow = 'hidden';
+                header.style.opacity = '0';
+                footer.style.opacity = '0';
+                zenBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                showToast("Modo Zen activado (Lectura pura)");
+            } else {
+                checkNightReminder();
+                logo.style.opacity = '1';
+                logo.style.height = 'auto';
+                logo.style.overflow = 'visible';
+                logo.style.marginBottom = '1rem';
+                tools.style.opacity = '1';
+                tools.style.height = 'auto';
+                tools.style.overflow = 'visible';
+                tools.style.marginBottom = '1rem';
+                calendar.style.opacity = '1';
+                calendar.style.height = 'auto';
+                calendar.style.overflow = 'visible';
+                calendar.style.marginBottom = '1.2rem';
+                categories.style.opacity = '1';
+                categories.style.height = 'auto';
+                categories.style.overflow = 'visible';
+                categories.style.marginBottom = '1.2rem';
+                actions.style.opacity = '1';
+                actions.style.height = 'auto';
+                actions.style.overflow = 'visible';
+                header.style.opacity = '1';
+                footer.style.opacity = '1';
+                zenBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                showToast("Modo normal restaurado");
+            }
+        }
+
+        function generateBatchQuotes() {
+            const date = document.getElementById('batch-date').value;
+            const milestoneText = document.getElementById('milestone-title-input').value.trim();
+            const letterTitle = document.getElementById('letter-title-input').value.trim();
+            const letterText = document.getElementById('letter-text-input').value.trim();
+
+            if (!date) {
+                alert("Por favor selecciona una fecha válida.");
+                return;
+            }
+
+            if (milestoneText) {
+                savedMilestones[date] = milestoneText;
+                document.getElementById('milestone-title-input').value = '';
+            }
+
+            if (letterText) {
+                savedLetters[date] = { title: letterTitle || 'Nuestra Carta', text: letterText };
+                document.getElementById('letter-title-input').value = '';
+                document.getElementById('letter-text-input').value = '';
+            }
+
+            const categorias = ["Amor", "Ternura", "Distancia", "Gratitud", "Pasión"];
+            let addedCount = 0;
+            const existingTextsSet = new Set(loadedQuotes.map(q => q.texto.trim().toLowerCase()));
+
+            categorias.forEach(cat => {
+                const config = COMBINATORIC_GENERATOR[cat];
+                let selectedText = "";
+                let attempts = 0;
+
+                do {
+                    const inc = config.inicios[Math.floor(Math.random() * config.inicios.length)];
+                    const cen = config.centros[Math.floor(Math.random() * config.centros.length)];
+                    const fin = config.finales[Math.floor(Math.random() * config.finales.length)];
+                    selectedText = `${inc} ${cen} ${fin}`;
+                    attempts++;
+                } while (existingTextsSet.has(selectedText.toLowerCase()) && attempts < 100);
+
+                existingTextsSet.add(selectedText.trim().toLowerCase());
+                const newId = loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1;
+                
+                loadedQuotes.push({
+                    id: newId + addedCount,
+                    fecha: date,
+                    texto: selectedText,
+                    autor: "SoloParaUsted",
+                    categoria: cat,
+                    favorito: false
+                });
+                addedCount++;
+            });
+
+            saveToStorage();
+            document.getElementById('admin-feedback').textContent = "¡Lote de 5 frases, hito y carta guardados con éxito!";
+            selectedDate = date;
+            updateViewDate();
+            renderFolderHistory();
+
+            setTimeout(() => { document.getElementById('admin-feedback').textContent = ''; }, 3000);
+        }
+
+        function toggleFolder() {
+            const contents = document.getElementById('folder-contents');
+            const symbol = document.getElementById('folder-icon-symbol');
+            const status = document.getElementById('folder-status-text');
+            
+            contents.classList.toggle('open');
+            if (contents.classList.contains('open')) {
+                symbol.textContent = '📂';
+                status.textContent = 'Carpeta abierta';
+                renderFolderHistory();
+            } else {
+                symbol.textContent = '📁';
+                status.textContent = 'Carpeta cerrada (Clic para abrir)';
+            }
+        }
+
+        function showAdmin(e) {
+            e.preventDefault();
+            if (isAdminAuthenticated) {
+                document.getElementById('home-view').style.display = 'none';
+                document.getElementById('admin-view').style.display = 'block';
+                return;
+            }
+
+            const pass = prompt("🔐 Acceso Administrador. Ingresa la clave:");
+            if (pass === "1111") {
+                isAdminAuthenticated = true;
+                document.getElementById('home-view').style.display = 'none';
+                document.getElementById('admin-view').style.display = 'block';
+                showToast("¡Bienvenido al Panel de Administrador!");
+            } else if (pass !== null) {
+                alert("Clave incorrecta. Acceso denegado.");
+            }
+        }
+
+        function showHome(e) {
+            e.preventDefault();
+            document.getElementById('admin-view').style.display = 'none';
+            document.getElementById('home-view').style.display = 'flex';
+            updateViewDate();
+        }
+
+        function saveNewQuote() {
+            const text = document.getElementById('new-quote-text').value.trim();
+            const date = document.getElementById('new-quote-date').value;
+            const category = document.getElementById('new-quote-category').value;
+            const milestoneText = document.getElementById('milestone-title-input').value.trim();
+            const letterTitle = document.getElementById('letter-title-input').value.trim();
+            const letterText = document.getElementById('letter-text-input').value.trim();
+
+            if (!text && !letterText) {
+                alert("Por favor ingresa al menos una frase o redacta una carta.");
+                return;
+            }
+
+            if (milestoneText) {
+                savedMilestones[date] = milestoneText;
+                document.getElementById('milestone-title-input').value = '';
+            }
+
+            if (letterText) {
+                savedLetters[date] = { title: letterTitle || 'Nuestra Carta', text: letterText };
+                document.getElementById('letter-title-input').value = '';
+                document.getElementById('letter-text-input').value = '';
+            }
+
+            if (text) {
+                const newEntry = {
+                    id: loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1,
+                    fecha: date,
+                    texto: text,
+                    autor: "SoloParaUsted",
+                    categoria: category,
+                    favorito: false
+                };
+                loadedQuotes.push(newEntry);
+                document.getElementById('new-quote-text').value = '';
+            }
+
+            saveToStorage();
+
+            document.getElementById('admin-feedback').textContent = "¡Guardado con éxito!";
+            selectedDate = date;
+            updateViewDate();
+            renderFolderHistory();
+
+            setTimeout(() => { document.getElementById('admin-feedback').textContent = ''; }, 3000);
+        }
+
+        function renderFolderHistory() {
+            const historyList = document.getElementById('history-list');
+            const totalCount = document.getElementById('total-count');
+            historyList.innerHTML = '';
+            totalCount.textContent = `${loadedQuotes.length} frases`;
+
+            if (loadedQuotes.length === 0) {
+                historyList.innerHTML = '<p style="font-size: 0.8rem; color: var(--texto-secundario); text-align: center; padding: 0.8rem;">Carpeta vacía.</p>';
+                return;
+            }
+
+            const sortedForHistory = [...loadedQuotes].reverse();
+            sortedForHistory.forEach((q) => {
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                item.innerHTML = `
+                    <div class="history-info">
+                        <div class="history-date">📅 ${q.fecha} — [${q.categoria}] ${q.favorito ? '❤️' : ''}</div>
+                        <div class="history-text">"${q.texto}"</div>
+                    </div>
+                    <button class="btn-delete" onclick="deleteQuote(${q.id})">Eliminar</button>
+                `;
+                historyList.appendChild(item);
+            });
+        }
+
+        function deleteQuote(id) {
+            if (confirm("¿Eliminar esta frase de la carpeta?")) {
+                loadedQuotes = loadedQuotes.filter(q => q.id !== id);
+                saveToStorage();
+                renderFolderHistory();
+                updateViewDate();
+                showToast("Frase eliminada");
+            }
+        }
+
+        function changeFontFamily(fontName) {
+            document.documentElement.style.setProperty('--quote-font', `'${fontName}', serif`);
+            localStorage.setItem('soloparausted_font', fontName);
+        }
+
+        function changeColorPalette(paletteName) {
+            if (paletteName === 'midnight') {
+                document.body.setAttribute('data-theme', 'midnight');
+            } else if (paletteName === 'lavender') {
+                document.body.setAttribute('data-theme', 'lavender');
+            } else if (paletteName === 'creme') {
+                document.body.setAttribute('data-theme', 'creme');
+            } else {
+                document.body.setAttribute('data-theme', 'rose');
+            }
+            localStorage.setItem('soloparausted_palette', paletteName);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedPalette = localStorage.getItem('soloparausted_palette');
+            if (savedPalette) {
+                changeColorPalette(savedPalette);
+                document.getElementById('theme-selector').value = savedPalette;
+            }
+
+            const savedFont = localStorage.getItem('soloparausted_font');
+            if (savedFont) {
+                changeFontFamily(savedFont);
+                document.getElementById('font-selector').value = savedFont;
+            }
+
+            loadQuotes();
+        });
+
+        function copyQuote() {
+            const text = document.getElementById('quote-text').textContent;
+            navigator.clipboard.writeText(text).then(() => { showToast("¡Frase copiada al portapapeles!"); });
+        }
+
+        function shareQuote() {
+            const text = document.getElementById('quote-text').textContent + " ✨ — SoloParaUsted";
+            if (navigator.share) {
+                navigator.share({ title: 'SoloParaUsted', text: text, url: window.location.href }).catch(() => {});
+            } else {
+                const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+                window.open(whatsappUrl, '_blank');
+            }
+        }
+
+        function downloadQuoteCard() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1080;
+            canvas.height = 1080;
+            const ctx = canvas.getContext('2d');
+
+            const currentTheme = document.body.getAttribute('data-theme');
+            let bgColor = '#FFF5F7', cardColor = '#FFFFFF', textColor = '#6B3E48', dateColor = '#8C6A72';
+            if (currentTheme === 'midnight') { bgColor = '#2A1B20'; cardColor = '#362228'; textColor = '#F3D2DB'; dateColor = '#D4A5B4'; }
+            else if (currentTheme === 'lavender') { bgColor = '#F5F3FF'; cardColor = '#FFFFFF'; textColor = '#4C1D95'; dateColor = '#6D28D9'; }
+            else if (currentTheme === 'creme') { bgColor = '#FDFBF7'; cardColor = '#FFFFFF'; textColor = '#78350F'; dateColor = '#92400E'; }
+
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, 1080, 1080);
+
+            ctx.fillStyle = cardColor;
+            ctx.shadowColor = 'rgba(0,0,0,0.1)';
+            ctx.shadowBlur = 40;
+            ctx.beginPath();
+            ctx.roundRect(90, 90, 900, 900, 30);
+            ctx.fill();
+
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = dateColor;
+            ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(document.getElementById('current-date').textContent.toUpperCase(), 540, 240);
+
+            ctx.fillStyle = textColor;
+            ctx.font = `italic 46px "Cormorant Garamond", serif`;
+            const text = document.getElementById('quote-text').textContent;
+            wrapText(ctx, text, 540, 420, 720, 65);
+
+            ctx.fillStyle = dateColor;
+            ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText("SOLOPARAUSTED.COM", 540, 880);
+
+            const link = document.createElement('a');
+            link.download = `SoloParaUsted-${selectedDate}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast("¡Imagen HD descargada!");
+        }
+
+        function wrapText(context, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '';
+            let currentY = y;
+            for(let n = 0; n < words.length; n++) {
+                let testLine = line + words[n] + ' ';
+                let metrics = context.measureTest(testLine);
+                if (metrics.width > maxWidth && n > 0) {
+                    context.fillText(line, x, currentY);
+                    line = words[n] + ' ';
+                    currentY += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            context.fillText(line, x, currentY);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+    </script>
+</body>
+</html>00;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
