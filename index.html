@@ -281,7 +281,6 @@
             font-weight: 500;
         }
 
-        /* Botón de Favorito (Corazón ❤️) */
         .fav-btn {
             background: none;
             border: none;
@@ -438,7 +437,6 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Carpeta Estilo Dispositivo Cerrada */
         .folder-section {
             margin-top: 2rem;
             border-top: 1px solid var(--borde-suave);
@@ -723,53 +721,107 @@
         let currentCategoryFilter = 'Todas';
         let currentCarouselIndex = 0;
 
-        // BANCO EXTENDIDO Y VARIADO DE FRASES ANTI-REPETICIÓN
-        const MASTER_QUOTE_BANK = {
-            "Amor": [
-                "Amar no es mirarse el uno al otro, es mirar juntos en la misma dirección con el alma.",
-                "Eres la casualidad más hermosa que llegó a darle sentido a todos mis días.",
-                "En tu sonrisa encontré el refugio exacto donde siempre quise habitar.",
-                "Coincidir contigo en esta vida es el regalo más dulce que me ha dado el universo.",
-                "No busqué enamorarme, pero en tu forma de mirar encontré mi destino.",
-                "A tu lado comprendí que el amor de verdad no apresura, calma y abraza.",
-                "Eres la historia más bonita que el tiempo ha escrito en mi corazón."
-            ],
-            "Ternura": [
-                "Tu mano encaja en la mía como si el universo la hubiera diseñado solo para sostenerla.",
-                "Hay tanta paz en tu mirada que el mundo exterior simplemente desaparece.",
-                "Cada caricia tuya es un poema silencioso escrito directo en mi piel.",
-                "Abrazarte es sentir que todo en mi vida vuelve a estar en su lugar.",
-                "Tienes la dulzura exacta que convierte cualquier día gris en una mañana tibia.",
-                "En la sutileza de tu voz encuentro el descanso que mi alma necesita.",
-                "Cuidarte y verte sonreír es mi manera favorita de agradecer la vida."
-            ],
-            "Distancia": [
-                "Aunque los kilómetros nos separen, mi pensamiento cruza el espacio para abrazarte.",
-                "La distancia es solo una prueba de cuánto puede amar el corazón sin tocarse.",
-                "Te siento tan cerca en mis latidos que el mapa entre los dos pierde todo sentido.",
-                "No importa qué tan lejos estés, compartimos el mismo cielo y el mismo querer.",
-                "Cada día lejos de ti es un paso menos para volver a enredarme en tus brazos.",
-                "El espacio físico es corto cuando el alma habita en la misma frecuencia.",
-                "Te pienso en la distancia con la certeza hermosa de que pronto volveremos a coincidir."
-            ],
-            "Gratitud": [
-                "Gracias por aparecer en mi vida y convertir lo ordinario en algo inolvidable.",
-                "Mi mayor bendición tiene tu nombre, tu risa y tu forma tan noble de amar.",
-                "Doy gracias a cada paso del camino que me condujo directo hacia tus brazos.",
-                "Gracias por enseñarme que el amor auténtico sana, acompaña y fortalece.",
-                "Tenerte a mi lado me recuerda lo afortunado que soy al poder amar así.",
-                "Agradezco cada instante, cada mirada y cada palabra que hemos compartido.",
-                "Tu presencia en mi vida es un regalo por el cual suspiro con gratitud cada noche."
-            ],
-            "Pasión": [
-                "Tu fuego enciende cada rincón de mi ser, convirtiendo la noche en pura magia.",
-                "Bajo tu piel descubrí el latido exacto de la eternidad y el deseo.",
-                "Nuestros cuerpos hablan un idioma secreto donde el tiempo se detiene por completo.",
-                "Un solo roce tuyo basta para despertar la tormenta más dulce en mi pecho.",
-                "Eres el deseo constante que habita en mis noches y despierta con mi amanecer.",
-                "Perderme en tu boca es la forma más bella de encontrarme con la pasión.",
-                "Hay un magnetismo irrefrenable entre los dos que el tiempo jamás podrá apagar."
-            ]
+        // VECTORES POÉTICOS PARA GENERADOR COMBINATORIO EXTENDIDO (HASTA 100+ FRASES ÚNICAS POR CATEGORÍA)
+        const COMBINATORIC_GENERATOR = {
+            "Amor": {
+                inicios: [
+                    "Amar no es mirarse el uno al otro,", "Coincidir contigo en esta vida,", "En tu mirada encontré el verdadero refugio,",
+                    "Desde el instante en que llegaste a mi camino,", "No busqué enamorarme, pero en tu esencia,", "Eres la historia más hermosa que el tiempo,",
+                    "Cada segundo que comparto a tu lado,", "El amor cobró un sentido completamente nuevo,", "Saber que existes y que caminamos juntos,",
+                    "En el universo de tus abrazos,"
+                ],
+                centros: [
+                    "es mirar juntos hacia el mismo horizonte con el alma,", "es la casualidad más perfecta que jamás pude imaginar,", "donde habita toda la paz que mi corazón buscaba,",
+                    "entendí que los milagros existen y tienen tu nombre,", "descubrí el destino más dulce que jamás soñé,", "ha escrito con trazos indelebles en mi ser,",
+                    "reafirma que el amor auténtico no apresura, solo permanece,", "cuando tus manos tomaron suavemente las mías,", "llena de luz cálida cada uno de mis días,",
+                    "he descubierto el rincón donde la eternidad se hace real,"
+                ],
+                finales: [
+                    "convirtiendo cada momento en un recuerdo eterno.", "dándole un valor infinito a todo nuestro andar.", "y llenando de calma cada latido de mi pecho.",
+                    "haciendo que el presente sea el mejor lugar para estar.", "demostrando que las almas afines siempre se encuentran.", "escrito con la sutileza de una promesa sincera.",
+                    "recordándome que amar es el regalo más noble.", "dejando una huella indeleble que nunca se apaga.", "iluminando hasta la noche más profunda de mi ser.",
+                    "donde mi corazón decide quedarse para siempre."
+                ]
+            },
+            "Ternura": {
+                inicios: [
+                    "Tu mano encaja en la mía,", "Hay una paz infinita en tu mirada,", "Cada caricia tuya es un poema silencioso,",
+                    "Abrazarte suavemente al atardecer,", "Tienes la dulzura exacta que,", "En la sutileza de tu voz encuentro,",
+                    "Cuidarte y verte sonreír con tranquilidad,", "Tu ternura es el manto más cálido,", "En la pausa suave de tus labios,",
+                    "Tus gestos pequeños y sinceros,"
+                ],
+                centros: [
+                    "como si el universo la hubiera diseñado solo para sostenerla,", "que hace que el ruido del mundo exterior simplemente desaparezca,", "escrito con la paciencia más noble directo en mi piel,",
+                    "es sentir que todo en mi vida vuelve a estar en su lugar,", "transforma cualquier día gris en una mañana serena y tibia,", "el descanso más profundo que mi alma necesitó siempre,",
+                    "se ha convertido en mi forma preferida de celebrar la vida,", "que protege a mi corazón de cualquier tormenta inesperada,", "habita la promesa más pura de un cariño verdadero,",
+                    "revelan la grandeza de un sentimiento que no pide nada a cambio,"
+                ],
+                finales: [
+                    "brindándome una seguridad dulce en cada paso.", "dejando únicamente un silencio lleno de amor puro.", "con la delicadeza de quien sabe amar de verdad.",
+                    "reparando cualquier rincón que antes estuvo en penumbras.", "iluminando el presente con una luz tierna y única.", "renovando la esperanza en cada pequeño amanecer.",
+                    "guardando tu alegría como el tesoro más valioso.", "creando un hogar seguro en medio del caos del mundo.", "donde el tiempo se detiene con infinita gentileza.",
+                    "escribiendo recuerdos dulces que jamás se borrarán."
+                ]
+            },
+            "Distancia": {
+                inicios: [
+                    "Aunque los kilómetros intenten separarnos,", "La distancia es solo una brecha física que,", "Te siento tan cerca en cada latido,",
+                    "No importa cuánta geografía se interponga,", "Cada día que pasa en la distancia,", "El espacio se vuelve diminuto cuando,",
+                    "Te pienso en la lejanía con la certeza,", "Aunque mis ojos no puedan contemplarte hoy,", "El mapa entre los dos pierde su poder,",
+                    "Tu recuerdo cruza miles de carreteras,"
+                ],
+                centros: [
+                    "mi pensamiento cruza cualquier espacio para abrazarte,", "jamás podrá debilitar la fuerza con la que te llevo dentro,", "que el mapa entre nosotros pierde todo sentido y valor,",
+                    "compartimos el mismo cielo y el mismo suspiro al anochecer,", "es un paso más cercano al momento dulce del reencuentro,", "dos almas habitan exactamente en la misma frecuencia de amor,",
+                    "de que ningún camino es demasiado largo cuando hay amor,", "mi alma te siente tan viva en cada rincón de este hogar,", "en el instante exacto en que cierro los ojos y te evoco,",
+                    "llegando a mi pecho como una brisa tibia y reconfortante,"
+                ],
+                finales: [
+                    "recordándome que el amor no sabe de barreras.", "demostrando que el querer de verdad vence cualquier ausencia.", "porque donde tú estás, habita también mi pensamiento.",
+                    "sabiendo que bajo las mismas estrellas soñamos juntos.", "aguardando con paciencia el día de volver a enredar las manos.", "uniendo dos corazones que late con un solo compás.",
+                    "haciendo que la espera valga cada instante vivido.", "dibujando tu rostro con total nitidez en mi memoria.", "transformando la lejanía en un lazo cada vez más fuerte.",
+                    "llenando mi soledad con la promesa de volvernos a ver."
+                ]
+            },
+            "Gratitud": {
+                inicios: [
+                    "Gracias por aparecer en mi vida y,", "Mi mayor bendición en este mundo,", "Doy gracias a cada paso del camino que,",
+                    "Agradezco a la vida el regalo infinito de,", "Tenerte a mi lado me recuerda diariamente,", "Agradezco cada instante compartido,",
+                    "Tu presencia noble en mi caminar,", "Gracias por enseñarme que el amor auténtico,", "Mi corazón se llena de gratitud al recordar,",
+                    "Celebro la dicha de coincidir contigo,"
+                ],
+                centros: [
+                    "convertir lo cotidiano en un recuerdo inolvidable y hermoso,", "lleva grabado tu nombre, tu risa y tu forma única de amar,", "me condujo de manera perfecta directo hacia tus brazos,",
+                    "escuchar tu voz y saber que caminamos juntos el presente,", "lo afortunado que soy al poder amar de una forma tan pura,", "cada palabra tierna y cada gesto que ha sanado mi alma,",
+                    "es una luz brillante que ilumina mis decisiones y días,", "sana, acompaña, fortalece y no exige nada a cambio,", "cómo llegaste a mi vida a poner orden en mis sentimientos,",
+                    "porque contigo he descubierto la forma más bella de existir,"
+                ],
+                finales: [
+                    "haciendo de la vida una experiencia verdaderamente poética.", "brindándole un sentido único a todo lo que construimos.", "agradeciendo cada segundo que el destino nos concede.",
+                    "guardando tu existencia como el don más valioso de mi ser.", "haciendo que mi alma suspire llena de paz cada noche.", "creando un tesoro de momentos que atesoraré por siempre.",
+                    "guiándome con nobleza en cada nuevo amanecer juntos.", "demostrando que el amor genuino es la mayor fortuna.", "transformando el pasado en agradecimiento puro.", "sabiendo que a tu lado la vida es infinitamente mejor."
+                ]
+            },
+            "Pasión": {
+                inicios: [
+                    "Tu fuego enciende cada rincón de mi ser,", "Bajo el roce suave de tu piel,", "Nuestros cuerpos hablan un idioma secreto,",
+                    "Un solo instante cerca de tus labios,", "Eres el deseo constante que habita en mi mente,", "Perderme en la magia de tu boca,",
+                    "Hay un magnetismo irrefrenable entre los dos,", "En el calor intenso de tu abrazo,", "Cada mirada tuya desata una tormenta,",
+                    "Tus besos son el refugio clandestino,"
+                ],
+                centros: [
+                    "transformando la calma de la noche en pura magia ardiente,", "descubrí el latido exacto de la eternidad y la devoción,", "donde el tiempo se detiene por completo al encontrarnos,",
+                    "basta para desatar la tormenta más dulce en mi pecho,", "que despierta con fuerza en cada amanecer a tu lado,", "es la forma más bella que conozco de volver a encontrarme,",
+                    "que desafía a la razón y vuelve eterno cada segundo juntos,", "la realidad se disuelve dejando solo el pulso de la pasión,", "que enciende mis sentidos y acelera cada latido de mi piel,",
+                    "donde el alma y el deseo se funden sin pedir permiso,"
+                ],
+                finales: [
+                    "dejando una llama encendida que jamás se extingue.", "escribiendo una historia de deseo escrita en la piel.", "donde solo existes tú y la intensidad de este amor.",
+                    "haciendo temblar el universo en un abrazo eterno.", "alimentando una devoción profunda que no conoce frenos.", "sumergiéndome en un océano de sensaciones inolvidables.",
+                    "demostrando que el deseo verdadero jamás se apaga.", "haciendo que el mundo exterior pierda toda importancia.", "transformando la noche en un poema de fuego y ternura.",
+                    "creando un recuerdo ardiente que permanece en el alma."
+                ]
+            }
         };
 
         function saveToStorage() {
@@ -922,7 +974,7 @@
             }
         }
 
-        // GENERACIÓN MASIVA POR LOTE DE 5 CATEGORÍAS (CON FILTRO ANTI-REPETICIÓN INTEGIRADO)
+        // GENERACIÓN MASIVA MULTI-FRASES ANTI-REPETICIÓN HASTA 100+ COMBINACIONES
         function generateBatchQuotes() {
             const date = document.getElementById('batch-date').value;
             if (!date) {
@@ -933,44 +985,22 @@
             const categorias = ["Amor", "Ternura", "Distancia", "Gratitud", "Pasión"];
             let addedCount = 0;
 
-            // Extraer todos los textos existentes en la base de datos para no repetirlos jamás
             const existingTextsSet = new Set(loadedQuotes.map(q => q.texto.trim().toLowerCase()));
 
             categorias.forEach(cat => {
-                const arrayCat = MASTER_QUOTE_BANK[cat] || [];
-                
-                // Filtrar frases del banco que NUNCA hayan sido usadas en la app
-                let unusedQuotes = arrayCat.filter(qText => !existingTextsSet.has(qText.trim().toLowerCase()));
-
+                const config = COMBINATORIC_GENERATOR[cat];
                 let selectedText = "";
+                let attempts = 0;
 
-                if (unusedQuotes.length > 0) {
-                    // Elegir una frase limpia del banco no usada
-                    selectedText = unusedQuotes[Math.floor(Math.random() * unusedQuotes.length)];
-                } else {
-                    // Si se agotó el banco de esa categoría, generar una variante romántica única
-                    const conectores = [
-                        "En el silencio de la noche,", "A cada instante,", "Desde el fondo de mi alma,",
-                        "En cada respiración,", "Sin importar el tiempo,", "Bajo la luz de este día,"
-                    ];
-                    const frasesBase = [
-                        "reafirmo que eres mi lugar favorito en el mundo.",
-                        "descubro un nuevo motivo para entregarte mi corazón.",
-                        "agradezco el regalo infinito de tenerte en mi vida.",
-                        "siento que la distancia se extingue con solo pensarte.",
-                        "comprendo que nuestro amor trasciende todo límite."
-                    ];
-                    
-                    let attempts = 0;
-                    do {
-                        const randomCon = conectores[Math.floor(Math.random() * conectores.length)];
-                        const randomBase = frasesBase[Math.floor(Math.random() * frasesBase.length)];
-                        selectedText = `${randomCon} ${randomBase}`;
-                        attempts++;
-                    } while (existingTextsSet.has(selectedText.toLowerCase()) && attempts < 20);
-                }
+                // Generar frases únicas combinando elementos poéticos
+                do {
+                    const inc = config.inicios[Math.floor(Math.random() * config.inicios.length)];
+                    const cen = config.centros[Math.floor(Math.random() * config.centros.length)];
+                    const fin = config.finales[Math.floor(Math.random() * config.finales.length)];
+                    selectedText = `${inc} ${cen} ${fin}`;
+                    attempts++;
+                } while (existingTextsSet.has(selectedText.toLowerCase()) && attempts < 100);
 
-                // Registrar en el conjunto de textos existentes para esta misma sesión
                 existingTextsSet.add(selectedText.trim().toLowerCase());
 
                 const newId = loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1;
