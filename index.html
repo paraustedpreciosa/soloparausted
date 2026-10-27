@@ -82,7 +82,6 @@
             color: var(--vino-suave);
         }
 
-        /* Botón de tema minimalista solo con icono */
         .icon-btn {
             background: none;
             border: none;
@@ -112,9 +111,8 @@
             justify-content: center;
         }
 
-        /* Logo Vectorial en Tonos Rosa */
         .logo-container {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .logo-svg {
@@ -147,6 +145,51 @@
             letter-spacing: 3px;
             color: var(--texto-secundario);
             margin-top: 0.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 📅 Módulo de Calendario Manual en Inicio */
+        .calendar-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background-color: var(--bg-tarjeta);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: 1px solid var(--borde-suave);
+            box-shadow: var(--sombra-elegante);
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-bar input[type="date"] {
+            background: none;
+            border: none;
+            color: var(--vino-suave);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .cal-btn {
+            background: var(--bg-rosa-suave);
+            border: 1px solid var(--rosa-empolvado);
+            color: var(--vino-suave);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.2s;
+        }
+
+        .cal-btn:hover {
+            background-color: var(--rosa-empolvado);
         }
 
         /* Categorías / Filtros */
@@ -176,7 +219,7 @@
             border-color: var(--rosa-acento);
         }
 
-        /* Tarjeta de Frase Minimalista */
+        /* Tarjeta de Frase Minimalista con Carrusel */
         .quote-card {
             background-color: var(--bg-tarjeta);
             width: 100%;
@@ -193,8 +236,33 @@
             color: var(--texto-secundario);
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             font-weight: 500;
+        }
+
+        /* Controles de Carrusel de Frases */
+        .carousel-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+            margin-bottom: 1.5rem;
+        }
+
+        .carousel-btn {
+            background: none;
+            border: none;
+            color: var(--rosa-acento);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0 0.5rem;
+            transition: color 0.2s;
+            user-select: none;
+        }
+
+        .carousel-btn:hover {
+            color: var(--vino-suave);
         }
 
         .quote-text {
@@ -202,8 +270,17 @@
             font-size: 1.85rem;
             line-height: 1.4;
             color: var(--vino-suave);
-            margin-bottom: 2rem;
             font-weight: 400;
+            flex: 1;
+            padding: 0 0.5rem;
+        }
+
+        .carousel-indicators {
+            font-size: 0.75rem;
+            color: var(--texto-secundario);
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .quote-actions {
@@ -298,7 +375,6 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Sección Privada de la Carpeta Frases */
         .private-folder-section {
             margin-top: 2.5rem;
             border-top: 1px solid var(--borde-suave);
@@ -385,7 +461,6 @@
             background: rgba(217, 104, 104, 0.1);
         }
 
-        /* Toast de notificación */
         .toast {
             position: fixed;
             bottom: 2rem;
@@ -423,9 +498,7 @@
     <header>
         <div style="font-weight: 600; color: var(--vino-suave); letter-spacing: 0.5px;">SoloParaUsted</div>
         <nav>
-            <!-- Botón del Tema solo con Icono SVG -->
             <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="Cambiar Modo">
-                <!-- Icono de Luna por defecto (Modo Día activo) -->
                 <svg id="theme-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
                 </svg>
@@ -446,6 +519,14 @@
                 <p class="logo-subtitle">Frases románticas diarias</p>
             </div>
 
+            <!-- 📅 Módulo de Calendario Manual (Entre subtítulo y tarjetas) -->
+            <div class="calendar-bar">
+                <button class="cal-btn" onclick="changeDay(-1)" title="Día anterior">‹</button>
+                <input type="date" id="calendar-picker" onchange="onCalendarChange()">
+                <button class="cal-btn" onclick="changeDay(1)" title="Día siguiente">›</button>
+                <button class="cal-btn" onclick="resetToToday()" title="Ir a hoy" style="font-size: 0.7rem; font-weight: 600; width: auto; padding: 0 0.6rem; border-radius: 12px;">Hoy</button>
+            </div>
+
             <!-- Categorías / Filtros -->
             <div class="categories-nav" id="categories-nav">
                 <button class="cat-chip active" onclick="filterCategory('Todas')">Todas</button>
@@ -458,7 +539,15 @@
 
             <div class="quote-card" id="quote-card">
                 <div class="quote-date" id="current-date">Cargando fecha...</div>
-                <div class="quote-text" id="quote-text">"Cargando frase con amor..."</div>
+                
+                <!-- Carrusel de Frases -->
+                <div class="carousel-container">
+                    <button class="carousel-btn" id="prev-btn" onclick="prevCarousel()" style="display:none;">‹</button>
+                    <div class="quote-text" id="quote-text">"Cargando frase con amor..."</div>
+                    <button class="carousel-btn" id="next-btn" onclick="nextCarousel()" style="display:none;">›</button>
+                </div>
+                <div class="carousel-indicators" id="carousel-indicators"></div>
+
                 <div class="quote-actions">
                     <button class="btn" onclick="copyQuote()">
                         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
@@ -483,7 +572,7 @@
             <!-- Generación Simultánea por Categorías -->
             <div class="batch-box">
                 <label style="font-size: 0.9rem; font-weight: 600; color: var(--vino-suave); margin-bottom: 0.5px; display: block;">⚡ Generar Lote Diario Simultáneo</label>
-                <p style="font-size: 0.8rem; color: var(--texto-secundario); margin-bottom: 0.8rem;">Crea de golpe una frase para cada una de las 5 categorías para la fecha seleccionada.</p>
+                <p style="font-size: 0.8rem; color: var(--texto-secundario); margin-bottom: 0.8rem;">Crea de golpe una frase para cada una de las 5 categorías de forma inmediata.</p>
                 <div class="form-group" style="margin-bottom: 0.8rem;">
                     <label for="batch-date">Fecha del Lote</label>
                     <input type="date" id="batch-date">
@@ -514,7 +603,7 @@
             <button class="btn" onclick="saveNewQuote()" style="background-color: var(--vino-suave); color: var(--bg-tarjeta); width: 100%; justify-content: center;">Guardar Frase en Carpeta "frases"</button>
             <p id="admin-feedback" style="font-size: 0.8rem; color: var(--texto-secundario); margin-top: 1rem; text-align: center;"></p>
 
-            <!-- CARPETA PRIVADA "FRASES" (Historial Privado Protegido) -->
+            <!-- CARPETA PRIVADA "FRASES" -->
             <div class="private-folder-section">
                 <div class="folder-header">
                     <div class="folder-title">
@@ -523,9 +612,7 @@
                     </div>
                     <span style="font-size: 0.85rem; color: var(--texto-secundario); font-weight: 600;" id="total-count">0</span>
                 </div>
-                <div class="history-list" id="history-list">
-                    <!-- Se carga en tiempo de ejecución solo tras la autenticación de clave -->
-                </div>
+                <div class="history-list" id="history-list"></div>
             </div>
         </div>
     </div>
@@ -537,22 +624,19 @@
     <div class="toast" id="toast">¡Frase copiada al portapapeles!</div>
 
     <script>
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const todayFormatted = new Date().toLocaleDateString('es-ES', options);
-        document.getElementById('current-date').textContent = todayFormatted;
-
         const todayISO = new Date().toISOString().split('T')[0];
-        document.getElementById('new-quote-date').value = todayISO;
-        document.getElementById('batch-date').value = todayISO;
+        let selectedDate = todayISO;
+        document.getElementById('calendar-picker').value = selectedDate;
+        document.getElementById('new-quote-date').value = selectedDate;
+        document.getElementById('batch-date').value = selectedDate;
 
         let loadedQuotes = [];
         let currentCategoryFilter = 'Todas';
+        let currentCarouselIndex = 0;
         let isAdminAuthenticated = false;
 
-        // Cargar historial desde la carpeta privada de datos "frases/historial.json"
         async function loadQuotes() {
             try {
-                // Intentar buscar la carpeta estática privada
                 const response = await fetch('frases/historial.json');
                 if (response.ok) {
                     const data = await response.json();
@@ -562,7 +646,6 @@
                     throw new Error("Carpeta frases/ no disponible públicamente");
                 }
             } catch (error) {
-                // Respaldo privado en localStorage
                 const localStored = localStorage.getItem('soloparausted_frases_private');
                 if (localStored) {
                     loadedQuotes = JSON.parse(localStored);
@@ -573,36 +656,111 @@
                     ];
                 }
             }
-            displayTodayQuote();
+            updateViewDate();
         }
 
-        function displayTodayQuote() {
-            let filtered = loadedQuotes.filter(q => q.fecha === todayISO);
-            if (currentCategoryFilter !== 'Todas') {
-                filtered = filtered.filter(q => q.categoria === currentCategoryFilter);
-            }
+        // 📅 Lógica del Calendario Manual y Navegación de Días
+        function updateViewDate() {
+            document.getElementById('calendar-picker').value = selectedDate;
             
-            let currentQuote = filtered.length > 0 ? filtered[0] : null;
-            if (!currentQuote && loadedQuotes.length > 0) {
-                currentQuote = loadedQuotes[loadedQuotes.length - 1];
-            }
+            // Formatear fecha en español bonito
+            const [year, month, day] = selectedDate.split('-');
+            const dateObj = new Date(year, month - 1, day);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = dateObj.toLocaleDateString('es-ES', options);
 
-            if (currentQuote) {
-                document.getElementById('quote-text').textContent = `"${currentQuote.texto}"`;
-            } else {
-                document.getElementById('quote-text').textContent = `"No hay frases disponibles para esta categoría en el día de hoy."`;
-            }
+            currentCarouselIndex = 0; // Reiniciar carrusel al cambiar de día
+            displayFilteredQuotes();
+        }
+
+        function onCalendarChange() {
+            selectedDate = document.getElementById('calendar-picker').value;
+            updateViewDate();
+        }
+
+        function changeDay(days) {
+            const [year, month, day] = selectedDate.split('-');
+            const dateObj = new Date(year, month - 1, day);
+            dateObj.setDate(dateObj.getDate() + days);
+            
+            selectedDate = dateObj.toISOString().split('T')[0];
+            updateViewDate();
+        }
+
+        function resetToToday() {
+            selectedDate = new Date().toISOString().split('T')[0];
+            updateViewDate();
         }
 
         function filterCategory(cat) {
             currentCategoryFilter = cat;
+            currentCarouselIndex = 0;
             document.querySelectorAll('.cat-chip').forEach(chip => {
                 chip.classList.toggle('active', chip.textContent === cat);
             });
-            displayTodayQuote();
+            displayFilteredQuotes();
         }
 
-        // Generar lote simultáneo de 5 frases (una por categoría)
+        // 🎠 Lógica del Carrusel y Filtrado
+        function getActiveFilteredQuotes() {
+            let filtered = loadedQuotes.filter(q => q.fecha === selectedDate);
+            if (currentCategoryFilter !== 'Todas') {
+                filtered = filtered.filter(q => q.categoria === currentCategoryFilter);
+            }
+            return filtered;
+        }
+
+        function displayFilteredQuotes() {
+            const quotes = getActiveFilteredQuotes();
+            const textElement = document.getElementById('quote-text');
+            const indicators = document.getElementById('carousel-indicators');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            if (quotes.length === 0) {
+                textElement.textContent = `"No hay frases registradas para esta fecha y categoría."`;
+                indicators.textContent = "";
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                return;
+            }
+
+            if (currentCarouselIndex >= quotes.length) {
+                currentCarouselIndex = 0;
+            }
+
+            const currentQ = quotes[currentCarouselIndex];
+            textElement.textContent = `"${currentQ.texto}"`;
+
+            // Control de visibilidad de flechas del carrusel si hay más de una frase
+            if (quotes.length > 1) {
+                prevBtn.style.display = 'block';
+                nextBtn.style.display = 'block';
+                indicators.textContent = `Frase ${currentCarouselIndex + 1} de ${quotes.length} [${currentQ.categoria}]`;
+            } else {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                indicators.textContent = `[${currentQ.categoria}]`;
+            }
+        }
+
+        function nextCarousel() {
+            const quotes = getActiveFilteredQuotes();
+            if (quotes.length > 1) {
+                currentCarouselIndex = (currentCarouselIndex + 1) % quotes.length;
+                displayFilteredQuotes();
+            }
+        }
+
+        function prevCarousel() {
+            const quotes = getActiveFilteredQuotes();
+            if (quotes.length > 1) {
+                currentCarouselIndex = (currentCarouselIndex - 1 + quotes.length) % quotes.length;
+                displayFilteredQuotes();
+            }
+        }
+
+        // Generar lote simultáneo inmediato
         function generateBatchQuotes() {
             if (!isAdminAuthenticated) return;
 
@@ -616,28 +774,23 @@
             const bancoFrases = {
                 "Amor": [
                     "Amar no es mirarse el uno al otro, es mirar juntos en la misma dirección con el alma.",
-                    "Eres la casualidad más hermosa que llegó a darle sentido a todos mis días.",
-                    "En tu sonrisa encontré el refugio exacto donde siempre quise habitar."
+                    "Eres la casualidad más hermosa que llegó a darle sentido a todos mis días."
                 ],
                 "Ternura": [
                     "Tu mano encaja en la mía como si el universo la hubiera diseñado solo para sostenerla.",
-                    "Hay tanta paz en tu mirada que el mundo exterior simplemente desaparece.",
-                    "Cada caricia tuya es un poema silencioso escrito directo en mi piel."
+                    "Hay tanta paz en tu mirada que el mundo exterior simplemente desaparece."
                 ],
                 "Distancia": [
                     "Aunque los kilómetros nos separen, mi pensamiento cruza el espacio para abrazarte cada segundo.",
-                    "La distancia es solo una prueba de cuánto puede amar el corazón sin tocarse.",
-                    "Te siento tan cerca en mis latidos que el mapa entre los dos pierde todo sentido."
+                    "La distancia es solo una prueba de cuánto puede amar el corazón sin tocarse."
                 ],
                 "Gratitud": [
                     "Gracias por aparecer en mi vida y convertir lo ordinario en un recuerdo inolvidable.",
-                    "Mi mayor bendición tiene tu nombre, tu risa y tu forma tan noble de amar.",
-                    "Doy gracias a cada paso del camino que me condujo directo hacia tus brazos."
+                    "Mi mayor bendición tiene tu nombre, tu risa y tu forma tan noble de amar."
                 ],
                 "Pasión": [
                     "Tu fuego enciende cada rincón de mi ser, convirtiendo la noche en pura magia.",
-                    "Bajo tu piel descubrí el latido exacto de la eternidad y el deseo.",
-                    "Nuestros cuerpos hablan un idioma secreto donde el tiempo se detiene por completo."
+                    "Bajo tu piel descubrí el latido exacto de la eternidad y el deseo."
                 ]
             };
 
@@ -660,15 +813,15 @@
             loadedQuotes.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
             localStorage.setItem('soloparausted_frases_private', JSON.stringify(loadedQuotes));
 
-            document.getElementById('admin-feedback').textContent = `¡Lote de 5 frases creado y guardado en la carpeta /frases/ en simultáneo!`;
+            document.getElementById('admin-feedback').textContent = `¡Lote inmediato de 5 frases guardado en la carpeta /frases/!`;
             renderPrivateHistory();
+            selectedDate = date;
+            updateViewDate();
 
-            setTimeout(() => {
-                document.getElementById('admin-feedback').textContent = '';
-            }, 3500);
+            setTimeout(() => { document.getElementById('admin-feedback').textContent = ''; }, 3500);
         }
 
-        // Navegación entre vistas protegida con Clave de Administrador
+        // Seguridad y Admin
         function showAdmin(e) {
             e.preventDefault();
             if (isAdminAuthenticated) {
@@ -679,7 +832,7 @@
             }
 
             const pass = prompt("🔐 Acceso Privado. Ingresa la clave de administrador:");
-            if (pass === "1234") { // Clave de acceso privada
+            if (pass === "1234") {
                 isAdminAuthenticated = true;
                 document.getElementById('home-view').style.display = 'none';
                 document.getElementById('admin-view').style.display = 'block';
@@ -693,10 +846,9 @@
             e.preventDefault();
             document.getElementById('admin-view').style.display = 'none';
             document.getElementById('home-view').style.display = 'flex';
-            displayTodayQuote();
+            updateViewDate();
         }
 
-        // Guardar nueva frase en la carpeta privada /frases/
         function saveNewQuote() {
             if (!isAdminAuthenticated) return;
 
@@ -722,17 +874,16 @@
 
             localStorage.setItem('soloparausted_frases_private', JSON.stringify(loadedQuotes));
 
-            document.getElementById('admin-feedback').textContent = "¡Frase guardada con éxito en la carpeta privada /frases/!";
+            document.getElementById('admin-feedback').textContent = "¡Frase guardada de forma inmediata en /frases/!";
             document.getElementById('new-quote-text').value = '';
             
             renderPrivateHistory();
+            selectedDate = date;
+            updateViewDate();
 
-            setTimeout(() => {
-                document.getElementById('admin-feedback').textContent = '';
-            }, 3000);
+            setTimeout(() => { document.getElementById('admin-feedback').textContent = ''; }, 3000);
         }
 
-        // Renderizar el historial de la carpeta privada /frases/
         function renderPrivateHistory() {
             if (!isAdminAuthenticated) return;
 
@@ -765,33 +916,30 @@
         function deleteQuote(id) {
             if (!isAdminAuthenticated) return;
 
-            if (confirm("¿Estás seguro de que deseas eliminar esta frase de la carpeta privada /frases/?")) {
+            if (confirm("¿Estás seguro de que deseas eliminar esta frase de la carpeta privada?")) {
                 loadedQuotes = loadedQuotes.filter(q => q.id !== id);
                 localStorage.setItem('soloparausted_frases_private', JSON.stringify(loadedQuotes));
                 renderPrivateHistory();
-                showToast("Frase eliminada de la carpeta /frases/");
+                updateViewDate();
+                showToast("Frase eliminada con éxito");
             }
         }
 
-        // Cambio de Tema (Modo Noche / Día con Iconos Exclusivos)
         function toggleTheme() {
             const body = document.body;
             const themeIcon = document.getElementById('theme-icon');
             
             if (body.getAttribute('data-theme') === 'rose') {
                 body.setAttribute('data-theme', 'midnight');
-                // Icono de Sol SVG para cambiar a Día
                 themeIcon.innerHTML = `<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>`;
                 localStorage.setItem('soloparausted_theme', 'midnight');
             } else {
                 body.setAttribute('data-theme', 'rose');
-                // Icono de Luna SVG para cambiar a Noche
                 themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>`;
                 localStorage.setItem('soloparausted_theme', 'rose');
             }
         }
 
-        // Cargar tema e inicialización
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('soloparausted_theme');
             if (savedTheme === 'midnight') {
@@ -801,12 +949,9 @@
             loadQuotes();
         });
 
-        // Copiar y Compartir
         function copyQuote() {
             const text = document.getElementById('quote-text').textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                showToast("¡Frase copiada al portapapeles!");
-            });
+            navigator.clipboard.writeText(text).then(() => { showToast("¡Frase copiada al portapapeles!"); });
         }
 
         function shareQuote() {
@@ -819,7 +964,6 @@
             }
         }
 
-        // Generador de Tarjetas Descargables HD (Canvas)
         function downloadQuoteCard() {
             const canvas = document.createElement('canvas');
             canvas.width = 1080;
@@ -841,7 +985,7 @@
             ctx.fillStyle = isDark ? '#D4A5B4' : '#8C6A72';
             ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText(todayFormatted.toUpperCase(), 540, 240);
+            ctx.fillText(document.getElementById('current-date').textContent.toUpperCase(), 540, 240);
 
             ctx.fillStyle = isDark ? '#F3D2DB' : '#6B3E48';
             ctx.font = 'italic 48px "Cormorant Garamond", serif';
@@ -854,7 +998,7 @@
             ctx.fillText("SOLOPARAUSTED.COM", 540, 880);
 
             const link = document.createElement('a');
-            link.download = `SoloParaUsted-${todayISO}.png`;
+            link.download = `SoloParaUsted-${selectedDate}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
             showToast("¡Imagen HD generada y descargada!");
