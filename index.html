@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SoloParaUsted - Frases Románticas Diarias</title>
-    <!-- Google Fonts: Cormorant Garamond y Plus Jakarta Sans -->
+    <!-- Google Fonts: Cormorant Garamond, Playfair Display, Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -22,6 +22,7 @@
             --sombra-elegante: 0 10px 30px rgba(107, 62, 72, 0.08);
             --rojo-suave: #D96868;
             --rose-pattern-opacity: 0.18;
+            --quote-font: 'Cormorant Garamond', serif;
         }
 
         [data-theme="midnight"] {
@@ -34,6 +35,34 @@
             --texto-secundario: #D4A5B4;
             --borde-suave: rgba(166, 104, 121, 0.35);
             --sombra-elegante: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --rose-pattern-opacity: 0.12;
+        }
+
+        [data-theme="lavender"] {
+            --bg-rosa-suave: #F5F3FF;
+            --bg-tarjeta: #FFFFFF;
+            --rosa-empolvado: #DDD6FE;
+            --rosa-acento: #A78BFA;
+            --vino-suave: #4C1D95;
+            --texto-principal: #3B0764;
+            --texto-secundario: #6D28D9;
+            --borde-suave: rgba(167, 139, 250, 0.35);
+            --sombra-elegante: 0 10px 30px rgba(76, 29, 149, 0.08);
+            --rojo-suave: #E11D48;
+            --rose-pattern-opacity: 0.15;
+        }
+
+        [data-theme="creme"] {
+            --bg-rosa-suave: #FDFBF7;
+            --bg-tarjeta: #FFFFFF;
+            --rosa-empolvado: #FDE68A;
+            --rosa-acento: #D97706;
+            --vino-suave: #78350F;
+            --texto-principal: #451A03;
+            --texto-secundario: #92400E;
+            --borde-suave: rgba(217, 119, 6, 0.25);
+            --sombra-elegante: 0 10px 30px rgba(120, 53, 15, 0.06);
+            --rojo-suave: #DC2626;
             --rose-pattern-opacity: 0.12;
         }
 
@@ -59,7 +88,7 @@
             position: relative;
         }
 
-        /* FONDO PATRÓN DE ROSAS DE IDENTIDAD */
+        /* FONDO PATRÓN DE ROSAS */
         body::before {
             content: "";
             position: fixed;
@@ -72,7 +101,6 @@
             opacity: var(--rose-pattern-opacity);
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23d8a4b8'%3E%3Cpath d='M20 12c-2.5 0-4.5 1.8-4.5 4 0 3 3.5 5.5 4.5 8 1-2.5 4.5-5 4.5-8 0-2.2-2-4-4.5-4zm0 2a2.3 2.3 0 0 1 2.5 2c0 1.2-1.6 3-2.5 4.7-.9-1.7-2.5-3.5-2.5-4.7 0-.8.9-2 2.5-2z'/%3E%3Cpath d='M20 22c-5 0-8 3-8 6.5 0 5 6 9.5 8 11.5 2-2 8-6.5 8-11.5 0-3.5-3-6.5-8-6.5zm0 2.5c3.2 0 5.5 1.8 5.5 4 0 3-4.2 6.5-5.5 8-1.3-1.5-5.5-5-5.5-8 0-2.2 2.3-4 5.5-4z'/%3E%3Cpath d='M60 52c-2.5 0-4.5 1.8-4.5 4 0 3 3.5 5.5 4.5 8 1-2.5 4.5-5 4.5-8 0-2.2-2-4-4.5-4zm0 2a2.3 2.3 0 0 1 2.5 2c0 1.2-1.6 3-2.5 4.7-.9-1.7-2.5-3.5-2.5-4.7 0-.8.9-2 2.5-2z'/%3E%3Cpath d='M60 62c-5 0-8 3-8 6.5 0 5 6 9.5 8 11.5 2-2 8-6.5 8-11.5 0-3.5-3-6.5-8-6.5zm0 2.5c3.2 0 5.5 1.8 5.5 4 0 3-4.2 6.5-5.5 8-1.3-1.5-5.5-5-5.5-8 0-2.2 2.3-4 5.5-4z'/%3E%3C/g%3E%3C/svg%3E");
             background-repeat: repeat;
-            transition: opacity 0.3s ease;
         }
 
         header {
@@ -89,13 +117,13 @@
         nav {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
         nav a {
             color: var(--texto-secundario);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             transition: color 0.3s ease;
             cursor: pointer;
@@ -113,11 +141,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.5rem;
+            padding: 0.4rem;
             border-radius: 50%;
             transition: color 0.3s ease, transform 0.2s ease;
-            min-width: 40px;
-            min-height: 40px;
+            min-width: 36px;
+            min-height: 36px;
         }
 
         .icon-btn:hover {
@@ -139,12 +167,12 @@
         }
 
         .logo-container {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
         }
 
         .logo-svg {
-            width: clamp(55px, 8vw, 75px);
-            height: clamp(55px, 8vw, 75px);
+            width: clamp(50px, 7vw, 70px);
+            height: clamp(50px, 7vw, 70px);
             fill: var(--rosa-acento);
             margin-bottom: 0.4rem;
             animation: pulseHeart 3s infinite ease-in-out;
@@ -157,7 +185,7 @@
 
         .logo-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.2rem, 6vw, 3.2rem);
+            font-size: clamp(2rem, 5.5vw, 3rem);
             font-weight: 600;
             background: linear-gradient(135deg, var(--vino-suave), var(--rosa-acento));
             -webkit-background-clip: text;
@@ -167,12 +195,36 @@
         }
 
         .logo-subtitle {
-            font-size: clamp(0.65rem, 2vw, 0.75rem);
+            font-size: clamp(0.6rem, 2vw, 0.7rem);
             text-transform: uppercase;
             letter-spacing: 3px;
             color: var(--texto-secundario);
-            margin-top: 0.4rem;
-            margin-bottom: 1.2rem;
+            margin-top: 0.3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* 🎛️ Barra de Opciones Superior (Módulos 1, 2 y 4) */
+        .top-tools-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tool-select {
+            background-color: var(--bg-tarjeta);
+            color: var(--vino-suave);
+            border: 1px solid var(--borde-suave);
+            padding: 0.3rem 0.6rem;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            outline: none;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
         }
 
         /* 📅 Módulo de Calendario Manual */
@@ -182,7 +234,7 @@
             justify-content: center;
             gap: 0.5rem;
             background-color: var(--bg-tarjeta);
-            padding: 0.5rem 0.8rem;
+            padding: 0.4rem 0.8rem;
             border-radius: 50px;
             border: 1px solid var(--borde-suave);
             box-shadow: var(--sombra-elegante);
@@ -207,14 +259,14 @@
             background: var(--bg-rosa-suave);
             border: 1px solid var(--rosa-empolvado);
             color: var(--vino-suave);
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: background 0.2s;
         }
 
@@ -227,7 +279,7 @@
             display: flex;
             justify-content: center;
             gap: 0.4rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             flex-wrap: wrap;
             width: 100%;
             padding: 0 0.5rem;
@@ -237,9 +289,9 @@
             background-color: var(--bg-tarjeta);
             color: var(--texto-secundario);
             border: 1px solid var(--borde-suave);
-            padding: 0.4rem 0.9rem;
+            padding: 0.35rem 0.8rem;
             border-radius: 20px;
-            font-size: clamp(0.75rem, 2vw, 0.8rem);
+            font-size: clamp(0.7rem, 2vw, 0.78rem);
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s ease;
@@ -257,7 +309,7 @@
         .quote-card {
             background-color: var(--bg-tarjeta);
             width: 100%;
-            padding: clamp(1.8rem, 5vw, 3rem) clamp(1.2rem, 4vw, 2.5rem);
+            padding: clamp(1.6rem, 5vw, 2.8rem) clamp(1rem, 4vw, 2.2rem);
             border-radius: 24px;
             box-shadow: var(--sombra-elegante);
             border: 1px solid var(--borde-suave);
@@ -270,22 +322,36 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .quote-date {
-            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
             color: var(--texto-secundario);
             text-transform: uppercase;
             letter-spacing: 1.5px;
             font-weight: 500;
         }
 
+        /* Insignia de Hito Especial (Módulo 3) */
+        .milestone-badge {
+            display: none;
+            background: linear-gradient(135deg, var(--rosa-empolvado), var(--rosa-acento));
+            color: var(--vino-suave);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
         .fav-btn {
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: var(--rosa-acento);
             transition: transform 0.2s ease;
             display: flex;
@@ -304,18 +370,18 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            min-height: 110px;
-            margin-bottom: 1.2rem;
-            gap: 0.5rem;
+            min-height: 100px;
+            margin-bottom: 1rem;
+            gap: 0.4rem;
         }
 
         .carousel-btn {
             background: none;
             border: none;
             color: var(--rosa-acento);
-            font-size: 2.2rem;
+            font-size: 2rem;
             cursor: pointer;
-            padding: 0.5rem;
+            padding: 0.4rem;
             transition: color 0.2s;
             user-select: none;
             line-height: 1;
@@ -326,8 +392,8 @@
         }
 
         .quote-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.4rem, 4.5vw, 2rem);
+            font-family: var(--quote-font);
+            font-size: clamp(1.3rem, 4.2vw, 1.9rem);
             line-height: 1.4;
             color: var(--vino-suave);
             font-weight: 400;
@@ -337,9 +403,9 @@
         }
 
         .carousel-indicators {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--texto-secundario);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             letter-spacing: 1px;
             font-weight: 600;
         }
@@ -347,7 +413,7 @@
         .quote-actions {
             display: flex;
             justify-content: center;
-            gap: 0.75rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
             width: 100%;
         }
@@ -356,20 +422,20 @@
             background-color: var(--bg-rosa-suave);
             color: var(--vino-suave);
             border: 1px solid var(--rosa-empolvado);
-            padding: 0.65rem 1.2rem;
+            padding: 0.55rem 1.1rem;
             border-radius: 50px;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(0.8rem, 2vw, 0.85rem);
+            font-size: clamp(0.75rem, 2vw, 0.82rem);
             font-weight: 500;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
             transition: all 0.3s ease;
             text-decoration: none;
             flex: 1 1 auto;
-            min-width: 120px;
+            min-width: 110px;
         }
 
         .btn:hover {
@@ -401,53 +467,53 @@
         .admin-panel h2 {
             font-family: 'Cormorant Garamond', serif;
             color: var(--vino-suave);
-            font-size: clamp(1.6rem, 4vw, 2rem);
-            margin-bottom: 1.2rem;
+            font-size: clamp(1.5rem, 4vw, 1.9rem);
+            margin-bottom: 1rem;
         }
 
         .form-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--texto-secundario);
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
             font-weight: 500;
         }
 
         .form-group textarea, .form-group input, .form-group select {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.65rem;
             border: 1px solid var(--rosa-empolvado);
             border-radius: 10px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg-rosa-suave);
             color: var(--texto-principal);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             outline: none;
         }
 
         .batch-box {
             background: var(--bg-rosa-suave);
-            padding: 1.25rem;
+            padding: 1.1rem;
             border-radius: 12px;
             border: 1px dashed var(--rosa-acento);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .folder-section {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             border-top: 1px solid var(--borde-suave);
-            padding-top: 1.2rem;
+            padding-top: 1rem;
         }
 
         .folder-card-os {
             background: var(--bg-rosa-suave);
             border: 1px solid var(--borde-suave);
-            border-radius: 14px;
-            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            padding: 0.9rem 1rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -462,31 +528,31 @@
         .folder-info-os {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.7rem;
         }
 
         .folder-icon {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
         }
 
         .folder-name {
             font-weight: 600;
             color: var(--vino-suave);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .folder-status {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--texto-secundario);
         }
 
         .folder-contents {
             display: none;
-            margin-top: 1rem;
-            max-height: 250px;
+            margin-top: 0.8rem;
+            max-height: 220px;
             overflow-y: auto;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.6rem;
         }
 
         .folder-contents.open {
@@ -495,13 +561,13 @@
 
         .history-item {
             background: var(--bg-tarjeta);
-            padding: 0.9rem;
-            border-radius: 12px;
+            padding: 0.8rem;
+            border-radius: 10px;
             border: 1px solid var(--borde-suave);
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 0.8rem;
+            gap: 0.7rem;
             text-align: left;
         }
 
@@ -510,7 +576,7 @@
         }
 
         .history-date {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--texto-secundario);
             font-weight: 600;
             margin-bottom: 0.2rem;
@@ -518,7 +584,7 @@
         }
 
         .history-text {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--vino-suave);
             font-style: italic;
         }
@@ -528,9 +594,9 @@
             border: none;
             color: var(--rojo-suave);
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
-            padding: 0.3rem 0.5rem;
+            padding: 0.2rem 0.4rem;
             border-radius: 4px;
         }
 
@@ -543,9 +609,9 @@
             bottom: 2rem;
             background-color: var(--vino-suave);
             color: var(--bg-tarjeta);
-            padding: 0.75rem 1.5rem;
+            padding: 0.7rem 1.4rem;
             border-radius: 50px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
@@ -560,9 +626,9 @@
 
         footer {
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--texto-secundario);
-            padding-top: 1.5rem;
+            padding-top: 1.2rem;
             position: relative;
             z-index: 1;
         }
@@ -573,11 +639,6 @@
     <header>
         <div style="font-weight: 600; color: var(--vino-suave); letter-spacing: 0.5px;">SoloParaUsted</div>
         <nav>
-            <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="Cambiar Modo">
-                <svg id="theme-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-                </svg>
-            </button>
             <a href="#" onclick="showHome(event)">Inicio</a>
             <a href="#admin" onclick="showAdmin(event)">Administrador</a>
         </nav>
@@ -594,12 +655,33 @@
                 <p class="logo-subtitle">Frases románticas diarias</p>
             </div>
 
+            <!-- 🎛️ BARRA DE HERRAMIENTAS SUPERIOR (Módulos 1, 2 y 4) -->
+            <div class="top-tools-bar">
+                <!-- Módulo 1: Audio Instrumental -->
+                <button class="icon-btn" onclick="toggleAudio()" id="audio-btn" title="Ambiente Sonoro">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 9l12-2M9 18a3 3 0 11-6 0 3 3 0 016 0zm12-2a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </button>
+                <!-- Módulo 2: Selector de Tipografía -->
+                <select class="tool-select" id="font-selector" onchange="changeFontFamily(this.value)" title="Estilo de Fuente">
+                    <option value="Cormorant Garamond">Cormorant (Clásica)</option>
+                    <option value="Playfair Display">Playfair (Elegante)</option>
+                    <option value="Plus Jakarta Sans">Jakarta (Moderna)</option>
+                </select>
+                <!-- Módulo 4: Selector de Paleta de Colores -->
+                <select class="tool-select" id="theme-selector" onchange="changeColorPalette(this.value)" title="Paleta de Colores">
+                    <option value="rose">Rosé Cream</option>
+                    <option value="midnight">Midnight Rose</option>
+                    <option value="lavender">Lavanda Suave</option>
+                    <option value="creme">Creme Brûlée</option>
+                </select>
+            </div>
+
             <!-- 📅 Módulo de Calendario Manual -->
             <div class="calendar-bar">
                 <button class="cal-btn" onclick="changeDay(-1)" title="Día anterior">‹</button>
                 <input type="date" id="calendar-picker" onchange="onCalendarChange()">
                 <button class="cal-btn" onclick="changeDay(1)" title="Día siguiente">›</button>
-                <button class="cal-btn" onclick="resetToToday()" title="Ir a hoy" style="font-size: 0.7rem; font-weight: 600; width: auto; padding: 0 0.6rem; border-radius: 12px;">Hoy</button>
+                <button class="cal-btn" onclick="resetToToday()" title="Ir a hoy" style="font-size: 0.65rem; font-weight: 600; width: auto; padding: 0 0.5rem; border-radius: 10px;">Hoy</button>
             </div>
 
             <!-- Categorías / Filtros -->
@@ -614,6 +696,9 @@
             </div>
 
             <div class="quote-card" id="quote-card">
+                <!-- Módulo 3: Insignia de Hito Especial -->
+                <div class="milestone-badge" id="milestone-badge">✨ Fecha Especial</div>
+                
                 <div class="quote-header-info">
                     <div class="quote-date" id="current-date">Cargando fecha...</div>
                     <button class="fav-btn" id="current-fav-btn" onclick="toggleCurrentFavorite()" title="Marcar como favorito">❤️</button>
@@ -629,15 +714,15 @@
 
                 <div class="quote-actions">
                     <button class="btn" onclick="copyQuote()">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
                         Copiar
                     </button>
                     <button class="btn" onclick="shareQuote()">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                         Compartir
                     </button>
                     <button class="btn btn-primary" onclick="downloadQuoteCard()">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                         Descargar
                     </button>
                 </div>
@@ -650,16 +735,22 @@
             
             <!-- Generación Simultánea por Categorías -->
             <div class="batch-box">
-                <label style="font-size: 0.9rem; font-weight: 600; color: var(--vino-suave); margin-bottom: 0.5px; display: block;">⚡ Generar Lote Diario Simultáneo</label>
-                <p style="font-size: 0.8rem; color: var(--texto-secundario); margin-bottom: 0.8rem;">Crea de golpe una frase única para cada una de las 5 categorías (sin repeticiones).</p>
-                <div class="form-group" style="margin-bottom: 0.8rem;">
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--vino-suave); margin-bottom: 0.3rem; display: block;">⚡ Generar Lote Diario Simultáneo</label>
+                <p style="font-size: 0.75rem; color: var(--texto-secundario); margin-bottom: 0.7rem;">Crea de golpe una frase única para cada una de las 5 categorías (sin repeticiones).</p>
+                <div class="form-group" style="margin-bottom: 0.7rem;">
                     <label for="batch-date">Fecha del Lote</label>
                     <input type="date" id="batch-date">
                 </div>
-                <button class="btn btn-primary" onclick="generateBatchQuotes()" style="width: 100%; justify-content: center;">Generar 5 Frases Simultáneas Sin Repetir</button>
+                <button class="btn btn-primary" onclick="generateBatchQuotes()" style="width: 100%; justify-content: center;">Generar 5 Frases Sin Repetir</button>
             </div>
 
-            <hr style="border: none; border-top: 1px solid var(--borde-suave); margin: 1.5rem 0;">
+            <!-- Módulo 3: Registro de Hito Especial en Admin -->
+            <div class="form-group" style="background: var(--bg-rosa-suave); padding: 1rem; border-radius: 12px; border: 1px solid var(--borde-suave);">
+                <label style="font-weight: 600; color: var(--vino-suave);">✨ Registrar como Fecha Especial (Hito)</label>
+                <input type="text" id="milestone-title-input" placeholder="Ej: Aniversario, Nuestro Primer Beso..." style="margin-top: 0.4rem;">
+            </div>
+
+            <hr style="border: none; border-top: 1px solid var(--borde-suave); margin: 1.2rem 0;">
 
             <div class="form-group">
                 <label for="new-quote-text">Frase Individual</label>
@@ -680,7 +771,7 @@
                 </select>
             </div>
             <button class="btn" onclick="saveNewQuote()" style="background-color: var(--vino-suave); color: var(--bg-tarjeta); width: 100%; justify-content: center;">Guardar Frase en Carpeta "frases"</button>
-            <p id="admin-feedback" style="font-size: 0.8rem; color: var(--texto-secundario); margin-top: 1rem; text-align: center;"></p>
+            <p id="admin-feedback" style="font-size: 0.8rem; color: var(--texto-secundario); margin-top: 0.8rem; text-align: center;"></p>
 
             <!-- CARPETA CERRADA TIPO DISPOSITIVO -->
             <div class="folder-section">
@@ -692,7 +783,7 @@
                             <div class="folder-status" id="folder-status-text">Carpeta cerrada (Clic para abrir)</div>
                         </div>
                     </div>
-                    <span style="font-size: 0.85rem; color: var(--texto-secundario); font-weight: 600;" id="total-count">0</span>
+                    <span style="font-size: 0.8rem; color: var(--texto-secundario); font-weight: 600;" id="total-count">0</span>
                 </div>
                 <div class="folder-contents" id="folder-contents">
                     <div class="history-list" id="history-list"></div>
@@ -707,139 +798,74 @@
 
     <div class="toast" id="toast">¡Acción realizada con éxito!</div>
 
+    <!-- Elemento de Audio Oculto (Módulo 1) -->
+    <audio id="bg-audio" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf7f6.mp3?filename=gentle-romantic-piano-111082.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
-        const STORAGE_KEY = 'soloparausted_frases_db_v2';
+        const STORAGE_KEY = 'soloparausted_frases_db_v3';
+        const MILESTONES_KEY = 'soloparausted_milestones_db';
         const todayISO = new Date().toISOString().split('T')[0];
         let selectedDate = todayISO;
         let isAdminAuthenticated = false;
+        let isAudioPlaying = false;
 
         document.getElementById('calendar-picker').value = selectedDate;
         document.getElementById('new-quote-date').value = selectedDate;
         document.getElementById('batch-date').value = selectedDate;
 
         let loadedQuotes = [];
+        let savedMilestones = {};
         let currentCategoryFilter = 'Todas';
         let currentCarouselIndex = 0;
 
-        // VECTORES POÉTICOS PARA GENERADOR COMBINATORIO EXTENDIDO (HASTA 100+ FRASES ÚNICAS POR CATEGORÍA)
         const COMBINATORIC_GENERATOR = {
             "Amor": {
-                inicios: [
-                    "Amar no es mirarse el uno al otro,", "Coincidir contigo en esta vida,", "En tu mirada encontré el verdadero refugio,",
-                    "Desde el instante en que llegaste a mi camino,", "No busqué enamorarme, pero en tu esencia,", "Eres la historia más hermosa que el tiempo,",
-                    "Cada segundo que comparto a tu lado,", "El amor cobró un sentido completamente nuevo,", "Saber que existes y que caminamos juntos,",
-                    "En el universo de tus abrazos,"
-                ],
-                centros: [
-                    "es mirar juntos hacia el mismo horizonte con el alma,", "es la casualidad más perfecta que jamás pude imaginar,", "donde habita toda la paz que mi corazón buscaba,",
-                    "entendí que los milagros existen y tienen tu nombre,", "descubrí el destino más dulce que jamás soñé,", "ha escrito con trazos indelebles en mi ser,",
-                    "reafirma que el amor auténtico no apresura, solo permanece,", "cuando tus manos tomaron suavemente las mías,", "llena de luz cálida cada uno de mis días,",
-                    "he descubierto el rincón donde la eternidad se hace real,"
-                ],
-                finales: [
-                    "convirtiendo cada momento en un recuerdo eterno.", "dándole un valor infinito a todo nuestro andar.", "y llenando de calma cada latido de mi pecho.",
-                    "haciendo que el presente sea el mejor lugar para estar.", "demostrando que las almas afines siempre se encuentran.", "escrito con la sutileza de una promesa sincera.",
-                    "recordándome que amar es el regalo más noble.", "dejando una huella indeleble que nunca se apaga.", "iluminando hasta la noche más profunda de mi ser.",
-                    "donde mi corazón decide quedarse para siempre."
-                ]
+                inicios: ["Amar no es mirarse el uno al otro,", "Coincidir contigo en esta vida,", "En tu mirada encontré el verdadero refugio,", "Desde el instante en que llegaste a mi camino,", "No busqué enamorarme, pero en tu esencia,", "Eres la historia más hermosa que el tiempo,", "Cada segundo que comparto a tu lado,", "El amor cobró un sentido completamente nuevo,", "Saber que existes y que caminamos juntos,", "En el universo de tus abrazos,"],
+                centros: ["es mirar juntos hacia el mismo horizonte con el alma,", "es la casualidad más perfecta que jamás pude imaginar,", "donde habita toda la paz que mi corazón buscaba,", "entendí que los milagros existen y tienen tu nombre,", "descubrí el destino más dulce que jamás soñé,", "ha escrito con trazos indelebles en mi ser,", "reafirma que el amor auténtico no apresura, solo permanece,", "cuando tus manos tomaron suavemente las mías,", "llena de luz cálida cada uno de mis días,", "he descubierto el rincón donde la eternidad se hace real,"],
+                finales: ["convirtiendo cada momento en un recuerdo eterno.", "dándole un valor infinito a todo nuestro andar.", "y llenando de calma cada latido de mi pecho.", "haciendo que el presente sea el mejor lugar para estar.", "demostrando que las almas afines siempre se encuentran.", "escrito con la sutileza de una promesa sincera.", "recordándome que amar es el regalo más noble.", "dejando una huella indeleble que nunca se apaga.", "iluminando hasta la noche más profunda de mi ser.", "donde mi corazón decide quedarse para siempre."]
             },
             "Ternura": {
-                inicios: [
-                    "Tu mano encaja en la mía,", "Hay una paz infinita en tu mirada,", "Cada caricia tuya es un poema silencioso,",
-                    "Abrazarte suavemente al atardecer,", "Tienes la dulzura exacta que,", "En la sutileza de tu voz encuentro,",
-                    "Cuidarte y verte sonreír con tranquilidad,", "Tu ternura es el manto más cálido,", "En la pausa suave de tus labios,",
-                    "Tus gestos pequeños y sinceros,"
-                ],
-                centros: [
-                    "como si el universo la hubiera diseñado solo para sostenerla,", "que hace que el ruido del mundo exterior simplemente desaparezca,", "escrito con la paciencia más noble directo en mi piel,",
-                    "es sentir que todo en mi vida vuelve a estar en su lugar,", "transforma cualquier día gris en una mañana serena y tibia,", "el descanso más profundo que mi alma necesitó siempre,",
-                    "se ha convertido en mi forma preferida de celebrar la vida,", "que protege a mi corazón de cualquier tormenta inesperada,", "habita la promesa más pura de un cariño verdadero,",
-                    "revelan la grandeza de un sentimiento que no pide nada a cambio,"
-                ],
-                finales: [
-                    "brindándome una seguridad dulce en cada paso.", "dejando únicamente un silencio lleno de amor puro.", "con la delicadeza de quien sabe amar de verdad.",
-                    "reparando cualquier rincón que antes estuvo en penumbras.", "iluminando el presente con una luz tierna y única.", "renovando la esperanza en cada pequeño amanecer.",
-                    "guardando tu alegría como el tesoro más valioso.", "creando un hogar seguro en medio del caos del mundo.", "donde el tiempo se detiene con infinita gentileza.",
-                    "escribiendo recuerdos dulces que jamás se borrarán."
-                ]
+                inicios: ["Tu mano encaja en la mía,", "Hay una paz infinita en tu mirada,", "Cada caricia tuya es un poema silencioso,", "Abrazarte suavemente al atardecer,", "Tienes la dulzura exacta que,", "En la sutileza de tu voz encuentro,", "Cuidarte y verte sonreír con tranquilidad,", "Tu ternura es el manto más cálido,", "En la pausa suave de tus labios,", "Tus gestos pequeños y sinceros,"],
+                centros: ["como si el universo la hubiera diseñado solo para sostenerla,", "que hace que el ruido del mundo exterior simplemente desaparezca,", "escrito con la paciencia más noble directo en mi piel,", "es sentir que todo en mi vida vuelve a estar en su lugar,", "transforma cualquier día gris en una mañana serena y tibia,", "el descanso más profundo que mi alma necesitó siempre,", "se ha convertido en mi forma preferida de celebrar la vida,", "que protege a mi corazón de cualquier tormenta inesperada,", "habita la promesa más pura de un cariño verdadero,", "revelan la grandeza de un sentimiento que no pide nada a cambio,"],
+                finales: ["brindándome una seguridad dulce en cada paso.", "dejando únicamente un silencio lleno de amor puro.", "con la delicadeza de quien sabe amar de verdad.", "reparando cualquier rincón que antes estuvo en penumbras.", "iluminando el presente con una luz tierna y única.", "renovando la esperanza en cada pequeño amanecer.", "guardando tu alegría como el tesoro más valioso.", "creando un hogar seguro en medio del caos del mundo.", "donde el tiempo se detiene con infinita gentileza.", "escribiendo recuerdos dulces que jamás se borrarán."]
             },
             "Distancia": {
-                inicios: [
-                    "Aunque los kilómetros intenten separarnos,", "La distancia es solo una brecha física que,", "Te siento tan cerca en cada latido,",
-                    "No importa cuánta geografía se interponga,", "Cada día que pasa en la distancia,", "El espacio se vuelve diminuto cuando,",
-                    "Te pienso en la lejanía con la certeza,", "Aunque mis ojos no puedan contemplarte hoy,", "El mapa entre los dos pierde su poder,",
-                    "Tu recuerdo cruza miles de carreteras,"
-                ],
-                centros: [
-                    "mi pensamiento cruza cualquier espacio para abrazarte,", "jamás podrá debilitar la fuerza con la que te llevo dentro,", "que el mapa entre nosotros pierde todo sentido y valor,",
-                    "compartimos el mismo cielo y el mismo suspiro al anochecer,", "es un paso más cercano al momento dulce del reencuentro,", "dos almas habitan exactamente en la misma frecuencia de amor,",
-                    "de que ningún camino es demasiado largo cuando hay amor,", "mi alma te siente tan viva en cada rincón de este hogar,", "en el instante exacto en que cierro los ojos y te evoco,",
-                    "llegando a mi pecho como una brisa tibia y reconfortante,"
-                ],
-                finales: [
-                    "recordándome que el amor no sabe de barreras.", "demostrando que el querer de verdad vence cualquier ausencia.", "porque donde tú estás, habita también mi pensamiento.",
-                    "sabiendo que bajo las mismas estrellas soñamos juntos.", "aguardando con paciencia el día de volver a enredar las manos.", "uniendo dos corazones que late con un solo compás.",
-                    "haciendo que la espera valga cada instante vivido.", "dibujando tu rostro con total nitidez en mi memoria.", "transformando la lejanía en un lazo cada vez más fuerte.",
-                    "llenando mi soledad con la promesa de volvernos a ver."
-                ]
+                inicios: ["Aunque los kilómetros intenten separarnos,", "La distancia es solo una brecha física que,", "Te siento tan cerca en cada latido,", "No importa cuánta geografía se interponga,", "Cada día que pasa en la distancia,", "El espacio se vuelve diminuto cuando,", "Te pienso en la lejanía con la certeza,", "Aunque mis ojos no puedan contemplarte hoy,", "El mapa entre los dos pierde su poder,", "Tu recuerdo cruza miles de carreteras,"],
+                centros: ["mi pensamiento cruza cualquier espacio para abrazarte,", "jamás podrá debilitar la fuerza con la que te llevo dentro,", "que el mapa entre nosotros pierde todo sentido y valor,", "compartimos el mismo cielo y el mismo suspiro al anochecer,", "es un paso más cercano al momento dulce del reencuentro,", "dos almas habitan exactamente en la misma frecuencia de amor,", "de que ningún camino es demasiado largo cuando hay amor,", "mi alma te siente tan viva en cada rincón de este hogar,", "en el instante exacto en que cierro los ojos y te evoco,", "llegando a mi pecho como una brisa tibia y reconfortante,"],
+                finales: ["recordándome que el amor no sabe de barreras.", "demostrando que el querer de verdad vence cualquier ausencia.", "porque donde tú estás, habita también mi pensamiento.", "sabiendo que bajo las mismas estrellas soñamos juntos.", "aguardando con paciencia el día de volver a enredar las manos.", "uniendo dos corazones que late con un solo compás.", "haciendo que la espera valga cada instante vivido.", "dibujando tu rostro con total nitidez en mi memoria.", "transformando la lejanía en un lazo cada vez más fuerte.", "llenando mi soledad con la promesa de volvernos a ver."]
             },
             "Gratitud": {
-                inicios: [
-                    "Gracias por aparecer en mi vida y,", "Mi mayor bendición en este mundo,", "Doy gracias a cada paso del camino que,",
-                    "Agradezco a la vida el regalo infinito de,", "Tenerte a mi lado me recuerda diariamente,", "Agradezco cada instante compartido,",
-                    "Tu presencia noble en mi caminar,", "Gracias por enseñarme que el amor auténtico,", "Mi corazón se llena de gratitud al recordar,",
-                    "Celebro la dicha de coincidir contigo,"
-                ],
-                centros: [
-                    "convertir lo cotidiano en un recuerdo inolvidable y hermoso,", "lleva grabado tu nombre, tu risa y tu forma única de amar,", "me condujo de manera perfecta directo hacia tus brazos,",
-                    "escuchar tu voz y saber que caminamos juntos el presente,", "lo afortunado que soy al poder amar de una forma tan pura,", "cada palabra tierna y cada gesto que ha sanado mi alma,",
-                    "es una luz brillante que ilumina mis decisiones y días,", "sana, acompaña, fortalece y no exige nada a cambio,", "cómo llegaste a mi vida a poner orden en mis sentimientos,",
-                    "porque contigo he descubierto la forma más bella de existir,"
-                ],
-                finales: [
-                    "haciendo de la vida una experiencia verdaderamente poética.", "brindándole un sentido único a todo lo que construimos.", "agradeciendo cada segundo que el destino nos concede.",
-                    "guardando tu existencia como el don más valioso de mi ser.", "haciendo que mi alma suspire llena de paz cada noche.", "creando un tesoro de momentos que atesoraré por siempre.",
-                    "guiándome con nobleza en cada nuevo amanecer juntos.", "demostrando que el amor genuino es la mayor fortuna.", "transformando el pasado en agradecimiento puro.", "sabiendo que a tu lado la vida es infinitamente mejor."
-                ]
+                inicios: ["Gracias por aparecer en mi vida y,", "Mi mayor bendición en este mundo,", "Doy gracias a cada paso del camino que,", "Agradezco a la vida el regalo infinito de,", "Tenerte a mi lado me recuerda diariamente,", "Agradezco cada instante compartido,", "Tu presencia noble en mi caminar,", "Gracias por enseñarme que el amor auténtico,", "Mi corazón se llena de gratitud al recordar,", "Celebro la dicha de coincidir contigo,"],
+                centros: ["convertir lo cotidiano en un recuerdo inolvidable y hermoso,", "lleva grabado tu nombre, tu risa y tu forma única de amar,", "me condujo de manera perfecta directo hacia tus brazos,", "escuchar tu voz y saber que caminamos juntos el presente,", "lo afortunado que soy al poder amar de una forma tan pura,", "cada palabra tierna y cada gesto que ha sanado mi alma,", "es una luz brillante que ilumina mis decisiones y días,", "sana, acompaña, fortalece y no exige nada a cambio,", "cómo llegaste a mi vida a poner orden en mis sentimientos,", "porque contigo he descubierto la forma más bella de existir,"],
+                finales: ["haciendo de la vida una experiencia verdaderamente poética.", "brindándole un sentido único a todo lo que construimos.", "agradeciendo cada segundo que el destino nos concede.", "guardando tu existencia como el don más valioso de mi ser.", "haciendo que mi alma suspire llena de paz cada noche.", "creando un tesoro de momentos que atesoraré por siempre.", "guiándome con nobleza en cada nuevo amanecer juntos.", "demostrando que el amor genuino es la mayor fortuna.", "transformando el pasado en agradecimiento puro.", "sabiendo que a tu lado la vida es infinitamente mejor."]
             },
             "Pasión": {
-                inicios: [
-                    "Tu fuego enciende cada rincón de mi ser,", "Bajo el roce suave de tu piel,", "Nuestros cuerpos hablan un idioma secreto,",
-                    "Un solo instante cerca de tus labios,", "Eres el deseo constante que habita en mi mente,", "Perderme en la magia de tu boca,",
-                    "Hay un magnetismo irrefrenable entre los dos,", "En el calor intenso de tu abrazo,", "Cada mirada tuya desata una tormenta,",
-                    "Tus besos son el refugio clandestino,"
-                ],
-                centros: [
-                    "transformando la calma de la noche en pura magia ardiente,", "descubrí el latido exacto de la eternidad y la devoción,", "donde el tiempo se detiene por completo al encontrarnos,",
-                    "basta para desatar la tormenta más dulce en mi pecho,", "que despierta con fuerza en cada amanecer a tu lado,", "es la forma más bella que conozco de volver a encontrarme,",
-                    "que desafía a la razón y vuelve eterno cada segundo juntos,", "la realidad se disuelve dejando solo el pulso de la pasión,", "que enciende mis sentidos y acelera cada latido de mi piel,",
-                    "donde el alma y el deseo se funden sin pedir permiso,"
-                ],
-                finales: [
-                    "dejando una llama encendida que jamás se extingue.", "escribiendo una historia de deseo escrita en la piel.", "donde solo existes tú y la intensidad de este amor.",
-                    "haciendo temblar el universo en un abrazo eterno.", "alimentando una devoción profunda que no conoce frenos.", "sumergiéndome en un océano de sensaciones inolvidables.",
-                    "demostrando que el deseo verdadero jamás se apaga.", "haciendo que el mundo exterior pierda toda importancia.", "transformando la noche en un poema de fuego y ternura.",
-                    "creando un recuerdo ardiente que permanece en el alma."
-                ]
+                inicios: ["Tu fuego enciende cada rincón de mi ser,", "Bajo el roce suave de tu piel,", "Nuestros cuerpos hablan un idioma secreto,", "Un solo instante cerca de tus labios,", "Eres el deseo constante que habita en mi mente,", "Perderme en la magia de tu boca,", "Hay un magnetismo irrefrenable entre los dos,", "En el calor intenso de tu abrazo,", "Cada mirada tuya desata una tormenta,", "Tus besos son el refugio clandestino,"],
+                centros: ["transformando la calma de la noche en pura magia ardiente,", "descubrí el latido exacto de la eternidad y la devoción,", "donde el tiempo se detiene por completo al encontrarnos,", "basta para desatar la tormenta más dulce en mi pecho,", "que despierta con fuerza en cada amanecer a tu lado,", "es la forma más bella que conozco de volver a encontrarme,", "que desafía a la razón y vuelve eterno cada segundo juntos,", "la realidad se disuelve dejando solo el pulso de la pasión,", "que enciende mis sentidos y acelera cada latido de mi piel,", "donde el alma y el deseo se funden sin pedir permiso,"],
+                finales: ["dejando una llama encendida que jamás se extingue.", "escribiendo una historia de deseo escrita en la piel.", "donde solo existes tú y la intensidad de este amor.", "haciendo temblar el universo en un abrazo eterno.", "alimentando una devoción profunda que no conoce frenos.", "sumergiéndome en un océano de sensaciones inolvidables.", "demostrando que el deseo verdadero jamás se apaga.", "haciendo que el mundo exterior pierda toda importancia.", "transformando la noche en un poema de fuego y ternura.", "creando un recuerdo ardiente que permanece en el alma."]
             }
         };
 
         function saveToStorage() {
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(loadedQuotes));
+                localStorage.setItem(MILESTONES_KEY, JSON.stringify(savedMilestones));
             } catch (e) {
-                console.error("Error al guardar en almacenamiento local:", e);
+                console.error("Error al guardar:", e);
             }
         }
 
         function loadQuotes() {
             const rawData = localStorage.getItem(STORAGE_KEY);
+            const rawMilestones = localStorage.getItem(MILESTONES_KEY);
+            
             if (rawData) {
-                try {
-                    loadedQuotes = JSON.parse(rawData);
-                } catch(e) {
-                    loadedQuotes = [];
-                }
+                try { loadedQuotes = JSON.parse(rawData); } catch(e) { loadedQuotes = []; }
+            }
+            if (rawMilestones) {
+                try { savedMilestones = JSON.parse(rawMilestones); } catch(e) { savedMilestones = {}; }
             }
             
             if (!loadedQuotes || loadedQuotes.length === 0) {
@@ -858,6 +884,15 @@
             const dateObj = new Date(year, month - 1, day);
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             document.getElementById('current-date').textContent = dateObj.toLocaleDateString('es-ES', options);
+
+            // Módulo 3: Verificar si el día seleccionado es un Hito Especial
+            const milestoneBadge = document.getElementById('milestone-badge');
+            if (savedMilestones[selectedDate]) {
+                milestoneBadge.textContent = `✨ ${savedMilestones[selectedDate]}`;
+                milestoneBadge.style.display = 'inline-block';
+            } else {
+                milestoneBadge.style.display = 'none';
+            }
 
             currentCarouselIndex = 0;
             displayFilteredQuotes();
@@ -974,17 +1009,24 @@
             }
         }
 
-        // GENERACIÓN MASIVA MULTI-FRASES ANTI-REPETICIÓN HASTA 100+ COMBINACIONES
+        // GENERACIÓN MASIVA MULTI-FRASES ANTI-REPETICIÓN
         function generateBatchQuotes() {
             const date = document.getElementById('batch-date').value;
+            const milestoneText = document.getElementById('milestone-title-input').value.trim();
+
             if (!date) {
                 alert("Por favor selecciona una fecha válida.");
                 return;
             }
 
+            // Registrar Hito si fue escrito
+            if (milestoneText) {
+                savedMilestones[date] = milestoneText;
+                document.getElementById('milestone-title-input').value = '';
+            }
+
             const categorias = ["Amor", "Ternura", "Distancia", "Gratitud", "Pasión"];
             let addedCount = 0;
-
             const existingTextsSet = new Set(loadedQuotes.map(q => q.texto.trim().toLowerCase()));
 
             categorias.forEach(cat => {
@@ -992,7 +1034,6 @@
                 let selectedText = "";
                 let attempts = 0;
 
-                // Generar frases únicas combinando elementos poéticos
                 do {
                     const inc = config.inicios[Math.floor(Math.random() * config.inicios.length)];
                     const cen = config.centros[Math.floor(Math.random() * config.centros.length)];
@@ -1002,7 +1043,6 @@
                 } while (existingTextsSet.has(selectedText.toLowerCase()) && attempts < 100);
 
                 existingTextsSet.add(selectedText.trim().toLowerCase());
-
                 const newId = loadedQuotes.length > 0 ? Math.max(...loadedQuotes.map(q => q.id)) + 1 : 1;
                 
                 loadedQuotes.push({
@@ -1017,8 +1057,7 @@
             });
 
             saveToStorage();
-            
-            document.getElementById('admin-feedback').textContent = "¡Lote de 5 frases únicas generado sin repeticiones!";
+            document.getElementById('admin-feedback').textContent = "¡Lote de 5 frases y hito guardados con éxito!";
             selectedDate = date;
             updateViewDate();
             renderFolderHistory();
@@ -1073,10 +1112,16 @@
             const text = document.getElementById('new-quote-text').value.trim();
             const date = document.getElementById('new-quote-date').value;
             const category = document.getElementById('new-quote-category').value;
+            const milestoneText = document.getElementById('milestone-title-input').value.trim();
 
             if (!text || !date) {
                 alert("Por favor completa la frase y la fecha.");
                 return;
+            }
+
+            if (milestoneText) {
+                savedMilestones[date] = milestoneText;
+                document.getElementById('milestone-title-input').value = '';
             }
 
             const newEntry = {
@@ -1107,7 +1152,7 @@
             totalCount.textContent = `${loadedQuotes.length} frases`;
 
             if (loadedQuotes.length === 0) {
-                historyList.innerHTML = '<p style="font-size: 0.85rem; color: var(--texto-secundario); text-align: center; padding: 1rem;">Carpeta vacía.</p>';
+                historyList.innerHTML = '<p style="font-size: 0.8rem; color: var(--texto-secundario); text-align: center; padding: 0.8rem;">Carpeta vacía.</p>';
                 return;
             }
 
@@ -1136,27 +1181,59 @@
             }
         }
 
-        function toggleTheme() {
-            const body = document.body;
-            const themeIcon = document.getElementById('theme-icon');
-            
-            if (body.getAttribute('data-theme') === 'rose') {
-                body.setAttribute('data-theme', 'midnight');
-                themeIcon.innerHTML = `<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>`;
-                localStorage.setItem('soloparausted_theme', 'midnight');
+        /* MÓDULO 1: CONTROL DE AUDIO */
+        function toggleAudio() {
+            const audio = document.getElementById('bg-audio');
+            const btn = document.getElementById('audio-btn');
+            if (isAudioPlaying) {
+                audio.pause();
+                isAudioPlaying = false;
+                btn.style.opacity = '0.6';
+                showToast("Música pausada");
             } else {
-                body.setAttribute('data-theme', 'rose');
-                themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>`;
-                localStorage.setItem('soloparausted_theme', 'rose');
+                audio.play().then(() => {
+                    isAudioPlaying = true;
+                    btn.style.opacity = '1';
+                    showToast("♪ Reproduciendo ambiente romántico");
+                }).catch(e => {
+                    alert("Haz clic en la página para permitir la reproducción de audio.");
+                });
             }
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('soloparausted_theme');
-            if (savedTheme === 'midnight') {
+        /* MÓDULO 2: CAMBIO DE TIPOGRAFÍA */
+        function changeFontFamily(fontName) {
+            document.documentElement.style.setProperty('--quote-font', `'${fontName}', serif`);
+            localStorage.setItem('soloparausted_font', fontName);
+        }
+
+        /* MÓDULO 4: CAMBIO DE PALETA DE COLORES */
+        function changeColorPalette(paletteName) {
+            if (paletteName === 'midnight') {
                 document.body.setAttribute('data-theme', 'midnight');
-                document.getElementById('theme-icon').innerHTML = `<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>`;
+            } else if (paletteName === 'lavender') {
+                document.body.setAttribute('data-theme', 'lavender');
+            } else if (paletteName === 'creme') {
+                document.body.setAttribute('data-theme', 'creme');
+            } else {
+                document.body.setAttribute('data-theme', 'rose');
             }
+            localStorage.setItem('soloparausted_palette', paletteName);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedPalette = localStorage.getItem('soloparausted_palette');
+            if (savedPalette) {
+                changeColorPalette(savedPalette);
+                document.getElementById('theme-selector').value = savedPalette;
+            }
+
+            const savedFont = localStorage.getItem('soloparausted_font');
+            if (savedFont) {
+                changeFontFamily(savedFont);
+                document.getElementById('font-selector').value = savedFont;
+            }
+
             loadQuotes();
         });
 
@@ -1181,29 +1258,34 @@
             canvas.height = 1080;
             const ctx = canvas.getContext('2d');
 
-            const isDark = document.body.getAttribute('data-theme') === 'midnight';
-            ctx.fillStyle = isDark ? '#2A1B20' : '#FFF5F7';
+            const currentTheme = document.body.getAttribute('data-theme');
+            let bgColor = '#FFF5F7', cardColor = '#FFFFFF', textColor = '#6B3E48', dateColor = '#8C6A72';
+            if (currentTheme === 'midnight') { bgColor = '#2A1B20'; cardColor = '#362228'; textColor = '#F3D2DB'; dateColor = '#D4A5B4'; }
+            else if (currentTheme === 'lavender') { bgColor = '#F5F3FF'; cardColor = '#FFFFFF'; textColor = '#4C1D95'; dateColor = '#6D28D9'; }
+            else if (currentTheme === 'creme') { bgColor = '#FDFBF7'; cardColor = '#FFFFFF'; textColor = '#78350F'; dateColor = '#92400E'; }
+
+            ctx.fillStyle = bgColor;
             ctx.fillRect(0, 0, 1080, 1080);
 
-            ctx.fillStyle = isDark ? '#362228' : '#FFFFFF';
-            ctx.shadowColor = 'rgba(107, 62, 72, 0.1)';
+            ctx.fillStyle = cardColor;
+            ctx.shadowColor = 'rgba(0,0,0,0.1)';
             ctx.shadowBlur = 40;
             ctx.beginPath();
             ctx.roundRect(90, 90, 900, 900, 30);
             ctx.fill();
 
             ctx.shadowBlur = 0;
-            ctx.fillStyle = isDark ? '#D4A5B4' : '#8C6A72';
+            ctx.fillStyle = dateColor;
             ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText(document.getElementById('current-date').textContent.toUpperCase(), 540, 240);
 
-            ctx.fillStyle = isDark ? '#F3D2DB' : '#6B3E48';
-            ctx.font = 'italic 48px "Cormorant Garamond", serif';
+            ctx.fillStyle = textColor;
+            ctx.font = `italic 46px "Cormorant Garamond", serif`;
             const text = document.getElementById('quote-text').textContent;
             wrapText(ctx, text, 540, 420, 720, 65);
 
-            ctx.fillStyle = isDark ? '#A66879' : '#D8A4B8';
+            ctx.fillStyle = dateColor;
             ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
             ctx.fillText("SOLOPARAUSTED.COM", 540, 880);
 
