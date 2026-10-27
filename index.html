@@ -133,26 +133,6 @@
             color: var(--vino-suave);
         }
 
-        .icon-btn {
-            background: none;
-            border: none;
-            color: var(--texto-secundario);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.4rem;
-            border-radius: 50%;
-            transition: color 0.3s ease, transform 0.2s ease;
-            min-width: 36px;
-            min-height: 36px;
-        }
-
-        .icon-btn:hover {
-            color: var(--vino-suave);
-            transform: scale(1.1);
-        }
-
         .main-container {
             width: 100%;
             max-width: 720px;
@@ -335,18 +315,27 @@
             gap: 0.4rem;
         }
 
-        /* Botón Modo Zen */
+        /* Botón Estilizado Minimalista (Zen & Sorpresa) */
         .zen-btn {
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 1.1rem;
             color: var(--rosa-acento);
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, color 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 0.3rem;
+            width: 32px;
+            height: 32px;
+        }
+
+        .zen-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            stroke: currentColor;
+            stroke-width: 1.5;
         }
 
         .zen-btn:hover {
@@ -384,7 +373,7 @@
             transform: scale(1.2);
         }
 
-        /* Carrusel de Frases con Sorpresa (🎲) */
+        /* Carrusel de Frases */
         .carousel-container {
             position: relative;
             display: flex;
@@ -716,10 +705,14 @@
                 <div class="quote-header-info">
                     <div class="quote-date" id="current-date">Cargando fecha...</div>
                     <div class="header-actions-right">
-                        <!-- Módulo 3: Botón Frase Aleatoria (Sorpresa) -->
-                        <button class="zen-btn" onclick="getRandomSurpriseQuote()" title="Frase Sorpresa Aleatoria">🎲</button>
-                        <!-- Módulo 2: Botón Modo Zen -->
-                        <button class="zen-btn" onclick="toggleZenMode()" id="zen-toggle-btn" title="Modo Enfoque / Zen">⛶</button>
+                        <!-- Botón Sorpresa Estilizado (Estrella/Destello Minimalista) -->
+                        <button class="zen-btn" onclick="getRandomSurpriseQuote()" title="Frase Sorpresa Aleatoria">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/></svg>
+                        </button>
+                        <!-- Botón Modo Zen -->
+                        <button class="zen-btn" onclick="toggleZenMode()" id="zen-toggle-btn" title="Modo Enfoque / Zen">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
                         <!-- Botón Favorito -->
                         <button class="fav-btn" id="current-fav-btn" onclick="toggleCurrentFavorite()" title="Marcar como favorito">❤️</button>
                     </div>
@@ -1021,7 +1014,6 @@
             }
         }
 
-        /* MÓDULO 3: BOTÓN DE FRASE ALEATORIA (SORPRESA) */
         function getRandomSurpriseQuote() {
             if (!loadedQuotes || loadedQuotes.length === 0) return;
             const randomQuote = loadedQuotes[Math.floor(Math.random() * loadedQuotes.length)];
@@ -1032,17 +1024,15 @@
             });
             updateViewDate();
             
-            // Buscar el índice exacto de la frase aleatoria en el día seleccionado
             const activeQuotes = getActiveFilteredQuotes();
             const foundIndex = activeQuotes.findIndex(q => q.id === randomQuote.id);
             if (foundIndex !== -1) {
                 currentCarouselIndex = foundIndex;
                 displayFilteredQuotes();
             }
-            showToast(`🎲 Frase sorpresa [${randomQuote.categoria}]`);
+            showToast(`✨ Frase sorpresa [${randomQuote.categoria}]`);
         }
 
-        /* MÓDULO 2: MODO ZEN / ENFOQUE DE LECTURA */
         function toggleZenMode() {
             isZenModeActive = !isZenModeActive;
             const logo = document.getElementById('zen-logo');
@@ -1076,7 +1066,7 @@
                 actions.style.overflow = 'hidden';
                 header.style.opacity = '0';
                 footer.style.opacity = '0';
-                zenBtn.textContent = '🗗';
+                zenBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
                 showToast("Modo Zen activado (Lectura pura)");
             } else {
                 logo.style.opacity = '1';
@@ -1100,7 +1090,7 @@
                 actions.style.overflow = 'visible';
                 header.style.opacity = '1';
                 footer.style.opacity = '1';
-                zenBtn.textContent = '⛶';
+                zenBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
                 showToast("Modo normal restaurado");
             }
         }
