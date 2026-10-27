@@ -133,6 +133,26 @@
             color: var(--vino-suave);
         }
 
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--texto-secundario);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.4rem;
+            border-radius: 50%;
+            transition: color 0.3s ease, transform 0.2s ease;
+            min-width: 36px;
+            min-height: 36px;
+        }
+
+        .icon-btn:hover {
+            color: var(--vino-suave);
+            transform: scale(1.1);
+        }
+
         .main-container {
             width: 100%;
             max-width: 720px;
@@ -148,6 +168,7 @@
 
         .logo-container {
             margin-bottom: 1rem;
+            transition: opacity 0.3s ease;
         }
 
         .logo-svg {
@@ -182,6 +203,7 @@
             gap: 0.75rem;
             margin-bottom: 1rem;
             flex-wrap: wrap;
+            transition: opacity 0.3s ease;
         }
 
         .tool-select {
@@ -212,6 +234,7 @@
             margin-bottom: 1.2rem;
             max-width: 100%;
             backdrop-filter: blur(5px);
+            transition: opacity 0.3s ease;
         }
 
         .calendar-bar input[type="date"] {
@@ -254,6 +277,7 @@
             flex-wrap: wrap;
             width: 100%;
             padding: 0 0.5rem;
+            transition: opacity 0.3s ease;
         }
 
         .cat-chip {
@@ -287,6 +311,7 @@
             position: relative;
             margin-bottom: 1.5rem;
             backdrop-filter: blur(8px);
+            transition: transform 0.3s ease, padding 0.3s ease;
         }
 
         .quote-header-info {
@@ -302,6 +327,31 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             font-weight: 500;
+        }
+
+        .header-actions-right {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Botón Modo Zen */
+        .zen-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--rosa-acento);
+            transition: transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.3rem;
+        }
+
+        .zen-btn:hover {
+            transform: scale(1.15);
+            color: var(--vino-suave);
         }
 
         .milestone-badge {
@@ -334,7 +384,7 @@
             transform: scale(1.2);
         }
 
-        /* Carrusel de Frases */
+        /* Carrusel de Frases con Sorpresa (🎲) */
         .carousel-container {
             position: relative;
             display: flex;
@@ -606,7 +656,7 @@
 </head>
 <body data-theme="rose">
 
-    <header>
+    <header id="main-header">
         <div style="font-weight: 600; color: var(--vino-suave); letter-spacing: 0.5px;">SoloParaUsted</div>
         <nav>
             <a href="#" onclick="showHome(event)">Inicio</a>
@@ -617,7 +667,7 @@
     <div class="main-container">
         <!-- VISTA PRINCIPAL: FRASE DEL DÍA -->
         <div id="home-view" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-            <div class="logo-container">
+            <div class="logo-container" id="zen-logo">
                 <svg class="logo-svg" viewBox="0 0 24 24">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
@@ -625,7 +675,7 @@
             </div>
 
             <!-- 🎛️ BARRA DE HERRAMIENTAS SUPERIOR -->
-            <div class="top-tools-bar">
+            <div class="top-tools-bar" id="zen-tools">
                 <!-- Selector de Tipografía -->
                 <select class="tool-select" id="font-selector" onchange="changeFontFamily(this.value)" title="Estilo de Fuente">
                     <option value="Cormorant Garamond">Cormorant (Clásica)</option>
@@ -642,7 +692,7 @@
             </div>
 
             <!-- 📅 Módulo de Calendario Manual -->
-            <div class="calendar-bar">
+            <div class="calendar-bar" id="zen-calendar">
                 <button class="cal-btn" onclick="changeDay(-1)" title="Día anterior">‹</button>
                 <input type="date" id="calendar-picker" onchange="onCalendarChange()">
                 <button class="cal-btn" onclick="changeDay(1)" title="Día siguiente">›</button>
@@ -650,7 +700,7 @@
             </div>
 
             <!-- Categorías / Filtros -->
-            <div class="categories-nav" id="categories-nav">
+            <div class="categories-nav" id="zen-categories">
                 <button class="cat-chip active" onclick="filterCategory('Todas')">Todas</button>
                 <button class="cat-chip" onclick="filterCategory('Amor')">Amor</button>
                 <button class="cat-chip" onclick="filterCategory('Ternura')">Ternura</button>
@@ -665,7 +715,14 @@
                 
                 <div class="quote-header-info">
                     <div class="quote-date" id="current-date">Cargando fecha...</div>
-                    <button class="fav-btn" id="current-fav-btn" onclick="toggleCurrentFavorite()" title="Marcar como favorito">❤️</button>
+                    <div class="header-actions-right">
+                        <!-- Módulo 3: Botón Frase Aleatoria (Sorpresa) -->
+                        <button class="zen-btn" onclick="getRandomSurpriseQuote()" title="Frase Sorpresa Aleatoria">🎲</button>
+                        <!-- Módulo 2: Botón Modo Zen -->
+                        <button class="zen-btn" onclick="toggleZenMode()" id="zen-toggle-btn" title="Modo Enfoque / Zen">⛶</button>
+                        <!-- Botón Favorito -->
+                        <button class="fav-btn" id="current-fav-btn" onclick="toggleCurrentFavorite()" title="Marcar como favorito">❤️</button>
+                    </div>
                 </div>
                 
                 <!-- Carrusel de Frases -->
@@ -676,7 +733,7 @@
                 </div>
                 <div class="carousel-indicators" id="carousel-indicators"></div>
 
-                <div class="quote-actions">
+                <div class="quote-actions" id="zen-actions">
                     <button class="btn" onclick="copyQuote()">
                         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
                         Copiar
@@ -753,7 +810,7 @@
         </div>
     </div>
 
-    <footer>
+    <footer id="main-footer">
         Hecho con amor para ti • SoloParaUsted © 2026
     </footer>
 
@@ -765,6 +822,7 @@
         const todayISO = new Date().toISOString().split('T')[0];
         let selectedDate = todayISO;
         let isAdminAuthenticated = false;
+        let isZenModeActive = false;
 
         document.getElementById('calendar-picker').value = selectedDate;
         document.getElementById('new-quote-date').value = selectedDate;
@@ -960,6 +1018,90 @@
                 displayFilteredQuotes();
                 renderFolderHistory();
                 showToast(loadedQuotes[index].favorito ? "¡Agregado a favoritos ❤️!" : "Removido de favoritos");
+            }
+        }
+
+        /* MÓDULO 3: BOTÓN DE FRASE ALEATORIA (SORPRESA) */
+        function getRandomSurpriseQuote() {
+            if (!loadedQuotes || loadedQuotes.length === 0) return;
+            const randomQuote = loadedQuotes[Math.floor(Math.random() * loadedQuotes.length)];
+            selectedDate = randomQuote.fecha;
+            currentCategoryFilter = 'Todas';
+            document.querySelectorAll('.cat-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.textContent.includes('Todas'));
+            });
+            updateViewDate();
+            
+            // Buscar el índice exacto de la frase aleatoria en el día seleccionado
+            const activeQuotes = getActiveFilteredQuotes();
+            const foundIndex = activeQuotes.findIndex(q => q.id === randomQuote.id);
+            if (foundIndex !== -1) {
+                currentCarouselIndex = foundIndex;
+                displayFilteredQuotes();
+            }
+            showToast(`🎲 Frase sorpresa [${randomQuote.categoria}]`);
+        }
+
+        /* MÓDULO 2: MODO ZEN / ENFOQUE DE LECTURA */
+        function toggleZenMode() {
+            isZenModeActive = !isZenModeActive;
+            const logo = document.getElementById('zen-logo');
+            const tools = document.getElementById('zen-tools');
+            const calendar = document.getElementById('zen-calendar');
+            const categories = document.getElementById('zen-categories');
+            const actions = document.getElementById('zen-actions');
+            const header = document.getElementById('main-header');
+            const footer = document.getElementById('main-footer');
+            const zenBtn = document.getElementById('zen-toggle-btn');
+
+            if (isZenModeActive) {
+                logo.style.opacity = '0';
+                logo.style.height = '0';
+                logo.style.overflow = 'hidden';
+                logo.style.marginBottom = '0';
+                tools.style.opacity = '0';
+                tools.style.height = '0';
+                tools.style.overflow = 'hidden';
+                tools.style.marginBottom = '0';
+                calendar.style.opacity = '0';
+                calendar.style.height = '0';
+                calendar.style.overflow = 'hidden';
+                calendar.style.marginBottom = '0';
+                categories.style.opacity = '0';
+                categories.style.height = '0';
+                categories.style.overflow = 'hidden';
+                categories.style.marginBottom = '0';
+                actions.style.opacity = '0';
+                actions.style.height = '0';
+                actions.style.overflow = 'hidden';
+                header.style.opacity = '0';
+                footer.style.opacity = '0';
+                zenBtn.textContent = '🗗';
+                showToast("Modo Zen activado (Lectura pura)");
+            } else {
+                logo.style.opacity = '1';
+                logo.style.height = 'auto';
+                logo.style.overflow = 'visible';
+                logo.style.marginBottom = '1rem';
+                tools.style.opacity = '1';
+                tools.style.height = 'auto';
+                tools.style.overflow = 'visible';
+                tools.style.marginBottom = '1rem';
+                calendar.style.opacity = '1';
+                calendar.style.height = 'auto';
+                calendar.style.overflow = 'visible';
+                calendar.style.marginBottom = '1.2rem';
+                categories.style.opacity = '1';
+                categories.style.height = 'auto';
+                categories.style.overflow = 'visible';
+                categories.style.marginBottom = '1.2rem';
+                actions.style.opacity = '1';
+                actions.style.height = 'auto';
+                actions.style.overflow = 'visible';
+                header.style.opacity = '1';
+                footer.style.opacity = '1';
+                zenBtn.textContent = '⛶';
+                showToast("Modo normal restaurado");
             }
         }
 
@@ -1231,7 +1373,7 @@
             let currentY = y;
             for(let n = 0; n < words.length; n++) {
                 let testLine = line + words[n] + ' ';
-                let metrics = context.measureText(testLine);
+                let metrics = context.measureTest(testLine);
                 if (metrics.width > maxWidth && n > 0) {
                     context.fillText(line, x, currentY);
                     line = words[n] + ' ';
